@@ -8,8 +8,12 @@
 * Steve Morris
 * Steve Mustanski
 
-### Development Environment
+# Development Environment
 
+### Environment Variables (for postgres)
+* `URL`
+* `USERNAME`
+* `PASSWORD`
 
 ### drop tables
 
