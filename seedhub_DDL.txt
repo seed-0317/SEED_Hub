@@ -16,8 +16,7 @@ CREATE TABLE seedhub.users (
   fname varchar(30),
   lname  varchar(30),
   role_id   integer references seedhub.roles(r_id),
-  stage_id  integer references seedhub.stages(s_id),
-  mgr_id  INTEGER references seedhub.users(u_id)
+  stage_id  integer references seedhub.stages(s_id)
 );
 
 CREATE TABLE seedhub.status_hist (
@@ -70,9 +69,12 @@ create table seedhub.interview_ratings (
   comments varchar(200)
 );
 
-
 create table seedhub.application (
-   u_id serial primary key references seedhub.users(u_id)
+   app_id serial primary key
+  ,u_id integer  references seedhub.users(u_id) not null
+  ,mgr_id integer references seedhub.users(u_id) not null
+  ,c_id integer references seedhub.seedclass(c_id) not null
+  ,dept Varchar(30)
   ,techskills_languages Varchar(500)
   ,education  Varchar(500)
   ,tech_orgs  Varchar(500)
