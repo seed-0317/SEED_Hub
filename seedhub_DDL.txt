@@ -69,3 +69,13 @@ create table seedhub.interview_ratings (
   rating INTEGER,
   comments varchar(200)
 );
+
+
+create table seedhub.application (
+   u_id serial primary key references seedhub.users(u_id)
+  ,techskills_languages Varchar(500)
+  ,education  Varchar(500)
+  ,tech_orgs  Varchar(500)
+  ,seed_success  Varchar(1000)
+  ,comments Varchar(1000)
+);
