@@ -1,0 +1,29 @@
+CREATE TABLE seedhub.roles (
+  r_id    serial PRIMARY KEY ,
+  r_role  varchar(20) not null UNIQUE,
+  admin_FLAG boolean not null
+);
+
+CREATE TABLE seedhub.stages (
+  s_id  serial PRIMARY KEY ,
+  s_stage varchar(20) not null unique
+);
+
+CREATE TABLE seedhub.users (
+  u_id    serial PRIMARY KEY ,
+  eid     varchar(6) UNIQUE ,
+  email   varchar(30),
+  fname varchar(30),
+  lname  varchar(30),
+  role_id   integer references seedhub.roles(r_id),
+  stage_id  integer references seedhub.stages(s_id),
+  mgr_id  INTEGER references seedhub.users(u_id)
+);
+
+CREATE TABLE seedhub.status_hist (
+  sh_id serial PRIMARY KEY ,
+  u_id INTEGER not null,
+  old_s INTEGER references seedhub.stages(s_id) not null,
+  new_s INTEGER references seedhub.stages(s_id) not null,
+  change_ts timestamp NOT NULL
+);
