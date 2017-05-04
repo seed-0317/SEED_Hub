@@ -1,19 +1,46 @@
 package com.example.model;
 
+import javax.persistence.*;
+
 /**
  * Created by qzh225 on 5/3/17.
  */
+@Entity
+@Table (name = "application")
 public class Application {
 
+    @Id
+    @SequenceGenerator(name = "applicationSequence", sequenceName = "application_app_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "applicationSequence")
+    @Column(name = "app_id")
     private int appId;
+
+    @Column(name = "u_id", unique = true)
     private User applicant;
+
+    @Column(name = "mgr_id")
     private User manager;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "c_id")
     private SeedClass seedClass;
+
+    @Column(name = "dept")
     private String dept;
+
+    @Column(name = "techskills_languages")
     private String techSkillsLangs;
+
+    @Column(name = "education")
     private String education;
+
+    @Column(name = "tech_orgs")
     private String techOrgs;
+
+    @Column(name = "seed_success")
     private String seedSuccess;
+
+    @Column(name = "comments")
     private String comments;
 
     public Application (){}
