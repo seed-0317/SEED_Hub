@@ -28,18 +28,21 @@ public class Interview {
     private User interviewer;
     @Column(name="interview_dt")
     private Timestamp interviewDt;
+    @Column (name="int_type")
+    private String intType;
+
 
     @OneToMany(mappedBy = "interview")
     private Set<InterviewRatings> interviewRatings;
 
     public Interview(){}
 
-    public Interview(int intId, SeedClass seedClass, User applicant, User interviewer, Timestamp interviewDt) {
-        this.intId = intId;
+    public Interview(SeedClass seedClass, User applicant, User interviewer, Timestamp interviewDt, String intType) {
         this.seedClass = seedClass;
         this.applicant = applicant;
         this.interviewer = interviewer;
         this.interviewDt = interviewDt;
+        this.intType = intType;
     }
 
     public int getIntId() {
@@ -82,6 +85,14 @@ public class Interview {
         this.interviewDt = interviewDt;
     }
 
+    public String getIntType() {
+        return intType;
+    }
+
+    public void setIntType(String intType) {
+        this.intType = intType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,7 +105,9 @@ public class Interview {
         if (applicant != null ? !applicant.equals(interview.applicant) : interview.applicant != null) return false;
         if (interviewer != null ? !interviewer.equals(interview.interviewer) : interview.interviewer != null)
             return false;
-        return interviewDt != null ? interviewDt.equals(interview.interviewDt) : interview.interviewDt == null;
+        if (interviewDt != null ? !interviewDt.equals(interview.interviewDt) : interview.interviewDt != null)
+            return false;
+        return intType != null ? intType.equals(interview.intType) : interview.intType == null;
     }
 
     @Override
@@ -104,6 +117,7 @@ public class Interview {
         result = 31 * result + (applicant != null ? applicant.hashCode() : 0);
         result = 31 * result + (interviewer != null ? interviewer.hashCode() : 0);
         result = 31 * result + (interviewDt != null ? interviewDt.hashCode() : 0);
+        result = 31 * result + (intType != null ? intType.hashCode() : 0);
         return result;
     }
 
@@ -115,6 +129,7 @@ public class Interview {
                 ", applicant=" + applicant +
                 ", interviewer=" + interviewer +
                 ", interviewDt=" + interviewDt +
+                ", intType='" + intType + '\'' +
                 '}';
     }
 }
