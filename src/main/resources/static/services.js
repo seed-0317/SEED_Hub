@@ -10,4 +10,12 @@ angular.module("DogModule").service("EmployeeService", function($http) {
         });
     };
 
+    myService.getUser = function(eid) {
+        return $http({
+            method : "get",
+            url: "user/" + eid
+        })
+    }
+
 });
+

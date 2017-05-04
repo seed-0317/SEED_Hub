@@ -18,22 +18,22 @@ public class SeedClass {
     @Column(name = "c_id")
     private int cId;
 
-    @Column(name = "c_Yr")
+    @Column(name = "c_yr")
     private int cYr;
 
-    @Column(name = "c_Num")
+    @Column(name = "c_num")
     private int cNum;
 
-    @Column(name = "c_Loc")
+    @Column(name = "c_loc")
     private String cLoc;
 
-    @Column(name = "c_App_Open_Dt")
+    @Column(name = "c_app_open_dt")
     private Timestamp cAppOpenDate;
 
-    @Column(name = "c_App_Deadline")
+    @Column(name = "c_app_deadline")
     private Timestamp cAppDeadline;
 
-    @Column(name = "c_Bootcamp_Dt")
+    @Column(name = "c_bootcamp_dt")
     private Timestamp cBootcampDate;
 
     public SeedClass(){}

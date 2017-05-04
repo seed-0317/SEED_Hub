@@ -26,8 +26,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controllerAs: 'fox'
     };
 
+    var loginState = {
+        name: 'login',
+        url: '/login',
+        templateURL: 'templates/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
+    };
+
+
     $stateProvider.state(helloState);
     $stateProvider.state(aboutState);
+    $stateProvider.state(loginState);
 
     //default routing
     $urlRouterProvider.otherwise('/');
