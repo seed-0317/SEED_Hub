@@ -27,13 +27,13 @@ public class SeedClass {
     @Column(name = "c_Loc")
     private String cLoc;
 
-    @Column(name = "c_App_Open_Date")
+    @Column(name = "c_App_Open_Dt")
     private Timestamp cAppOpenDate;
 
     @Column(name = "c_App_Deadline")
     private Timestamp cAppDeadline;
 
-    @Column(name = "c_Bootcamp_Date")
+    @Column(name = "c_Bootcamp_Dt")
     private Timestamp cBootcampDate;
 
     public SeedClass(){}
