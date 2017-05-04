@@ -1,14 +1,29 @@
 package com.example.model;
 
+import javax.persistence.*;
+import java.util.Set;
+
 /**
  * Created by qzh225 on 5/4/17.
  */
-public class RatingType {
 
+@Entity
+@Table (name="seedhub.rating_types")
+public class RatingType {
+    @Id
+    @SequenceGenerator(name="ratingTypeSequnece", sequenceName = "rating_types_rt_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ratingTypeSequence")
+    @Column (name="rt_id")
     private int rtId;
+    @Column(name="rt_desc", unique = true)
     private String rDescription;
+    @Column(name="rt_scale")
     private int rScale;
+    @Column(name="rt_txt_flag")
     private boolean txtFlag;
+
+    @OneToMany(mappedBy = "ratingType" , fetch = FetchType.LAZY)
+    private Set<Question> questions;
 
     public RatingType(){}
 
