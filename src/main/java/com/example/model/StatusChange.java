@@ -12,14 +12,19 @@ import java.sql.Timestamp;
 public class StatusChange {
 
     @Id
-    @SequenceGenerator(name = "statusHistorySequence", sequenceName = "status_hist_sh_id_seq", allocationSize = 1)      @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "statusHistorySequence")
+    @SequenceGenerator(name = "statusHistorySequence", sequenceName = "status_hist_sh_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "statusHistorySequence")
     @Column(name="sh_id")
     private int shId;
-    @Column(name="u_id") @JoinColumn(name = "u_id")
+    @Column(name="u_id")
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "u_id")
     private User user;
-    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="s_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="s_id")
     private Stage oldStage;
-    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="s_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="s_id")
     private Stage newStage;
     @Column(name= "change_ts")
     private Timestamp changeTs;

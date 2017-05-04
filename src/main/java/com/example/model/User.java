@@ -10,7 +10,8 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "userIDSequence", sequenceName = "users_u_id_seq", allocationSize = 1)                    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIDSequence")
+    @SequenceGenerator(name = "userIDSequence", sequenceName = "users_u_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIDSequence")
     @Column(name="u_id")
     private int uId;
     @Column(name="eid", unique = true)
@@ -21,9 +22,11 @@ public class User {
     private String fname;
     @Column(name="lname")
     private String lname;
-    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="r_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="r_id")
     private Role role;
-    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="s_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="s_id")
     private Stage stage;
 
     public User() {}

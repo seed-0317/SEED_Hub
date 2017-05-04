@@ -10,7 +10,8 @@ import java.util.Set;
 @Table(name="seedhub.stages")
 public class Stage {
     @Id
-    @SequenceGenerator(name = "stageIDSequence", sequenceName = "stages_s_id_seq", allocationSize = 1)                   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stageIDSequence")
+    @SequenceGenerator(name = "stageIDSequence", sequenceName = "stages_s_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stageIDSequence")
     @Column(name="s_id")
     private int sId;
     @Column(name="s_stage", unique = true)
@@ -18,7 +19,7 @@ public class Stage {
 
     @OneToMany(mappedBy = "stage", fetch = FetchType.LAZY)
     Set<User> users;
-    //@OneToMany (mappedBy)
+
     public Stage(){}
 
     public Stage(int id, String stage) {
