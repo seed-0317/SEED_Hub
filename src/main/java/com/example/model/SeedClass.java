@@ -9,33 +9,31 @@ import java.sql.Timestamp;
 
 
 @Entity
-@Table(name = "seedclass")
+@Table(name = "seedhub.seedclass")
 public class SeedClass {
     @Id
     @SequenceGenerator(name = "seedclassSequence", sequenceName = "seedclass_c_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seedclassSequence")
 
-    //@OneToOne(mappedBy = "application", fetch = FetchType.EAGER)\
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "c_id")
+    @Column(name = "c_id")
     private int cId;
 
-    @Column(name = "cYr")
+    @Column(name = "c_Yr")
     private int cYr;
 
-    @Column(name = "cNum")
+    @Column(name = "c_Num")
     private int cNum;
 
-    @Column(name = "cLoc")
+    @Column(name = "c_Loc")
     private String cLoc;
 
-    @Column(name = "cAppOpenDate")
+    @Column(name = "c_AppOpenDate")
     private Timestamp cAppOpenDate;
 
-    @Column(name = "cAppOpenDate")
+    @Column(name = "c_AppOpenDate")
     private Timestamp cAppDeadline;
 
-    @Column(name = "cBootcampDate")
+    @Column(name = "c_BootcampDate")
     private Timestamp cBootcampDate;
 
     public SeedClass(){}
