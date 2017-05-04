@@ -23,7 +23,7 @@ public class Role {
     private boolean adminFlag;
 
     @OneToMany(mappedBy = "role", fetch=FetchType.LAZY)
-    Set<User> users;
+    private Set<User> users;
 
     public Role () {}
 
