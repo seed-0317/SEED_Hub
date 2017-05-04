@@ -9,11 +9,13 @@ import javax.persistence.*;
 @Table(name="seedhub.users")
 public class User {
 
-    @Id @Column(name="u_id")
+    @Id
+    @SequenceGenerator(name = "userIDSequence", sequenceName = "users_u_id_seq", allocationSize = 1)                    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIDSequence")
+    @Column(name="u_id")
     private int uId;
-    @Column(name="eid")
+    @Column(name="eid", unique = true)
     private String eId;
-    @Column(name="email")
+    @Column(name="email", unique = true)
     private String email;
     @Column(name="fname")
     private String fname;

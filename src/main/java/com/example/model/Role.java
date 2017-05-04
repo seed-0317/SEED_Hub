@@ -12,9 +12,11 @@ import java.util.Set;
 @Table(name="seedhub.roles")
 public class Role {
 
-    @Id @Column(name="r_id")
+    @Id
+    @SequenceGenerator(name = "roleIDSequence", sequenceName = "roles_r_id_seq", allocationSize = 1)                      @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleIDSequence")
+    @Column(name="r_id")
     private int rID;
-    @Column(name="r_role")
+    @Column(name="r_role", unique = true)
     private String rRole;
     @Column(name="admin_flag")
     private boolean adminFlag;

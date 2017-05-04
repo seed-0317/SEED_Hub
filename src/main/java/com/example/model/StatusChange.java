@@ -1,7 +1,5 @@
 package com.example.model;
 
-import org.hibernate.annotations.Table;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -14,9 +12,10 @@ import java.sql.Timestamp;
 public class StatusChange {
 
     @Id
+    @SequenceGenerator(name = "statusHistorySequence", sequenceName = "status_hist_sh_id_seq", allocationSize = 1)      @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "statusHistorySequence")
     @Column(name="sh_id")
     private int shId;
-    @Column(name="u_id")
+    @Column(name="u_id") @JoinColumn(name = "u_id")
     private User user;
     @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="s_id")
     private Stage oldStage;
