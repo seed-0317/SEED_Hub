@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by qzh225 on 5/3/17.
  */
 @Entity
-@Table (name = "application")
+@Table (name = "seedhub.application")
 public class Application {
 
     @Id
@@ -15,10 +15,12 @@ public class Application {
     @Column(name = "app_id")
     private int appId;
 
-    @Column(name = "u_id", unique = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="u_id")
     private User applicant;
 
-    @Column(name = "mgr_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "u_id")
     private User manager;
 
     @ManyToOne(fetch = FetchType.EAGER)
