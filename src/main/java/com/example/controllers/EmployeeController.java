@@ -1,6 +1,5 @@
 package com.example.controllers;
 
-import com.example.model.Employee;
 import com.example.service.BusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
