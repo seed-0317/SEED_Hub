@@ -29,9 +29,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
     var loginState = {
         name: 'login',
         url: '/login',
-        templateURL: 'templates/login.html',
+        templateUrl: 'templates/login.html',
         controller: 'LoginCtrl',
-        controllerAs: 'login'
+        controllerAs: 'loginData'
     };
 
 
