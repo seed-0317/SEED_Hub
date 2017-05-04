@@ -1,6 +1,7 @@
 package com.example.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by qzh225 on 5/3/17.
@@ -28,6 +29,13 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="s_id")
     private Stage stage;
+
+    //to interview table
+    @OneToMany(mappedBy = "applicant", fetch=FetchType.LAZY)
+    private Set<Interview> interview;
+    //to application table
+    @OneToMany(mappedBy = "applicant", fetch=FetchType.LAZY)
+    private Set<Application> application;
 
     public User() {}
 

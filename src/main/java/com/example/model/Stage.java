@@ -18,7 +18,7 @@ public class Stage {
     private String sStage;
 
     @OneToMany(mappedBy = "stage", fetch = FetchType.LAZY)
-    Set<User> users;
+    private Set<User> users;
 
     public Stage(){}
 
