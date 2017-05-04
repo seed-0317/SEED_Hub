@@ -1,17 +1,36 @@
 package com.example.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * Created by qzh225 on 5/4/17.
  */
+
+@Entity
+@Table (name="seedhub.interview")
 public class Interview {
 
+    @Id
+    @SequenceGenerator(name="interviewSeq", sequenceName = "interview_int_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "interviewSeq")
+    @Column(name="int_id")
     private int intId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="c_id")
     private SeedClass seedClass;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="u_id")
     private User applicant;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="u_id")
     private User interviewer;
+    @Column(name="interview_dt")
     private Timestamp interviewDt;
+
+    @OneToMany(mappedBy = "interview")
+    private Set<InterviewRatings> interviewRatings;
 
     public Interview(){}
 

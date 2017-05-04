@@ -1,14 +1,29 @@
 package com.example.model;
 
+import javax.persistence.*;
+
 /**
  * Created by qzh225 on 5/4/17.
  */
+
+@Entity
+@Table (name="seedhub.intervew_ratings")
 public class InterviewRatings {
 
+    @Id
+    @SequenceGenerator(name="interviewRatingsSeq", sequenceName = "interview_ratings_rat_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "interviewRatingsSeq")
+    @Column (name="rat_id")
     private int ratId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="int_id")
     private Interview interview;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="q_id")
     private Question question;
+    @Column(name="rating")
     private int rating;
+    @Column(name="comments")
     private String comments;
 
     public InterviewRatings(){}
