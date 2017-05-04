@@ -1,15 +1,26 @@
 package com.example.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by qzh225 on 5/3/17.
  */
+@Entity
+@Table(name="seedhub.roles")
 public class Role {
 
+    @Id @Column(name="r_id")
     private int rID;
+    @Column(name="r_role")
     private String rRole;
+    @Column(name="admin_flag")
     private boolean adminFlag;
+
+    @OneToMany(mappedBy = "role", fetch=FetchType.LAZY)
+    Set<User> users;
 
     public Role () {}
 

@@ -1,17 +1,30 @@
 package com.example.model;
 
+import org.hibernate.annotations.Table;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by qzh225 on 5/3/17.
  */
+@Entity
+@Table(name="seedhub.status_hist")
+
 public class StatusChange {
 
+    @Id
+    @Column(name="sh_id")
     private int shId;
+    @Column(name="u_id")
     private User user;
+    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="s_id")
     private Stage oldStage;
+    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="s_id")
     private Stage newStage;
+    @Column(name= "change_ts")
     private Timestamp changeTs;
+
 
     public StatusChange(){}
 

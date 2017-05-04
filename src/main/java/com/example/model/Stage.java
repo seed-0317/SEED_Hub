@@ -1,15 +1,23 @@
 package com.example.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by qzh225 on 5/3/17.
  */
+@Entity
+@Table(name="seedhub.stages")
 public class Stage {
-
+    @Id
+    @Column(name="s_id")
     private int sId;
+    @Column(name="s_stage")
     private String sStage;
 
+    @OneToMany(mappedBy = "stage", fetch = FetchType.LAZY)
+    Set<User> users;
+    //@OneToMany (mappedBy)
     public Stage(){}
 
     public Stage(int id, String stage) {
