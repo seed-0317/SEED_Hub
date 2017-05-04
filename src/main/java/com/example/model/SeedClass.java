@@ -1,18 +1,41 @@
 package com.example.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by qzh225 on 5/3/17.
  */
-public class SeedClass {
 
+
+@Entity
+@Table(name = "application")
+public class SeedClass {
+    @Id
+    @SequenceGenerator(name = "seedclassSequence", sequenceName = "seedclass_c_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seedclassSequence")
+
+    //@OneToOne(mappedBy = "application", fetch = FetchType.EAGER)\
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "c_id")
     private int cId;
+
+    @Column(name = "cYr")
     private int cYr;
+
+    @Column(name = "cNum")
     private int cNum;
+
+    @Column(name = "cLoc")
     private String cLoc;
+
+    @Column(name = "cAppOpenDate")
     private Timestamp cAppOpenDate;
+
+    @Column(name = "cAppOpenDate")
     private Timestamp cAppDeadline;
+
+    @Column(name = "cBootcampDate")
     private Timestamp cBootcampDate;
 
     public SeedClass(){}
