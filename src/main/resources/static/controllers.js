@@ -21,3 +21,9 @@ angular.module("DogModule").controller("AboutCtrl", function(EmployeeService) {
     };
 
 });
+
+angular.module("DogModule").controller("LoginCtrl", function(EmployeeService) {
+
+
+
+});
