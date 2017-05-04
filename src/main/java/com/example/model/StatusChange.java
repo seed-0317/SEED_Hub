@@ -16,15 +16,14 @@ public class StatusChange {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "statusHistorySequence")
     @Column(name="sh_id")
     private int shId;
-    @Column(name="u_id")
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "u_id")
     private User user;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="s_id")
+    @JoinColumn(name="old_s")
     private Stage oldStage;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="s_id")
+    @JoinColumn(name="new_s")
     private Stage newStage;
     @Column(name= "change_ts")
     private Timestamp changeTs;

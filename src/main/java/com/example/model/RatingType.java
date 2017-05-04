@@ -11,7 +11,7 @@ import java.util.Set;
 @Table (name="seedhub.rating_types")
 public class RatingType {
     @Id
-    @SequenceGenerator(name="ratingTypeSequnece", sequenceName = "rating_types_rt_id_seq")
+    @SequenceGenerator(name="ratingTypeSequence", sequenceName = "rating_types_rt_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ratingTypeSequence")
     @Column (name="rt_id")
     private int rtId;
