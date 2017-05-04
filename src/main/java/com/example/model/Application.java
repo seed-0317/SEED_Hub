@@ -45,10 +45,19 @@ public class Application {
     @Column(name = "comments")
     private String comments;
 
+    @Column(name="curr_role")
+    private String currRole;
+
+    @Column(name="curr_level")
+    private String currLevel;
+
+    @Column(name="strong_plus")
+    private boolean strongPlus;
+
+
     public Application (){}
 
-    public Application(int appId, User applicant, User manager, SeedClass seedClass, String dept, String techSkillsLangs, String education, String techOrgs, String seedSuccess, String comments) {
-        this.appId = appId;
+    public Application(User applicant, User manager, SeedClass seedClass, String dept, String techSkillsLangs, String education, String techOrgs, String seedSuccess, String comments, String currRole, String currLevel, boolean strongPlus) {
         this.applicant = applicant;
         this.manager = manager;
         this.seedClass = seedClass;
@@ -58,6 +67,9 @@ public class Application {
         this.techOrgs = techOrgs;
         this.seedSuccess = seedSuccess;
         this.comments = comments;
+        this.currRole = currRole;
+        this.currLevel = currLevel;
+        this.strongPlus = strongPlus;
     }
 
     public int getAppId() {
@@ -140,38 +152,75 @@ public class Application {
         this.comments = comments;
     }
 
+    public String getCurrRole() {
+        return currRole;
+    }
+
+    public void setCurrRole(String currRole) {
+        this.currRole = currRole;
+    }
+
+    public String getCurrLevel() {
+        return currLevel;
+    }
+
+    public void setCurrLevel(String currLevel) {
+        this.currLevel = currLevel;
+    }
+
+    public boolean isStrongPlus() {
+        return strongPlus;
+    }
+
+    public void setStrongPlus(boolean strongPlus) {
+        this.strongPlus = strongPlus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Application)) return false;
 
         Application that = (Application) o;
 
-        if (appId != that.appId) return false;
-        if (applicant != null ? !applicant.equals(that.applicant) : that.applicant != null) return false;
-        if (manager != null ? !manager.equals(that.manager) : that.manager != null) return false;
-        if (seedClass != null ? !seedClass.equals(that.seedClass) : that.seedClass != null) return false;
-        if (dept != null ? !dept.equals(that.dept) : that.dept != null) return false;
-        if (techSkillsLangs != null ? !techSkillsLangs.equals(that.techSkillsLangs) : that.techSkillsLangs != null)
+        if (getAppId() != that.getAppId()) return false;
+        if (isStrongPlus() != that.isStrongPlus()) return false;
+        if (getApplicant() != null ? !getApplicant().equals(that.getApplicant()) : that.getApplicant() != null)
             return false;
-        if (education != null ? !education.equals(that.education) : that.education != null) return false;
-        if (techOrgs != null ? !techOrgs.equals(that.techOrgs) : that.techOrgs != null) return false;
-        if (seedSuccess != null ? !seedSuccess.equals(that.seedSuccess) : that.seedSuccess != null) return false;
-        return comments != null ? comments.equals(that.comments) : that.comments == null;
+        if (getManager() != null ? !getManager().equals(that.getManager()) : that.getManager() != null) return false;
+        if (getSeedClass() != null ? !getSeedClass().equals(that.getSeedClass()) : that.getSeedClass() != null)
+            return false;
+        if (getDept() != null ? !getDept().equals(that.getDept()) : that.getDept() != null) return false;
+        if (getTechSkillsLangs() != null ? !getTechSkillsLangs().equals(that.getTechSkillsLangs()) : that.getTechSkillsLangs() != null)
+            return false;
+        if (getEducation() != null ? !getEducation().equals(that.getEducation()) : that.getEducation() != null)
+            return false;
+        if (getTechOrgs() != null ? !getTechOrgs().equals(that.getTechOrgs()) : that.getTechOrgs() != null)
+            return false;
+        if (getSeedSuccess() != null ? !getSeedSuccess().equals(that.getSeedSuccess()) : that.getSeedSuccess() != null)
+            return false;
+        if (getComments() != null ? !getComments().equals(that.getComments()) : that.getComments() != null)
+            return false;
+        if (getCurrRole() != null ? !getCurrRole().equals(that.getCurrRole()) : that.getCurrRole() != null)
+            return false;
+        return getCurrLevel() != null ? getCurrLevel().equals(that.getCurrLevel()) : that.getCurrLevel() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = appId;
-        result = 31 * result + (applicant != null ? applicant.hashCode() : 0);
-        result = 31 * result + (manager != null ? manager.hashCode() : 0);
-        result = 31 * result + (seedClass != null ? seedClass.hashCode() : 0);
-        result = 31 * result + (dept != null ? dept.hashCode() : 0);
-        result = 31 * result + (techSkillsLangs != null ? techSkillsLangs.hashCode() : 0);
-        result = 31 * result + (education != null ? education.hashCode() : 0);
-        result = 31 * result + (techOrgs != null ? techOrgs.hashCode() : 0);
-        result = 31 * result + (seedSuccess != null ? seedSuccess.hashCode() : 0);
-        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        int result = getAppId();
+        result = 31 * result + (getApplicant() != null ? getApplicant().hashCode() : 0);
+        result = 31 * result + (getManager() != null ? getManager().hashCode() : 0);
+        result = 31 * result + (getSeedClass() != null ? getSeedClass().hashCode() : 0);
+        result = 31 * result + (getDept() != null ? getDept().hashCode() : 0);
+        result = 31 * result + (getTechSkillsLangs() != null ? getTechSkillsLangs().hashCode() : 0);
+        result = 31 * result + (getEducation() != null ? getEducation().hashCode() : 0);
+        result = 31 * result + (getTechOrgs() != null ? getTechOrgs().hashCode() : 0);
+        result = 31 * result + (getSeedSuccess() != null ? getSeedSuccess().hashCode() : 0);
+        result = 31 * result + (getComments() != null ? getComments().hashCode() : 0);
+        result = 31 * result + (getCurrRole() != null ? getCurrRole().hashCode() : 0);
+        result = 31 * result + (getCurrLevel() != null ? getCurrLevel().hashCode() : 0);
+        result = 31 * result + (isStrongPlus() ? 1 : 0);
         return result;
     }
 
@@ -188,6 +237,9 @@ public class Application {
                 ", techOrgs='" + techOrgs + '\'' +
                 ", seedSuccess='" + seedSuccess + '\'' +
                 ", comments='" + comments + '\'' +
+                ", currRole='" + currRole + '\'' +
+                ", currLevel='" + currLevel + '\'' +
+                ", strongPlus=" + strongPlus +
                 '}';
     }
 }
