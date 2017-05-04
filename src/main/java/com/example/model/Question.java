@@ -19,6 +19,8 @@ public class Question {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "c_id")
     private SeedClass seedClass;
+    @Column(name = "q_type")
+    private String qType;
     @Column(name="q_seq")
     private int qSequence;
     @Column(name="q_text")
@@ -32,9 +34,9 @@ public class Question {
 
     public Question(){}
 
-    public Question(int qId, SeedClass seedClass, int qSequence, String qText, RatingType ratingType) {
-        this.qId = qId;
+    public Question(SeedClass seedClass, String qType, int qSequence, String qText, RatingType ratingType) {
         this.seedClass = seedClass;
+        this.qType = qType;
         this.qSequence = qSequence;
         this.qText = qText;
         this.ratingType = ratingType;
@@ -80,24 +82,34 @@ public class Question {
         this.ratingType = ratingType;
     }
 
+    public String getqType() {
+        return qType;
+    }
+
+    public void setqType(String qType) {
+        this.qType = qType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Question questions = (Question) o;
+        Question question = (Question) o;
 
-        if (qId != questions.qId) return false;
-        if (qSequence != questions.qSequence) return false;
-        if (seedClass != null ? !seedClass.equals(questions.seedClass) : questions.seedClass != null) return false;
-        if (qText != null ? !qText.equals(questions.qText) : questions.qText != null) return false;
-        return ratingType != null ? ratingType.equals(questions.ratingType) : questions.ratingType == null;
+        if (qId != question.qId) return false;
+        if (qSequence != question.qSequence) return false;
+        if (seedClass != null ? !seedClass.equals(question.seedClass) : question.seedClass != null) return false;
+        if (qType != null ? !qType.equals(question.qType) : question.qType != null) return false;
+        if (qText != null ? !qText.equals(question.qText) : question.qText != null) return false;
+        return ratingType != null ? ratingType.equals(question.ratingType) : question.ratingType == null;
     }
 
     @Override
     public int hashCode() {
         int result = qId;
         result = 31 * result + (seedClass != null ? seedClass.hashCode() : 0);
+        result = 31 * result + (qType != null ? qType.hashCode() : 0);
         result = 31 * result + qSequence;
         result = 31 * result + (qText != null ? qText.hashCode() : 0);
         result = 31 * result + (ratingType != null ? ratingType.hashCode() : 0);
@@ -109,6 +121,7 @@ public class Question {
         return "Question{" +
                 "qId=" + qId +
                 ", seedClass=" + seedClass +
+                ", qType='" + qType + '\'' +
                 ", qSequence=" + qSequence +
                 ", qText='" + qText + '\'' +
                 ", ratingType=" + ratingType +
