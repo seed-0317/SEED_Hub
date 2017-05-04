@@ -1,17 +1,34 @@
 package com.example.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by qzh225 on 5/3/17.
  */
+@Entity
+@Table(name="seedhub.status_hist")
+
 public class StatusChange {
 
+    @Id
+    @SequenceGenerator(name = "statusHistorySequence", sequenceName = "status_hist_sh_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "statusHistorySequence")
+    @Column(name="sh_id")
     private int shId;
+    @Column(name="u_id")
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "u_id")
     private User user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="s_id")
     private Stage oldStage;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="s_id")
     private Stage newStage;
+    @Column(name= "change_ts")
     private Timestamp changeTs;
+
 
     public StatusChange(){}
 
