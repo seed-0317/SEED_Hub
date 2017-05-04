@@ -17,7 +17,7 @@ public class BusinessLogic {
     private ApplicationRepo applicationRepo;
 
     public Application retrieveApplication(int id) {
-        return applicationRepo.findByuid(id);
+        return applicationRepo.findByApplicantUId(id);
     }
 
 
@@ -27,6 +27,6 @@ public class BusinessLogic {
     private UserRepo userRepo;
 
     public User retrieveUser(String eid) {
-        return userRepo.findByeid(eid);
+        return userRepo.findByEId(eid);
     }
 }

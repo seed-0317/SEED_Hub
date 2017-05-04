@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ApplicationRepo extends JpaRepository<Application, Integer> {
 
-    Application  findByuid(int id);
+    Application  findByApplicantUId(int id);
 }

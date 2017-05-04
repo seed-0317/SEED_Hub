@@ -20,7 +20,7 @@ public class Application {
     private User applicant;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "u_id")
+    @JoinColumn(name = "mgr_id")
     private User manager;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -18,13 +18,13 @@ public class Interview {
     @Column(name="int_id")
     private int intId;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="c_id")
+    @JoinColumn(name="class_id")
     private SeedClass seedClass;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="u_id")
+    @JoinColumn(name="applicant_id")
     private User applicant;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="u_id")
+    @JoinColumn(name="interviewer_id")
     private User interviewer;
     @Column(name="interview_dt")
     private Timestamp interviewDt;
