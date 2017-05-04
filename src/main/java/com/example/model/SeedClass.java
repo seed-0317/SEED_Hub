@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 
 @Entity
-@Table(name = "application")
+@Table(name = "seedclass")
 public class SeedClass {
     @Id
     @SequenceGenerator(name = "seedclassSequence", sequenceName = "seedclass_c_id_seq", allocationSize = 1)
