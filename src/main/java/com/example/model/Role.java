@@ -9,7 +9,7 @@ import java.util.Set;
  * Created by qzh225 on 5/3/17.
  */
 @Entity
-@Table(name="seedhub.roles")
+@Table(name="roles")
 public class Role {
 
     @Id

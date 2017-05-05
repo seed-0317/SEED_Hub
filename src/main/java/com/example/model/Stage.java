@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by qzh225 on 5/3/17.
  */
 @Entity
-@Table(name="seedhub.stages")
+@Table(name="stages")
 public class Stage {
     @Id
     @SequenceGenerator(name = "stageIDSequence", sequenceName = "stages_s_id_seq", allocationSize = 1)
