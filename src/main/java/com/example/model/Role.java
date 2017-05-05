@@ -16,7 +16,7 @@ public class Role {
     @SequenceGenerator(name = "roleIDSequence", sequenceName = "roles_r_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleIDSequence")
     @Column(name="r_id")
-    private int rID;
+    private int rId;
     @Column(name="r_role", unique = true)
     private String rRole;
     @Column(name="admin_flag")
@@ -28,17 +28,17 @@ public class Role {
     public Role () {}
 
     public Role (int id, String role, boolean admin) {
-        this.rID = id;
+        this.rId = id;
         this.rRole = role;
         this.adminFlag = admin;
     }
 
     public int getrID() {
-        return rID;
+        return rId;
     }
 
     public void setrID(int rID) {
-        this.rID = rID;
+        this.rId = rID;
     }
 
     public String getrRole() {
@@ -64,14 +64,14 @@ public class Role {
 
         Role role = (Role) o;
 
-        if (rID != role.rID) return false;
+        if (rId != role.rId) return false;
         if (adminFlag != role.adminFlag) return false;
         return rRole != null ? rRole.equals(role.rRole) : role.rRole == null;
     }
 
     @Override
     public int hashCode() {
-        int result = rID;
+        int result = rId;
         result = 31 * result + (rRole != null ? rRole.hashCode() : 0);
         result = 31 * result + (adminFlag ? 1 : 0);
         return result;
@@ -80,7 +80,7 @@ public class Role {
     @Override
     public String toString() {
         return "Role{" +
-                "rID=" + rID +
+                "rID=" + rId +
                 ", rRole='" + rRole + '\'' +
                 ", adminFlag=" + adminFlag +
                 '}';

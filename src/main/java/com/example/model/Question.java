@@ -26,7 +26,7 @@ public class Question {
     @Column(name="q_text")
     private String qText;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rt_id")
+    @JoinColumn(name = "rating_type")
     private RatingType ratingType;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)

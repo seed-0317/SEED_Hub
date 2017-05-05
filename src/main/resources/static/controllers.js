@@ -12,8 +12,7 @@ angular.module("DogModule").controller("HomeCtrl", function(UserService) {
         }, function() {
             //FAILURE
         });
-
-
+        
 
     }
 
@@ -37,6 +36,7 @@ angular.module("DogModule").controller("AboutCtrl", function(EmployeeService) {
         }, function() {
             //FAILURE
         });
+
 
     };
 
