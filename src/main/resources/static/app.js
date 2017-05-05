@@ -15,7 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         url: '/',
         templateUrl: 'templates/home.html',
         controller: 'HomeCtrl',
-        controllerAs: 'squirrel'
+        controllerAs: 'home'
     };
 
     var aboutState = {

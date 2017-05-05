@@ -29,7 +29,7 @@ public class BusinessLogic {
     private RoleRepo roleRepo;
 
     public Role retrieveRole(int rid) {
-        return roleRepo.findByRID(rid);
+        return roleRepo.findByRId(rid);
     }
 
     @Autowired

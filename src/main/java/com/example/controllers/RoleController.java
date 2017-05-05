@@ -19,8 +19,8 @@ public class RoleController {
     @Autowired
     private BusinessLogic businessLogic;
 
-    @RequestMapping(value = "/{rID}", method = RequestMethod.GET)
-    public ResponseEntity getRole(@PathVariable("rID") int id) {
+    @RequestMapping(value = "/{rId}", method = RequestMethod.GET)
+    public ResponseEntity getRole(@PathVariable("rId") int id) {
         Role role = businessLogic.retrieveRole(id);
 
         if (role != null) {
