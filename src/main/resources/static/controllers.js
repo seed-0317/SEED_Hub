@@ -1,4 +1,24 @@
-angular.module("DogModule").controller("HomeCtrl", function() {
+angular.module("DogModule").controller("HomeCtrl", function(UserService) {
+
+    var homeCtrl = this;
+
+
+    homeCtrl.getUser = function(eid){
+        var promise = UserService.getUser(eid);
+
+        promise.then(function(response) {
+            //SUCCESS
+            homeCtrl.user = response.data;
+        }, function() {
+            //FAILURE
+        });
+
+
+
+    }
+
+
+
 
 });
 

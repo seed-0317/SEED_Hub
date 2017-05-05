@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by qzh225 on 5/3/17.
  */
 @Entity
-@Table(name="seedhub.users")
+@Table(name="users")
 public class User {
 
     @Id
@@ -24,10 +24,10 @@ public class User {
     @Column(name="lname")
     private String lname;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="r_id")
+    @JoinColumn(name="role_id")
     private Role role;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="s_id")
+    @JoinColumn(name="stage_id")
     private Stage stage;
 
     //to interview table

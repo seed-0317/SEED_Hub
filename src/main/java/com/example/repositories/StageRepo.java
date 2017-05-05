@@ -13,4 +13,5 @@ import java.util.List;
 @Repository
 public interface StageRepo extends JpaRepository<Stage, Integer> {
     List<Stage> findAll();
+    Stage findBySId(int sid);
 }

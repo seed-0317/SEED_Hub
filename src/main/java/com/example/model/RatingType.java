@@ -8,7 +8,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table (name="seedhub.rating_types")
+@Table (name="rating_types")
 public class RatingType {
     @Id
     @SequenceGenerator(name="ratingTypeSequence", sequenceName = "rating_types_rt_id_seq")

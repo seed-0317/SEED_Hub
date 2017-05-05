@@ -9,7 +9,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table (name="seedhub.interview")
+@Table (name="interview")
 public class Interview {
 
     @Id

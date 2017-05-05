@@ -8,7 +8,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name="seedhub.questions")
+@Table(name="questions")
 public class Question {
 
     @Id

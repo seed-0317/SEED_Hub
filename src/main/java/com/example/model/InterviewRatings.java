@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table (name="seedhub.intervew_ratings")
+@Table (name="intervew_ratings")
 public class InterviewRatings {
 
     @Id

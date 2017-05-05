@@ -1,8 +1,12 @@
 package com.example.service;
 
 import com.example.model.Application;
+import com.example.model.Role;
+import com.example.model.Stage;
 import com.example.model.User;
 import com.example.repositories.ApplicationRepo;
+import com.example.repositories.RoleRepo;
+import com.example.repositories.StageRepo;
 import com.example.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +25,19 @@ public class BusinessLogic {
     }
 
 
+    @Autowired
+    private RoleRepo roleRepo;
 
+    public Role retrieveRole(int rid) {
+        return roleRepo.findByRID(rid);
+    }
+
+    @Autowired
+    private StageRepo stageRepo;
+
+    public Stage retrieveStage(int sid) {
+        return stageRepo.findBySId(sid);
+    }
 
     @Autowired
     private UserRepo userRepo;

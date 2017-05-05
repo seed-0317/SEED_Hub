@@ -1,6 +1,5 @@
 package com.example.controllers;
 
-import com.example.model.Application;
 import com.example.model.User;
 import com.example.service.BusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,26 +10,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by uzh051 on 5/4/17.
+ * Created by qzh225 on 5/5/17.
  */
-
 @RestController
-@RequestMapping(value = "/application")
-public class ApplicationController {
+@RequestMapping(value = "/user")
+public class UserController {
 
     @Autowired
     private BusinessLogic businessLogic;
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public ResponseEntity getApplication(@PathVariable("id") int id) {
-        Application application = businessLogic.retrieveApplication(id);
+    @RequestMapping(value = "/{eid}", method = RequestMethod.GET)
+    public ResponseEntity getUser(@PathVariable("eid") String id) {
+        User user = businessLogic.retrieveUser(id);
 
-        if(application != null) {
-            return ResponseEntity.ok().body(id);
+        if (user != null) {
+            return ResponseEntity.ok().body(user);
         } else {
             return ResponseEntity.badRequest().build();
         }
     }
-
 }
-

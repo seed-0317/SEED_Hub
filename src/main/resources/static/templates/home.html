@@ -1,1 +1,11 @@
-<h1>Home</h1>
+<h1>Welcome to Seed Hub!</h1>
+<h2>Please sign in:</h2>
+
+
+eid: <input type="text" data-ng-model="eid"/>
+
+<button data-ng-click="squirrel.getUser(eid)">Login</button>
+
+<div data-ng-show="squirrel.user">
+    Welcome back,  {{squirrel.user.fname}}
+</div>
