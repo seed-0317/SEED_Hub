@@ -39,6 +39,15 @@ public class User {
 
     public User() {}
 
+    public User(String eId, String email, String fname, String lname, Role role, Stage stage) {
+        this.eId = eId;
+        this.email = email;
+        this.fname = fname;
+        this.lname = lname;
+        this.role = role;
+        this.stage = stage;
+    }
+
     public User(int uId, String eId, String email, String fname, String lname, Role role, Stage stage) {
         this.uId = uId;
         this.eId = eId;

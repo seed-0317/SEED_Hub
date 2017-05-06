@@ -45,4 +45,12 @@ public class BusinessLogic {
     public User retrieveUser(String eid) {
         return userRepo.findByEId(eid);
     }
+
+    public User createUser(String eid, String email, String firstName, String lastName){
+        Role two = retrieveRole(2);
+        Stage one = retrieveStage(1);
+
+        User newUser= new User(eid,email,firstName,lastName,two,one);
+        return userRepo.save(newUser);
+    }
 }

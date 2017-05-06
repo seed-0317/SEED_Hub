@@ -19,6 +19,18 @@ public class UserController {
     @Autowired
     private BusinessLogic businessLogic;
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity postUser(String eId, String email, String fname, String lname){
+
+        User user = businessLogic.createUser(eId, email, fname, lname);
+
+        if (user != null) {
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @RequestMapping(value = "/{eid}", method = RequestMethod.GET)
     public ResponseEntity getUser(@PathVariable("eid") String id) {
         User user = businessLogic.retrieveUser(id);
