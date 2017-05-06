@@ -10,4 +10,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RatingTypeRepo extends JpaRepository<RatingType, Integer > {
+
+    RatingType findByRtId(int rtId);
+    RatingType save(RatingType ratingType);
+
 }

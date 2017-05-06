@@ -1,16 +1,12 @@
 package com.example.service;
 
-import com.example.model.Application;
-import com.example.model.Role;
-import com.example.model.Stage;
-import com.example.model.User;
-import com.example.repositories.ApplicationRepo;
-import com.example.repositories.RoleRepo;
-import com.example.repositories.StageRepo;
-import com.example.repositories.UserRepo;
+import com.example.model.*;
+import com.example.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -45,4 +41,76 @@ public class BusinessLogic {
     public User retrieveUser(String eid) {
         return userRepo.findByEId(eid);
     }
+
+    @Autowired
+    private InterviewRepo interviewRepo;
+
+    public Interview retrieveInterview(int intId) {
+        return interviewRepo.findByIntId(intId);
+    }
+
+    public List<Interview> retrieveApplicantInterview(int applicantUId) {
+        return interviewRepo.findByApplicantUId(applicantUId);
+    }
+
+    @Autowired
+    private InterviewRatingsRepo interviewRatingsRepo;
+
+    public InterviewRatings retrieveInterviewRatings(int ratId) {
+        return interviewRatingsRepo.findByRatId(ratId);
+    }
+
+    public List<InterviewRatings> retrieveApplicantInterviewRatings(int intId) {
+        return interviewRatingsRepo.findByInterviewIntId(intId);
+    }
+
+    @Autowired
+    private QuestionsRepo questionsRepo;
+
+    public Question retrieveQuestion(int qId) {
+        return questionsRepo.findByQId(qId);
+    }
+
+    public List<Question> retrieveClassTypeQuestions(int cId, String qType) {
+        return questionsRepo.findBySeedClassCIdAndQType(cId, qType);
+    }
+
+    @Autowired
+    private RatingTypeRepo ratingTypeRepo;
+
+    public RatingType retrieveRatingType(int rtId) {
+        return ratingTypeRepo.findByRtId(rtId);
+    }
+
+    public List<RatingType> retrieveAllRatingTypes() {
+        return ratingTypeRepo.findAll();
+    }
+
+    @Autowired
+    private SeedClassRepo seedClassRepo;
+
+    public SeedClass retrieveSeedClass(int cId) {
+         return seedClassRepo.findByCId(cId);
+    }
+    public List<SeedClass> retrieveAllSeedClass(){
+         return seedClassRepo.findAll();
+    }
+
+    @Autowired
+    private StatusChangeRepo statusChangeRepo;
+
+    public StatusChange retrieveStatusChange(int shId)   {
+        return statusChangeRepo.findByShId(shId)   ;
+    }
+    public List<StatusChange> retrieveAllStatusChanges()  {
+        return statusChangeRepo.findAll();
+    }
+    public List<StatusChange>  retrieveUserStatusChanges(int uId)   {
+        return statusChangeRepo.findByUserUId(uId) ;
+    }
+    public StatusChange saveStatusChange(StatusChange statusChange) {
+        return statusChangeRepo.save(statusChange);
+    }
 }
+
+
