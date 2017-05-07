@@ -1,3 +1,9 @@
-<h1>Login Placeholder</h1>
+<div class="login">
+    <h4>Please sign in below:</h4>
 
-<button data-ng-click="login.doSomething(someInput)">Click me!</button>
+    Enter your EID: <input type="text" data-ng-model="eid"/> <br><br>
+
+    <button class="btn-primary" data-ng-click="home.getUser(eid)">Login</button>
+    <button class="btn-success"  data-ng-click="home.createNewUser()">Sign up</button>
+
+</div>

@@ -1,46 +1,51 @@
-/**
- * app.js
- *
- * DogModule configuration and routing
- *
- * @author Taylor Kemper
- */
-
 var app = angular.module("DogModule", ['ui.router']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
-    var helloState = {
+    var homeState = {
         name: 'home',
-        url: '/',
+        url: '/home',
         templateUrl: 'templates/home.html',
         controller: 'HomeCtrl',
         controllerAs: 'home'
     };
 
-    var aboutState = {
-        name: 'about',
-        url: '/about',
-        templateUrl: 'templates/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'fox'
-    };
-
     var loginState = {
         name: 'login',
-        url: '/login',
+        url: '/',
         templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'loginData'
+        controller: 'HomeCtrl',
+        controllerAs: 'home'
     };
 
+    var createUserState = {
+        name: 'createUser',
+        url: '/createUser',
+        templateUrl: 'templates/createUser.html',
+        controller: 'HomeCtrl',
+        controllerAs: 'home'
+    };
 
-    $stateProvider.state(helloState);
-    $stateProvider.state(aboutState);
+    var applicationState = {
+        name: 'application',
+        url: '/application',
+        templateUrl: 'templates/application.html',
+        controller: 'applicationCtrl',
+        controllerAs: 'application'
+    };
+
+    $stateProvider.state(homeState);
     $stateProvider.state(loginState);
+    $stateProvider.state(createUserState);
+    $stateProvider.state(applicationState);
 
     //default routing
     $urlRouterProvider.otherwise('/');
-
+    //$stateProvider.html5Mode(true);
 });
+
+
+// app.controller('homeCtrl',  function($scope, $state) {
+//     $scope.state = $state;
+// });
 

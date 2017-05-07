@@ -42,15 +42,24 @@ public class BusinessLogic {
     @Autowired
     private UserRepo userRepo;
 
-    public User retrieveUser(String eid) {
-        return userRepo.findByEId(eid);
+    public User retrieveUser(String eId) {
+        return userRepo.findByEId(eId);
     }
 
-    public User createUser(String eid, String email, String firstName, String lastName){
+    public User createUser(String eId, String email, String firstName, String lastName){
         Role two = retrieveRole(2);
         Stage one = retrieveStage(1);
 
-        User newUser= new User(eid,email,firstName,lastName,two,one);
+        User newUser= new User(eId,email,firstName,lastName,two,one);
+        return userRepo.save(newUser);
+    }
+
+    public User createUser(User newUser){
+        Role two = retrieveRole(2);
+        Stage one = retrieveStage(1);
+
+        newUser.setRole(two);
+        newUser.setStage(one);
         return userRepo.save(newUser);
     }
 }

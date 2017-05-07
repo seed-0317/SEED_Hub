@@ -1,0 +1,22 @@
+<div>
+    <h4>Please fill out the application below:</h4>
+
+    EID: <input type="text" data-ng-model="eId"/> <br>
+    Manager ID: <input type="number" data-ng-model="mgr_id"/> <br>
+    C ID: <input type="number" data-ng-model="c_id"/> <br>
+    Department: <input type="text" data-ng-model="department"/> <br>
+    List your technical skills: <input type="text" data-ng-model="techskills_languages"/> <br>
+    Education: <input type="text" data-ng-model="education"/> <br>
+    Tech Organizations: <input type="text" data-ng-model="tech_orgs"/> <br>
+    What will help you be successful in this program?: <input type="text" data-ng-model="seed_success"/> <br>
+    Additional comments: <input type="text" data-ng-model="comments"/> <br>
+    Current Role: <input type="text" data-ng-model="curr_role"/> <br>
+    Current Level: <input type="text" data-ng-model="curr_level"/> <br>
+    Did you receive a strong or higher during your last rating?
+    <select ng-model="strong_plus">
+        <option value="True">True</option>
+        <option value="False">False</option>
+    </select><br><br>
+
+    <button class="btn-primary"  data-ng-click="application.postApplication(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus)">Submit application</button>
+</div>
