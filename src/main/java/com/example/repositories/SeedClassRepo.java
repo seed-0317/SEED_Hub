@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SeedClassRepo extends JpaRepository<SeedClass, Integer> {
+
+    SeedClass findByCId(int cId);
+    SeedClass save(SeedClass seedClass);
+
+
 }
 
 

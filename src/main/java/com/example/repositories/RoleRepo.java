@@ -14,4 +14,5 @@ import java.util.List;
 public interface RoleRepo extends JpaRepository<Role,Integer> {
     List<Role> findAll();
     Role  findByRId(int rid);
+    Role save(Role role);
 }
