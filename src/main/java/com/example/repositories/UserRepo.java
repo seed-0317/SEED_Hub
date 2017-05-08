@@ -10,6 +10,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     User  findByUId(int uId);
     User  findByEId(String eId);
     List<User> findAll();
-    User save(User user);
+
+    User save(User newUser);
 }
 

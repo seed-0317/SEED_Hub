@@ -1,0 +1,14 @@
+body {
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.login {
+    position: absolute;
+    top: 35%;
+    left: 25%;
+    padding: 15px;
+    width: 50%;
+    height:30%;
+    border: 3px solid;
+}

@@ -1,11 +1,21 @@
-<h1>Welcome to Seed Hub!</h1>
-<h2>Please sign in:</h2>
+<div>
+    <div data-ng-show="home.user">
+        Welcome back,  {{home.user.fname}}!
 
+        Your current status is {{home.user.stage.sStage}}.
+    </div>
+    <div>{{home}}</div>
+    <div>{{user}}</div>
+    <div>{{fname}}</div>
+    <div>{{home.user}}</div>
+    <div>{{home.user.stage}}</div>
+    <div>{{home.user.stage.sId}}</div>
+    <div ng-if="{{home.user.stage.sId===1}}">
+        You may submit an application here.
+        <a data-ui-sref="application">Submit an application!</a>
+    </div>
 
-eid: <input type="text" data-ng-model="eid"/>
-
-<button data-ng-click="home.getUser(eid)">Login</button>
-
-<div data-ng-show="home.user">
-    Welcome back,  {{home.user.fname}}
+    <p>You can read more by clicking on the link below:<br>
+        <a href="https://pulse.kdc.capitalone.com/groups/the-lab-card-ops-software-engineer-pilot-program">https://pulse.kdc.capitalone.com/groups/the-lab-card-ops-software-engineer-pilot-program</a>
+    </p>
 </div>
