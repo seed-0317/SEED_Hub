@@ -26,8 +26,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controllerAs: 'fox'
     };
 
+    var createEmployeeState = {
+        name: 'createEmployee',
+        url: '/createEmployee',
+        templateUrl: 'templates/createEmployee.html',
+        controller: 'CreateEmployeeCtrl',
+        controllerAs: 'ceData'
+    };
+
     $stateProvider.state(helloState);
     $stateProvider.state(aboutState);
+    $stateProvider.state(createEmployeeState);
 
     //default routing
     $urlRouterProvider.otherwise('/');

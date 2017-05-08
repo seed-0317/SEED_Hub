@@ -10,4 +10,20 @@ angular.module("DogModule").service("EmployeeService", function($http) {
         });
     };
 
+
+    /**
+     * Create Employee
+     *
+     * @param employee is an object
+     * @returns a promise
+     */
+    myService.createEmployee = function(employee) {
+        return $http({
+            url: "/employee",
+            method: "post",
+            data: employee
+        });
+    };
+
+
 });

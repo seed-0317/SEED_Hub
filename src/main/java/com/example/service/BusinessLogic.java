@@ -18,4 +18,8 @@ public class BusinessLogic {
         return employeeRepo.findByName(name);
     }
 
+    public Employee createEmployee(Employee employee) {
+        return employeeRepo.save(employee);
+    }
+
 }

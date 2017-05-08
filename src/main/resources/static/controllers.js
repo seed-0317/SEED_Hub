@@ -21,3 +21,32 @@ angular.module("DogModule").controller("AboutCtrl", function(EmployeeService) {
     };
 
 });
+
+
+angular.module("DogModule").controller("CreateEmployeeCtrl", function(EmployeeService) {
+
+    var data = this;
+
+    data.createEmployee = function(dog) {
+
+        var employee = {
+            name : dog
+        };
+
+        var promise = EmployeeService.createEmployee(employee);
+
+
+        promise.then(function(response) {
+            //SUCCESS
+            console.log("SUCCESS - create employee");
+        }, function(response) {
+            //FAILURE
+            console.log("FAILURE - create employee");
+        });
+
+    };
+
+
+});
+
+
