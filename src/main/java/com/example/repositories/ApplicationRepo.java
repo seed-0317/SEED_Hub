@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface ApplicationRepo extends JpaRepository<Application, Integer> {
 
     Application  findByApplicantUId(int id);
+
+    Application save(Application application);
 }

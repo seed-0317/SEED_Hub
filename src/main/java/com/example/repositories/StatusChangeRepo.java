@@ -12,7 +12,8 @@ import java.util.List;
  */
 @Repository
 public interface StatusChangeRepo extends JpaRepository<StatusChange,Integer> {
-    StatusChange findByUser(User user);
-
+    List<StatusChange> findByUserUId(int uId);
+    StatusChange findByShId(int shId);
     List<StatusChange> findAll();
+    StatusChange save(StatusChange statusChange);
 }
