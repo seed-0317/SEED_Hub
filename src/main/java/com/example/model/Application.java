@@ -54,10 +54,13 @@ public class Application {
     @Column(name="strong_plus")
     private boolean strongPlus;
 
+    @Column(name="mgr_approval")
+    private boolean mgrApproval;
+
 
     public Application (){}
 
-    public Application(User applicant, User manager, SeedClass seedClass, String dept, String techSkillsLangs, String education, String techOrgs, String seedSuccess, String comments, String currRole, String currLevel, boolean strongPlus) {
+    public Application(User applicant, User manager, SeedClass seedClass, String dept, String techSkillsLangs, String education, String techOrgs, String seedSuccess, String comments, String currRole, String currLevel, boolean strongPlus, boolean mgrApproval) {
         this.applicant = applicant;
         this.manager = manager;
         this.seedClass = seedClass;
@@ -70,6 +73,7 @@ public class Application {
         this.currRole = currRole;
         this.currLevel = currLevel;
         this.strongPlus = strongPlus;
+        this.mgrApproval = mgrApproval;
     }
 
     public int getAppId() {
@@ -176,6 +180,14 @@ public class Application {
         this.strongPlus = strongPlus;
     }
 
+    public boolean isMgrApproval() {
+        return mgrApproval;
+    }
+
+    public void setMgrApproval(boolean mgrApproval) {
+        this.mgrApproval = mgrApproval;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -185,6 +197,7 @@ public class Application {
 
         if (getAppId() != that.getAppId()) return false;
         if (isStrongPlus() != that.isStrongPlus()) return false;
+        if (isMgrApproval() != that.isMgrApproval()) return false;
         if (getApplicant() != null ? !getApplicant().equals(that.getApplicant()) : that.getApplicant() != null)
             return false;
         if (getManager() != null ? !getManager().equals(that.getManager()) : that.getManager() != null) return false;
@@ -221,6 +234,7 @@ public class Application {
         result = 31 * result + (getCurrRole() != null ? getCurrRole().hashCode() : 0);
         result = 31 * result + (getCurrLevel() != null ? getCurrLevel().hashCode() : 0);
         result = 31 * result + (isStrongPlus() ? 1 : 0);
+        result = 31 * result + (isMgrApproval() ? 1 : 0);
         return result;
     }
 
@@ -240,6 +254,7 @@ public class Application {
                 ", currRole='" + currRole + '\'' +
                 ", currLevel='" + currLevel + '\'' +
                 ", strongPlus=" + strongPlus +
+                ", mgrApproval=" + mgrApproval +
                 '}';
     }
 }
