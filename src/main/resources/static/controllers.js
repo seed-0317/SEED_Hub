@@ -25,8 +25,23 @@ angular.module("DogModule").controller("loginCtrl", function(UserService, $state
             console.log('loginCtrl.getUser was successful');
 
             $cookies.putObject('user', response.data);
+            loginCtrl.user = $cookies.getObject('user');
 
-            $state.go('home');
+            //route based on user role
+            if (loginCtrl.user.role.rID === 4) {  //Program Team
+                $state.go('admin');
+            }
+            else if (loginCtrl.user.role.rID === 5) {  //Interviewer
+                $state.go('interviewer');
+            }
+            else if (loginCtrl.user.role.rID === 3) {  //Manager
+                $state.go('manager');
+            }
+            else {  //Applicant
+                $state.go('home');
+            }
+
+
         }), function() {
             console.log('loginCtrl.getUser was not successful');
             alert("Failure: " + JSON.stringify({data: response.data}));
@@ -86,4 +101,19 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
             $state.reload();
         }
     }
+});
+
+angular.module("DogModule").controller("adminCtrl", function(UserService, $state, $cookies) {
+    var adminCtrl = this;
+    adminCtrl.user=$cookies.getObject('user');
+});
+
+angular.module("DogModule").controller("newClassCtrl", function(UserService, $state, $cookies) {
+    var newClassCtrl = this;
+    newClassCtrl.user=$cookies.getObject('user');
+});
+
+angular.module("DogModule").controller("addUser", function(UserService, $state, $cookies) {
+    var addUserCtrl = this;
+    addUserCtrl.user=$cookies.getObject('user');
 });
