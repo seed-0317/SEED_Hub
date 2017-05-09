@@ -1,22 +1,29 @@
+
+<!--For the larger text inputs we may want to create a textArea.-->
+<!--https://www.w3schools.com/tags/att_textarea_form.asp-->
+
 <div>
     <h4>Please fill out the application below:</h4>
+        <div>
+        <label class="applicationLabel">EID</label><input type="text" placeholder="{{application.user.eId}}" maxlength="6" data-ng-model="eId"/> <br>
+        <label class="applicationLabel">Manager ID</label> <input type="number" maxlength="6" data-ng-model="mgr_id"/> <br>
+        <label class="applicationLabel">C ID</label><input type="number" data-ng-model="c_id"/> <br>
+        <label class="applicationLabel">Department</label><input type="text" maxlength="30" size="30" data-ng-model="department"/> <br>
+        <label class="applicationLabel">Current Role</label><input type="text" size="30" maxlength="30" data-ng-model="curr_role"/> <br>
+        <label class="applicationLabel">Current Level</label><input type="text" size="30" maxlength="30" data-ng-model="curr_level"/> <br>
+        <label class="applicationLabel">Did you receive at least a strong rating</label>
+            <select ng-model="strong_plus">
+                <option value="True">True</option>
+                <option value="False">False</option>
+            </select><br>
 
-    EID: <input type="text" data-ng-model="eId"/> <br>
-    Manager ID: <input type="number" data-ng-model="mgr_id"/> <br>
-    C ID: <input type="number" data-ng-model="c_id"/> <br>
-    Department: <input type="text" data-ng-model="department"/> <br>
-    List your technical skills: <input type="text" data-ng-model="techskills_languages"/> <br>
-    Education: <input type="text" data-ng-model="education"/> <br>
-    Tech Organizations: <input type="text" data-ng-model="tech_orgs"/> <br>
-    What will help you be successful in this program?: <input type="text" data-ng-model="seed_success"/> <br>
-    Additional comments: <input type="text" data-ng-model="comments"/> <br>
-    Current Role: <input type="text" data-ng-model="curr_role"/> <br>
-    Current Level: <input type="text" data-ng-model="curr_level"/> <br>
-    Did you receive a strong or higher during your last rating?
-    <select ng-model="strong_plus">
-        <option value="True">True</option>
-        <option value="False">False</option>
-    </select><br><br>
+        <label class="applicationLabel">List your technical skills</label><input type="text" size="100" data-ng-model="techskills_languages"/> <br>
+        <label class="applicationLabel">Education</label><input type="text" size="100" data-ng-model="education"/> <br>
+        <label class="applicationLabel">Tech Organizations</label><input type="text" size="100" data-ng-model="tech_orgs"/> <br>
+        <label class="applicationLabel">Why will you be successful in SEED</label><input type="text" size="100" data-ng-model="seed_success"/> <br>
+        <label class="applicationLabel">Additional comments</label><input type="text" size="100" data-ng-model="comments"/> <br><br>
+        </div>
 
     <button class="btn-primary"  data-ng-click="application.postApplication(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus)">Submit application</button>
+
 </div>
