@@ -1,19 +1,15 @@
+
 <div>
     <div data-ng-show="home.user">
-        Welcome back,  {{home.user.fname}}!
+        Welcome back,  {{home.user.fname}}! <br>
 
-        Your current status is {{home.user.stage.sStage}}.
+        Your current status is: {{home.user.stage.sStage}}.<br>
     </div>
-    <div>{{home}}</div>
-    <div>{{user}}</div>
-    <div>{{fname}}</div>
-    <div>{{home.user}}</div>
-    <div>{{home.user.stage}}</div>
-    <div>{{home.user.stage.sId}}</div>
-    <div ng-if="{{home.user.stage.sId===1}}">
+
+    <div ng-if="home.user.stage.sId===1">
         You may submit an application here.
         <a data-ui-sref="application">Submit an application!</a>
-    </div>
+    </div><br>
 
     <p>You can read more by clicking on the link below:<br>
         <a href="https://pulse.kdc.capitalone.com/groups/the-lab-card-ops-software-engineer-pilot-program">https://pulse.kdc.capitalone.com/groups/the-lab-card-ops-software-engineer-pilot-program</a>

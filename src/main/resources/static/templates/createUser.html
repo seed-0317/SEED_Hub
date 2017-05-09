@@ -1,10 +1,10 @@
 <div>
     <h4>Please create an account below:</h4>
 
-    EID: <input type="text" data-ng-model="eid"/> <br>
-    E-mail: <input type="email" data-ng-model="email"/> <br>
-    First Name: <input type="text" data-ng-model="firstName"/> <br>
-    Last Name: <input type="text" data-ng-model="lastName"/> <br><br>
+    <label>EID</label><input type="text" maxlength="6" data-ng-model="eid"/> <br>
+    <label>Email</label><input type="email" maxlength="30" data-ng-model="email"/> <br>
+    <label>First Name</label><input type="text" maxlength="30" data-ng-model="firstName"/> <br>
+    <label>Last Name</label><input type="text" maxlength="30" data-ng-model="lastName"/> <br><br>
 
-    <button class="btn-primary"  data-ng-click="home.createUser(eid,email,firstName,lastName)">Create account</button>
+    <button class="btn-primary"  data-ng-click="createUser.createUser(eid,email,firstName,lastName)">Create account</button>
 </div>

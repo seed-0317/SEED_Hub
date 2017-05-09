@@ -1,46 +1,72 @@
-angular.module("DogModule").controller("HomeCtrl", function(UserService, $state, $scope) {
+angular.module("DogModule").controller("homeCtrl", function(UserService, $state, $cookies) {
 
     var homeCtrl = this;
 
-    homeCtrl.createNewUser = function(){
-        console.log('homeCtrl.createNewUser');
+    homeCtrl.user = $cookies.getObject('user');
+});
+
+angular.module("DogModule").controller("loginCtrl", function(UserService, $state, $cookies) {
+
+    var loginCtrl=this;
+
+    $cookies.remove('user');
+
+    loginCtrl.createNewUser = function(){
+        console.log('loginCtrl.createNewUser');
         $state.go('createUser');
     }
 
-    homeCtrl.createUser = function(eid,email,firstName,lastName){
-        console.log('homeCtrl.createUser with data');
-        var promise = UserService.postUser(eid,email,firstName,lastName);
-
-        promise.then(function(response){
-            console.log('homeCtrl.createUser was successful');
-            $scope.user=response.data;
-            homeCtrl.user=response.data;
-            $state.go('home')
-        }), function(){
-            console.log('homeCtrl.createUser was not successful');
-            $state.reload();
-        }
-    }
-
-    homeCtrl.getUser = function(eid){
-        console.log('homeCtrl.getUser');
+    loginCtrl.getUser = function(eid){
+        console.log('loginCtrl.getUser');
         var promise = UserService.getUser(eid);
 
         promise.then(function(response) {
             //SUCCESS
-            console.log('homeCtrl.getUser was successful');
-            $scope.user=response.data;
-            homeCtrl.user = response.data;
+            console.log('loginCtrl.getUser was successful');
+
+            $cookies.putObject('user', response.data);
+
             $state.go('home');
         }), function() {
-            console.log('homeCtrl.getUser was not successful');
+            console.log('loginCtrl.getUser was not successful');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
             $state.go('login');
         }
     }
 });
 
-angular.module("DogModule").controller("ApplicationCtrl", function(UserService, $state) {
+
+angular.module("DogModule").controller("createUserCtrl", function(UserService, $state, $cookies) {
+
+    var createUserCtrl = this;
+
+    createUserCtrl.user = $cookies.get('user');
+
+    createUserCtrl.createUser = function (eid, email, firstName, lastName) {
+        console.log('createUserCtrl.createUser with data');
+        var promise = UserService.postUser(eid, email, firstName, lastName);
+
+        promise.then(function (response) {
+            console.log('createUserCtrl.createUser was successful');
+
+            $cookies.putObject('user',response.data);
+
+            $state.go('home');
+        }), function () {
+            console.log('createUserCtrl.createUser was not successful');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
+            $state.reload();
+        }
+    }
+});
+
+
+angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
     var applicationCtrl = this;
+
+    applicationCtrl.user=$cookies.get('user');
 
     applicationCtrl.getApplication = function(eid){
         $state.go('application');
@@ -52,9 +78,11 @@ angular.module("DogModule").controller("ApplicationCtrl", function(UserService, 
         promise.then(function (response) {
             //SUCCESS
             console.log('applicationCtrl.postApplication was successful');
-            $state.go('home')
+            $state.go('home');
         }), function (response) {
             console.log('applicationCtrl.postApplication was not successful');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
             $state.reload();
         }
     }

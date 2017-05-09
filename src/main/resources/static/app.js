@@ -1,4 +1,4 @@
-var app = angular.module("DogModule", ['ui.router']);
+var app = angular.module("DogModule", ['ui.router', 'ngCookies']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -6,7 +6,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         name: 'home',
         url: '/home',
         templateUrl: 'templates/home.html',
-        controller: 'HomeCtrl',
+        controller: 'homeCtrl',
         controllerAs: 'home'
     };
 
@@ -14,16 +14,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
         name: 'login',
         url: '/',
         templateUrl: 'templates/login.html',
-        controller: 'HomeCtrl',
-        controllerAs: 'home'
+        controller: 'loginCtrl',
+        controllerAs: 'login'
     };
 
     var createUserState = {
         name: 'createUser',
         url: '/createUser',
         templateUrl: 'templates/createUser.html',
-        controller: 'HomeCtrl',
-        controllerAs: 'home'
+        controller: 'createUserCtrl',
+        controllerAs: 'createUser'
     };
 
     var applicationState = {
