@@ -41,4 +41,27 @@ public class QuestionController {
             return ResponseEntity.badRequest().build();
         }
     }
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public ResponseEntity getQuestions() {
+        List<Question> questions = businessLogic.retrieveAllQuestions();
+
+
+        if(questions != null) {
+            return ResponseEntity.ok().body(questions);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @RequestMapping(value="/", method = RequestMethod.POST)
+    public ResponseEntity postQuestion(Question question) {
+        question = businessLogic.postQuestion(question);
+
+
+        if(question != null) {
+            return ResponseEntity.ok().body(question);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
