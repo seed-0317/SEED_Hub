@@ -32,7 +32,7 @@ angular.module("DogModule").controller("loginCtrl", function(UserService, $state
                 $state.go('admin');
             }
             else if (loginCtrl.user.role.rID === 5) {  //Interviewer
-                $state.go('interviewer');
+                $state.go('admin');
             }
             else if (loginCtrl.user.role.rID === 3) {  //Manager
                 $state.go('manager');
@@ -85,7 +85,7 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
 
     applicationCtrl.getApplication = function(eid){
         $state.go('application');
-    }
+    };
 
     applicationCtrl.postApplication = function(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
         var promise = UserService.postApplication(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
@@ -95,6 +95,7 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
             console.log('applicationCtrl.postApplication was successful');
             $state.go('home');
         }), function (response) {
+            //FAILURE
             console.log('applicationCtrl.postApplication was not successful');
             alert("Failure: " + JSON.stringify({data: response.data}));
 
@@ -113,7 +114,67 @@ angular.module("DogModule").controller("newClassCtrl", function(UserService, $st
     newClassCtrl.user=$cookies.getObject('user');
 });
 
-angular.module("DogModule").controller("addUser", function(UserService, $state, $cookies) {
+angular.module("DogModule").controller("addUserCtrl", function(UserService, $state, $cookies) {
     var addUserCtrl = this;
     addUserCtrl.user=$cookies.getObject('user');
+});
+
+angular.module("DogModule").controller("interviewerCtrl", function(UserService, $state, $cookies) {
+    var interviewerCtrl = this;
+    interviewerCtrl.interviewer=$cookies.getObject('user');
+
+    //get application List
+    //save selected applicant as a cookie 'applicant'
+    //get questions(seedclass,intType)
+    //post interview
+    //post interviewResponses
+
+});
+
+angular.module("DogModule").controller("buildIntCtrl", function(UserService, $state, $cookies) {
+    var buildIntCtrl = this;
+    buildIntCtrl.user=$cookies.getObject('user');
+
+    var classSet = UserService.getClassList();
+
+    var questionSet = UserService.getQuestionList();
+
+    var ratingTypes = UserService.getRatingTypes();
+
+    var selectedQuestions =[];
+
+    buildIntCtrl.AddQuestion = function(seedClass, qSeq, qText, ratingType, qType) {
+        var question = {
+            "seedClass" : seedClass,
+            "qSequence" : qSeq,
+            "qText": qText,
+            "ratingType": ratingType,
+            "qType": qType
+        };
+        selectedQuestions.push(question);
+    };
+
+    buildIntCtrl.postQuestions = function(){
+        //for each question in selectedQuestions, UserService.postQuestion(...)
+        var question = null;
+        var promise = null;
+        var ok = true;
+        while (selectedQuestions.length >0) {
+            question = selectedQuestions.shift();
+            promise = UserService.postQuestion();
+            promise.then(function (response) {
+                //SUCCESS
+                //Next
+            }), function (response) {
+                //FAILURE
+                ok=false;
+                console.log('buildIntCtrl.postQuestion was not successful');
+                alert("Failure: " + JSON.stringify({data: response.data}));
+            }
+        }
+        if (ok) {
+            alert("Question set succesfully saved!")
+        };
+    };
+
 });

@@ -92,6 +92,14 @@ public class BusinessLogic {
         return questionsRepo.findBySeedClassCIdAndQType(cId, qType);
     }
 
+    public List<Question> retrieveAllQuestions(){
+        return questionsRepo.findAll();
+    }
+    public Question postQuestion(Question question) {
+        return questionsRepo.save(question);
+    }
+
+
     @Autowired
     private RatingTypeRepo ratingTypeRepo;
 

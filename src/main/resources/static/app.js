@@ -82,6 +82,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controllerAs: 'interview'
     };
 
+    var interviewerState = {
+        name: 'interviewer',
+        url: '/interviewer',
+        templateUrl: 'templates/interviewer.html',
+        controller: 'interviewerCtrl',
+        controllerAs: 'interviewer'
+    };
+
     $stateProvider.state(homeState);
     $stateProvider.state(loginState);
     $stateProvider.state(createUserState);
@@ -92,6 +100,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state(newClassState);
     $stateProvider.state(buildIntState);
     $stateProvider.state(interviewState);
+    $stateProvider.state(interviewerState);
 
     //default routing
     $urlRouterProvider.otherwise('/');
