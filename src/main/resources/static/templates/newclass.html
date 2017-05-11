@@ -8,14 +8,62 @@
                 <div class="col-xs-12 col-sm-1">ID</div>
                 <div class="col-xs-12 col-sm-1">Year</div>
                 <div class="col-xs-12 col-sm-1">Number</div>
-                <div class="col-xs-12 col-sm-2">Location</div>
+                <div class="col-xs-12 col-sm-1">Location</div>
                 <div class="col-xs-12 col-sm-2">App Open</div>
                 <div class="col-xs-12 col-sm-2">App Deadline</div>
                 <div class="col-xs-12 col-sm-2">Bootcamp Start</div>
             </div>
         </div>
+
+        <div class="row" data-ng-repeat ="seedclass in seedClass">
+            <div class="col-xs-12 col-sm-1">{{seedclass.cId}}</div>
+            <div class="col-xs-12 col-sm-1">{{seedclass.cYr}}</div>
+            <div class="col-xs-12 col-sm-1">{{seedclass.cNum}}</div>
+            <div class="col-xs-12 col-sm-1">{{seedclass.cLoc}}</div>
+            <div class="col-xs-12 col-sm-2">{{seedclass.cAppOpenDate}}</div>
+            <div class="col-xs-12 col-sm-2">{{seedclass.cAppDeadline}}</div>
+            <div class="col-xs-12 col-sm-2">{{seedclass.cBootcampDate}}</div>
+            <div class="col-xs-12 col-sm-1"><button type="submit">Update</button></div>
+            <div class="col-xs-12 col-sm-1"><button type="submit">Delete</button></div>
+        </div>
     </div>
+    </div>
+</div>
+<div class="well">
+    <div class="container">
+<div>
+<form class="form-inline">
+<!--    <div class="form-group">
+        <label class="sr-only" for="seedclass.cID">cId</label>
+        <input type="number" class="form-control" id="seedclass.cID" placeholder="id">
+    </div> -->
+    <div class="form-group">
+        <label class="sr-only" for="seedclass.cYr">cYr</label>
+        <input type="number" class="form-control" id="seedclass.cYr" placeholder="Year">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="seedclass.cNum">cNum</label>
+        <input type="number" class="form-control" id="seedclass.cNum" placeholder="Number">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="seedclass.cLoc">cLoc</label>
+        <input type="text" class="form-control" id="seedclass.cLoc" placeholder="Location">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="seedclass.cAppOpenDate">cAppOpenDate</label>
+        <input type="date" class="form-control" id="seedclass.cAppOpenDate" placeholder="App Start Date">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="seedclass.cAppDeadline">cAppDeadline</label>
+        <input type="date" class="form-control" id="seedclass.cAppDeadline" placeholder="App Deadline">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="seedclass.cBootcampDate">cBootcampDate</label>
+        <input type="date" class="form-control" id="seedclass.cBootcampDate" placeholder="Bootcamp Start">
+    </div>
+    <button type="submit" class="btn btn-default">Add</button>
 
-
-
+</form>
+</div>
+    </div>
 </div>
