@@ -111,6 +111,7 @@ angular.module("DogModule").controller("adminCtrl", function(UserService, $state
 angular.module("DogModule").controller("newClassCtrl", function(UserService, $state, $cookies) {
     var newClassCtrl = this;
     newClassCtrl.user=$cookies.getObject('user');
+
 });
 
 angular.module("DogModule").controller("addUser", function(UserService, $state, $cookies) {
