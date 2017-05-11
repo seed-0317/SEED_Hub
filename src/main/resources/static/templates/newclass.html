@@ -14,17 +14,18 @@
                 <div class="col-xs-12 col-sm-2">Bootcamp Start</div>
             </div>
         </div>
-
-        <div class="row" data-ng-repeat ="seedclass in seedclasses">
+        <div data-ng-show="newClass.classList">
+        <div class="row" data-ng-repeat ="seedclass in newClass.classList">
             <div class="col-xs-12 col-sm-1">{{seedclass.cId}}</div>
             <div class="col-xs-12 col-sm-1">{{seedclass.cYr}}</div>
             <div class="col-xs-12 col-sm-1">{{seedclass.cNum}}</div>
             <div class="col-xs-12 col-sm-1">{{seedclass.cLoc}}</div>
-            <div class="col-xs-12 col-sm-2">{{seedclass.cAppOpenDate}}</div>
+            <div class="col-xs-12 col-sm-2">{{seedclass.cAppOpenDate | date : format: short}}</div>
             <div class="col-xs-12 col-sm-2">{{seedclass.cAppDeadline}}</div>
             <div class="col-xs-12 col-sm-2">{{seedclass.cBootcampDate}}</div>
             <div class="col-xs-12 col-sm-1"><button type="submit">Update</button></div>
             <div class="col-xs-12 col-sm-1"><button type="submit">Delete</button></div>
+        </div>
         </div>
     </div>
     </div>
