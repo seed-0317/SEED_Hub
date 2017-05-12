@@ -5,9 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-/**
- * Created by npw383 on 5/9/17.
- */
+
 public class Steps {
 
     @Given("^I am logged in as an admin$")

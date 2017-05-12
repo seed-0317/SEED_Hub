@@ -4,9 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
 
-/**
- * Created by qzh225 on 5/4/17.
- */
+
 
 @Entity
 @Table (name="interview")
