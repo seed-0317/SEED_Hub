@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Created by qzh225 on 5/5/17.
- */
+
 @RestController
 @RequestMapping(value = "/interview")
 public class InterviewController {

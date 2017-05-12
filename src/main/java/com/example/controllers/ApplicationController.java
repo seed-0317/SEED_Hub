@@ -4,15 +4,9 @@ import com.example.model.Application;
 import com.example.model.User;
 import com.example.service.BusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-/**
- * Created by uzh051 on 5/4/17.
- */
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/application")
@@ -20,6 +14,20 @@ public class ApplicationController {
 
     @Autowired
     private BusinessLogic businessLogic;
+
+    @RequestMapping(method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    //public ResponseEntity postUser(String eId, String email, String fname, String lname){
+    public ResponseEntity postUser(@RequestBody Application application){
+        System.out.println("Creating application");
+        System.out.println(application);
+        Application application = businessLogic.createUser(application);
+
+        if (application != null) {
+            return ResponseEntity.ok().body(application);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
     public ResponseEntity getApplication(@PathVariable("id") int id) {

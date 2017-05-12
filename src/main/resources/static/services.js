@@ -63,7 +63,7 @@ angular.module("DogModule").service("UserService", function($http) {
     myService.getQuestionList = function () {
         return $http({
             method: "GET",
-            url: "questions/"
+            url: "question/"
         })
     };
 
@@ -75,10 +75,11 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
-    myService.postQuestion = function() {
+    myService.postQuestion = function(question) {
         return $http({
             method: "POST",
-            url: "questions/"
+            url: "question/",
+            data: question
         })
     };
 

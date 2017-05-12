@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Created by qzh225 on 5/6/17.
- */
+
 @RestController
 @RequestMapping(value = "/statuschange")
 public class StatusChangeController {

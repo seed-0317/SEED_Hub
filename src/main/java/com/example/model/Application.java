@@ -2,9 +2,7 @@ package com.example.model;
 
 import javax.persistence.*;
 
-/**
- * Created by qzh225 on 5/3/17.
- */
+
 @Entity
 @Table (name = "application")
 public class Application {
