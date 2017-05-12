@@ -1,8 +1,5 @@
 package com.example.controllers;
 
-/**
- * Created by qzh225 on 5/6/17.
- */
 
 import com.example.model.Question;
 import com.example.model.RatingType;
