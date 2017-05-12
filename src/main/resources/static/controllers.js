@@ -133,48 +133,72 @@ angular.module("DogModule").controller("interviewerCtrl", function(UserService, 
 
 angular.module("DogModule").controller("buildIntCtrl", function(UserService, $state, $cookies) {
     var buildIntCtrl = this;
+    var promise1 = UserService.getClassList();
+    var promise2 = UserService.getRatingTypes();
     buildIntCtrl.user=$cookies.getObject('user');
 
-    var classSet = UserService.getClassList();
-
-    var questionSet = UserService.getQuestionList();
-
-    var ratingTypes = UserService.getRatingTypes();
-
-    var selectedQuestions =[];
-
-    buildIntCtrl.AddQuestion = function(seedClass, qSeq, qText, ratingType, qType) {
-        var question = {
-            "seedClass" : seedClass,
-            "qSequence" : qSeq,
-            "qText": qText,
-            "ratingType": ratingType,
-            "qType": qType
-        };
-        selectedQuestions.push(question);
+    promise1.then(function (response) {
+        //SUCCESS
+        buildIntCtrl.classSet = response.data;
+        console.log(JSON.stringify({data: buildIntCtrl.classSet}));
+    }), function (response) {
+        //FAILURE
+        alert("Failure retrieveing class list: " + JSON.stringify({data: response.data}));
     };
 
+    promise2.then(function (response) {
+        //SUCCESS
+        buildIntCtrl.ratingTypes = response.data;
+        console.log(JSON.stringify({data: buildIntCtrl.ratingTypes}));
+    }), function (response) {
+        //FAILURE
+        alert("Failure retrieveing ratingTypes: " + JSON.stringify({data: response.data}));
+    };
+    //buildIntCtrl.questionSet = UserService.getQuestionList();
+
+
+    buildIntCtrl.selectedQuestions =[];
+    buildIntCtrl.selectedSeedClass = null;
+    buildIntCtrl.qType = null;
+    buildIntCtrl.qSeq = null;
+    buildIntCtrl.qText = null;
+    buildIntCtrl.ratingType = null;
+    buildIntCtrl.addQuestion = function() {
+        var question = {
+
+            "seedClass" : buildIntCtrl.selectedSeedClass,
+            "qSequence" : buildIntCtrl.qSeq,
+            "qText": buildIntCtrl.qText,
+            "ratingType": buildIntCtrl.ratingType,
+            "qType": buildIntCtrl.qType
+        };
+        buildIntCtrl.selectedQuestions.push(question);
+    };
     buildIntCtrl.postQuestions = function(){
         //for each question in selectedQuestions, UserService.postQuestion(...)
         var question = null;
         var promise = null;
         var ok = true;
-        while (selectedQuestions.length >0) {
-            question = selectedQuestions.shift();
-            promise = UserService.postQuestion();
-            promise.then(function (response) {
-                //SUCCESS
-                //Next
-            }), function (response) {
-                //FAILURE
-                ok=false;
-                console.log('buildIntCtrl.postQuestion was not successful');
-                alert("Failure: " + JSON.stringify({data: response.data}));
-            }
+        if (!(buildIntCtrl.selectedQuestions.length >0)){
+            alert("Nothing to Submit! Please add questions and try again.");
         }
-        if (ok) {
-            alert("Question set succesfully saved!")
-        };
+        else {
+          while (buildIntCtrl.selectedQuestions.length >0) {
+              question = buildIntCtrl.selectedQuestions.shift();
+              promise = UserService.postQuestion(question);
+              promise.then(function (response) {
+                  //SUCCESS
+                  console.log("Question posted: " +JSON.stringify({data: response.data}));
+              }), function (response) {
+                  //FAILURE
+                  ok = false;
+                  console.log('buildIntCtrl.postQuestion was not successful');
+                  alert("Failure: " + JSON.stringify({data: response.data}));
+              }
+          }
+
+        }
+
     };
 
 });
