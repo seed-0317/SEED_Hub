@@ -17,9 +17,9 @@ public class Application {
     @JoinColumn(name="u_id")
     private User applicant;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mgr_id")
-    private User manager;
+    //@ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "mgr_email")
+    private String managerEmail;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "c_id")
@@ -58,9 +58,9 @@ public class Application {
 
     public Application (){}
 
-    public Application(User applicant, User manager, SeedClass seedClass, String dept, String techSkillsLangs, String education, String techOrgs, String seedSuccess, String comments, String currRole, String currLevel, boolean strongPlus, boolean mgrApproval) {
+    public Application(User applicant, String managerEmail, SeedClass seedClass, String dept, String techSkillsLangs, String education, String techOrgs, String seedSuccess, String comments, String currRole, String currLevel, boolean strongPlus, boolean mgrApproval) {
         this.applicant = applicant;
-        this.manager = manager;
+        this.managerEmail = managerEmail;
         this.seedClass = seedClass;
         this.dept = dept;
         this.techSkillsLangs = techSkillsLangs;
@@ -90,12 +90,12 @@ public class Application {
         this.applicant = applicant;
     }
 
-    public User getManager() {
-        return manager;
+    public String getManagerEmail() {
+        return managerEmail;
     }
 
-    public void setManager(User manager) {
-        this.manager = manager;
+    public void setManagerEmail(String managerEmail) {
+        this.managerEmail = managerEmail;
     }
 
     public SeedClass getSeedClass() {
@@ -198,7 +198,7 @@ public class Application {
         if (isMgrApproval() != that.isMgrApproval()) return false;
         if (getApplicant() != null ? !getApplicant().equals(that.getApplicant()) : that.getApplicant() != null)
             return false;
-        if (getManager() != null ? !getManager().equals(that.getManager()) : that.getManager() != null) return false;
+        if (getManagerEmail() != null ? !getManagerEmail().equals(that.getManagerEmail()) : that.getManagerEmail() != null) return false;
         if (getSeedClass() != null ? !getSeedClass().equals(that.getSeedClass()) : that.getSeedClass() != null)
             return false;
         if (getDept() != null ? !getDept().equals(that.getDept()) : that.getDept() != null) return false;
@@ -221,7 +221,7 @@ public class Application {
     public int hashCode() {
         int result = getAppId();
         result = 31 * result + (getApplicant() != null ? getApplicant().hashCode() : 0);
-        result = 31 * result + (getManager() != null ? getManager().hashCode() : 0);
+        result = 31 * result + (getManagerEmail() != null ? getManagerEmail().hashCode() : 0);
         result = 31 * result + (getSeedClass() != null ? getSeedClass().hashCode() : 0);
         result = 31 * result + (getDept() != null ? getDept().hashCode() : 0);
         result = 31 * result + (getTechSkillsLangs() != null ? getTechSkillsLangs().hashCode() : 0);
@@ -241,7 +241,7 @@ public class Application {
         return "Application{" +
                 "appId=" + appId +
                 ", applicant=" + applicant +
-                ", manager=" + manager +
+                ", managerEmail=" + managerEmail +
                 ", seedClass=" + seedClass +
                 ", dept='" + dept + '\'' +
                 ", techSkillsLangs='" + techSkillsLangs + '\'' +

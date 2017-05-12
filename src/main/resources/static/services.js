@@ -2,6 +2,7 @@ angular.module("DogModule").service("UserService", function($http) {
 
     var myService = this;
 
+
     myService.getUser = function (eId) {
         return $http({
             method: "GET",
@@ -32,14 +33,13 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
-    myService.postApplication = function (eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
+    myService.postApplication = function (eId, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
         return $http({
             method: "POST",
-            url: "application/" + eid,
+            url: "application/" + eId,
             data: {
-                "u_id": u_id,
-                "mgr_id": mgr_id,
-                "c_id": c_id,
+                "seedClass" : selectedSeedClass,
+                "mgr_email": mgr_email,
                 "dept": dept,
                 "techskills_languages": techskills_languages,
                 "education": education,
