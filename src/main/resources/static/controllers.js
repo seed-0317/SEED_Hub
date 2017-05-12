@@ -165,28 +165,36 @@ angular.module("DogModule").controller("buildIntCtrl", function(UserService, $st
     buildIntCtrl.ratingType = null;
     buildIntCtrl.addQuestion = function() {
         var question = {
-
-            "seedClass" : buildIntCtrl.selectedSeedClass,
-            "qSequence" : buildIntCtrl.qSeq,
-            "qText": buildIntCtrl.qText,
-            "ratingType": buildIntCtrl.ratingType,
-            "qType": buildIntCtrl.qType
+            qId: null,
+            seedClass : buildIntCtrl.selectedSeedClass,
+            qSequence : buildIntCtrl.qSeq,
+            qText: buildIntCtrl.qText,
+            ratingType: buildIntCtrl.ratingType,
+            qType: buildIntCtrl.qType
         };
         buildIntCtrl.selectedQuestions.push(question);
+        buildIntCtrl.qSeq++;
+        buildIntCtrl.qText = null;
+        buildIntCtrl.ratingType = null;
     };
     buildIntCtrl.postQuestions = function(){
         //for each question in selectedQuestions, UserService.postQuestion(...)
         var question = null;
-        var promise = null;
+        var promise= [];
         var ok = true;
         if (!(buildIntCtrl.selectedQuestions.length >0)){
             alert("Nothing to Submit! Please add questions and try again.");
         }
         else {
+          var i =0  ;
+            console.log("In controllers.js, selectedQuestions: " +JSON.stringify(buildIntCtrl.selectedQuestions));
           while (buildIntCtrl.selectedQuestions.length >0) {
+              i++;
               question = buildIntCtrl.selectedQuestions.shift();
-              promise = UserService.postQuestion(question);
-              promise.then(function (response) {
+              console.log("In controllers.js, question.seedClass: "  +question.SeedClass);
+              console.log("In controllers.js, selectedQuestions: "  +buildIntCtrl.selectedQuestions);
+              promise[i] = UserService.postQuestion(question.seedClass, question.qSequence, question.qText, question.ratingType, question.qType) ;
+              promise[i].then(function (response) {
                   //SUCCESS
                   console.log("Question posted: " +JSON.stringify({data: response.data}));
               }), function (response) {
@@ -196,9 +204,7 @@ angular.module("DogModule").controller("buildIntCtrl", function(UserService, $st
                   alert("Failure: " + JSON.stringify({data: response.data}));
               }
           }
-
         }
-
     };
 
 });
