@@ -112,6 +112,16 @@ angular.module("DogModule").controller("adminCtrl", function(UserService, $state
 angular.module("DogModule").controller("newClassCtrl", function(UserService, $state, $cookies) {
     var newClassCtrl = this;
     newClassCtrl.user=$cookies.getObject('user');
+
+   var promise = UserService.getClassList();
+
+   promise.then(function(response) {
+       //success
+       newClassCtrl.classList = response.data;
+   }, function(response) {
+       //failure
+   })
+
 });
 
 angular.module("DogModule").controller("addUserCtrl", function(UserService, $state, $cookies) {
