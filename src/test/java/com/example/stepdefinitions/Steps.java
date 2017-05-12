@@ -70,11 +70,11 @@ public class Steps {
         throw new PendingException();
     }
 
-    @Given("^I click on add seed class navigation$")
-    public void iClickOnAddSeedClassNavigation() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
+//    @Given("^I click on add seed class navigation$")
+//    public void iClickOnAddSeedClassNavigation() throws Throwable {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new PendingException();
+//    }
 
     @When("^I fill in the seed class listing and click submit$")
     public void iFillInTheSeedClassListingAndClickSubmit() throws Throwable {
@@ -202,11 +202,11 @@ public class Steps {
         throw new PendingException();
     }
 
-    @When("^I am logged in$")
-    public void iAmLoggedIn() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
+//    @When("^I am logged in$")
+//    public void iAmLoggedIn() throws Throwable {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new PendingException();
+//    }
 
     @Then("^I see two options to view resources and to submit an application$")
     public void iSeeTwoOptionsToViewResourcesAndToSubmitAnApplication() throws Throwable {

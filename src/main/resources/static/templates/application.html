@@ -16,7 +16,7 @@
                 <option value="True">True</option>
                 <option value="False">False</option>
             </select><br>
-
+        </br>
         <label class="applicationLabel">List your technical skills</label><input type="text" size="100" data-ng-model="techskills_languages"/> <br>
         <label class="applicationLabel">Education</label><input type="text" size="100" data-ng-model="education"/> <br>
         <label class="applicationLabel">Tech Organizations</label><input type="text" size="100" data-ng-model="tech_orgs"/> <br>
@@ -24,6 +24,7 @@
         <label class="applicationLabel">Additional comments</label><input type="text" size="100" data-ng-model="comments"/> <br><br>
         </div>
 
-    <button class="btn-primary"  data-ng-click="application.postApplication(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus)">Submit application</button>
+    <button class="btn-primary"  data-ng-click="application.postApplication(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus)">Submit</button>
+    <button class="btn-primary"  data-ng-click="application.postApplication(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus)">Save</button>
 
 </div>
