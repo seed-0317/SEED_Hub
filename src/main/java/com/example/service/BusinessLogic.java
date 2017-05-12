@@ -15,7 +15,6 @@ public class BusinessLogic {
 
     @Autowired
     private ApplicationRepo applicationRepo;
-
     public Application retrieveApplication(int id) {
         return applicationRepo.findByApplicantUId(id);
     }
@@ -96,6 +95,7 @@ public class BusinessLogic {
         return questionsRepo.findAll();
     }
     public Question postQuestion(Question question) {
+        System.out.println("In Business Logic Post question = " + question);
         return questionsRepo.save(question);
     }
 

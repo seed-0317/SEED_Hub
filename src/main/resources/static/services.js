@@ -75,11 +75,20 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
-    myService.postQuestion = function(question) {
+    myService.postQuestion = function(seedClass, qSequence, qText, ratingType, qType) {
         return $http({
             method: "POST",
             url: "question/",
-            data: question
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                "seedClass" : seedClass,
+                "qSequence": qSequence,
+                "qText": qText,
+                "ratingType": ratingType,
+                "qType": qType
+            }
         })
     };
 
