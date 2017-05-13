@@ -76,9 +76,28 @@
     <div class="panel-body">
         <div ng-repeat="q in buildInt.selectedQuestions">
             <div class="row">
+                <div class="col-sm-1">
+                    <button class="btn btn-default"
+                            aria-label="move up"
+                            data-ng-click="buildInt.moveQuestionUp(q.qSequence)">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </button>
+                    <button class="btn btn-default"
+                            aria-label="move down"
+                            data-ng-click="buildInt.moveQuestionDown(q.qSequence)">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                    </button>
+                </div>
                 <div class="col-sm-1">{{q.qSequence}}</div>
-                <div class="col-sm-7">{{q.qText}}</div>
+                <div class="col-sm-5">{{q.qText}}</div>
                 <div class="col-sm-4">{{q.ratingType.rDescription}}</div>
+                <div clsss="col-sm-1">
+                    <button class="btn btn-danger"
+                            aria-label="Delete question"
+                            data-ng-click="buildInt.removeQuestion(q.qSequence)">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </div>
             </div>
             <hr>
         </div>
@@ -86,9 +105,9 @@
     </div>
   </div>
 </div>
-<br>
 
 <button class="btn btn-default" data-ng-click="buildInt.postQuestions()">
     Submit Question Set
 </button>
 <br>
+<p color="red"> Nothing will be saved until you click the Submit Question Set button!</p>
