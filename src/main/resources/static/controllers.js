@@ -77,33 +77,6 @@ angular.module("DogModule").controller("createUserCtrl", function(UserService, $
     }
 });
 
-
-angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
-    var applicationCtrl = this;
-
-    applicationCtrl.user=$cookies.get('user');
-
-    applicationCtrl.getApplication = function(eid){
-        $state.go('application');
-    };
-
-    applicationCtrl.postApplication = function(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
-        var promise = UserService.postApplication(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
-
-        promise.then(function (response) {
-            //SUCCESS
-            console.log('applicationCtrl.postApplication was successful');
-            $state.go('home');
-        }), function (response) {
-            //FAILURE
-            console.log('applicationCtrl.postApplication was not successful');
-            alert("Failure: " + JSON.stringify({data: response.data}));
-
-            $state.reload();
-        }
-    }
-});
-
 angular.module("DogModule").controller("adminCtrl", function(UserService, $state, $cookies) {
     var adminCtrl = this;
     adminCtrl.user=$cookies.getObject('user');
@@ -140,6 +113,44 @@ angular.module("DogModule").controller("interviewerCtrl", function(UserService, 
     //post interviewResponses
 
 });
+// application controller
+angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
+    var applicationCtrl = this;
+
+    applicationCtrl.user=$cookies.get('user');
+
+    applicationCtrl.getApplication = function(){
+        $state.go('application');
+    };
+
+    var promise1 = UserService.getClassList();
+
+    promise1.then(function (response) {
+        //SUCCESS
+        applicationCtrl.classSet = response.data;
+        console.log(JSON.stringify({data: applicationCtrl.classSet}));
+    }), function (response) {
+        //FAILURE
+        alert("Failure retrieving class list: " + JSON.stringify({data: response.data}));
+    };
+
+    applicationCtrl.postApplication = function(eId, mgr_id, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
+        var promise = UserService.postApplication(eId, mgr_id, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
+
+        promise.then(function (response) {
+            //SUCCESS
+            console.log('applicationCtrl.postApplication was successful');
+            $state.go('home');
+        }), function (response) {
+            //FAILURE
+            console.log('applicationCtrl.postApplication was not successful');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
+            $state.reload();
+        }
+    }
+});
+//end application controller
 
 angular.module("DogModule").controller("buildIntCtrl", function(UserService, $state, $cookies) {
     var buildIntCtrl = this;
@@ -153,7 +164,7 @@ angular.module("DogModule").controller("buildIntCtrl", function(UserService, $st
         console.log(JSON.stringify({data: buildIntCtrl.classSet}));
     }), function (response) {
         //FAILURE
-        alert("Failure retrieveing class list: " + JSON.stringify({data: response.data}));
+        alert("Failure retrieving class list: " + JSON.stringify({data: response.data}));
     };
 
     promise2.then(function (response) {
@@ -162,7 +173,7 @@ angular.module("DogModule").controller("buildIntCtrl", function(UserService, $st
         console.log(JSON.stringify({data: buildIntCtrl.ratingTypes}));
     }), function (response) {
         //FAILURE
-        alert("Failure retrieveing ratingTypes: " + JSON.stringify({data: response.data}));
+        alert("Failure retrieving ratingTypes: " + JSON.stringify({data: response.data}));
     };
     //buildIntCtrl.questionSet = UserService.getQuestionList();
 
