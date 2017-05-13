@@ -185,18 +185,114 @@ angular.module("DogModule").controller("buildIntCtrl", function(UserService, $st
     buildIntCtrl.qText = null;
     buildIntCtrl.ratingType = null;
     buildIntCtrl.addQuestion = function() {
-        var question = {
-            qId: null,
-            seedClass : buildIntCtrl.selectedSeedClass,
-            qSequence : buildIntCtrl.qSeq,
-            qText: buildIntCtrl.qText,
-            ratingType: buildIntCtrl.ratingType,
-            qType: buildIntCtrl.qType
-        };
-        buildIntCtrl.selectedQuestions.push(question);
-        buildIntCtrl.qSeq++;
-        buildIntCtrl.qText = null;
-        buildIntCtrl.ratingType = null;
+        //check for data before adding
+        if (buildIntCtrl.selectedSeedClass === null ||
+            buildIntCtrl.qText === null ||
+            buildIntCtrl.ratingType === null ||
+            buildIntCtrl.qType === null  ||
+            ! (buildIntCtrl.qSeq >0)) {
+                alert("Please enter all required fields and try again.");
+        }
+        else{
+            var question = {
+                qId: null,
+                seedClass : buildIntCtrl.selectedSeedClass,
+                qSequence : buildIntCtrl.qSeq,
+                qText: buildIntCtrl.qText,
+                ratingType: buildIntCtrl.ratingType,
+                qType: buildIntCtrl.qType
+            };
+
+            buildIntCtrl.selectedQuestions.push(question);
+            buildIntCtrl.qSeq++;
+            buildIntCtrl.qText = null;
+            buildIntCtrl.ratingType = null;
+        }
+    };
+    buildIntCtrl.removeQuestion = function(seq){
+        //remove the question with sequence # seq
+        // and reorder remaining questions in selectedQuestions
+
+         var questSet = [];
+         var question = null;
+         var len = buildIntCtrl.selectedQuestions.length;
+         var i=0;
+         while( i< len) {
+             question = buildIntCtrl.selectedQuestions.shift();
+             if (question.qSequence !== seq){
+                 if (question.qSequence > seq) {
+                     question.qSequence--;
+                 }
+                 questSet.push(question);
+             }
+             i++;
+         }
+        buildIntCtrl.selectedQuestions = questSet;
+        buildIntCtrl.qSeq =len;
+    };
+    buildIntCtrl.moveQuestionUp = function(seq){
+        //swap the question with sequence # = seq
+        // with the one with seq-1 in selectedQuestions and sort
+
+        var questSet = [];
+        var question = null;
+        var swapQ = null;
+        var len = buildIntCtrl.selectedQuestions.length;
+        var i=0;
+        if (seq>1){
+            while (i<len){
+                question = buildIntCtrl.selectedQuestions.shift();
+                if (question.qSequence === seq-1) {
+                    // swap this and the next and assign their qSequence
+                    swapQ = question;
+                    swapQ.qSequence = seq;
+                    question = buildIntCtrl.selectedQuestions.shift();
+                    question.qSequence = seq-1;
+                    questSet.push(question);
+                    questSet.push(swapQ);
+                    i++;
+                    i++; // already handled the next
+                }
+                else {
+                    questSet.push(question);
+                    i++;
+                }
+            }
+            buildIntCtrl.selectedQuestions = questSet;
+        }
+
+    };
+    buildIntCtrl.moveQuestionDown = function(seq){
+        //swap the question with sequence # seq
+        // with the one with seq+1 in selectedQuestions and sort
+
+        var questSet = [];
+        var question = null;
+        var swapQ = null;
+        var len = buildIntCtrl.selectedQuestions.length;
+        var i=0;
+        if (seq<len){
+            while (i<len){
+                question = buildIntCtrl.selectedQuestions.shift();
+                if ((question.qSequence === seq)  && (seq !== len)) {
+                    // swap this and the next and assign their qSequence
+                    swapQ = question;
+                    swapQ.qSequence = seq+1;
+                    question = buildIntCtrl.selectedQuestions.shift();
+                    question.qSequence = seq;
+                    questSet.push(question);
+                    questSet.push(swapQ);
+                    i++;
+                    i++; // already handled the next
+                }
+                else {
+                    questSet.push(question);
+                    i++;
+                }
+            }
+            buildIntCtrl.selectedQuestions = questSet;
+        }
+
     };
     buildIntCtrl.postQuestions = function(){
         //for each question in selectedQuestions, UserService.postQuestion(...)
