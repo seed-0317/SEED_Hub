@@ -1,20 +1,14 @@
 package com.example.controllers;
 
-import com.example.model.Interview;
-import com.example.model.Question;
+import com.example.model.*;
 import com.example.service.BusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by qzh225 on 5/6/17.
- */
+
 @RestController
 @RequestMapping(value = "/question")
 public class QuestionController {
@@ -41,4 +35,31 @@ public class QuestionController {
             return ResponseEntity.badRequest().build();
         }
     }
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public ResponseEntity getQuestions() {
+        List<Question> questions = businessLogic.retrieveAllQuestions();
+
+
+        if(questions != null) {
+            return ResponseEntity.ok().body(questions);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity postQuestion(@RequestBody Question question) {
+
+
+        System.out.println("In QuestionController, question =" + question);
+        Question question2= businessLogic.postQuestion(question);
+
+        System.out.println("In QuestionController, question2 =" + question2);
+
+        if(question2 != null) {
+            return ResponseEntity.ok().body(question2);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

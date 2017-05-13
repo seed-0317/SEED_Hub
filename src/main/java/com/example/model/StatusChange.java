@@ -3,9 +3,7 @@ package com.example.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * Created by qzh225 on 5/3/17.
- */
+
 @Entity
 @Table(name="status_hist")
 

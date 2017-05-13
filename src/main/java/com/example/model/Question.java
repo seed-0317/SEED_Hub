@@ -3,9 +3,7 @@ package com.example.model;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by qzh225 on 5/4/17.
- */
+
 
 @Entity
 @Table(name="questions")

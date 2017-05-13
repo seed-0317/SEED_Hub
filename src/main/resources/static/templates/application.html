@@ -5,25 +5,34 @@
 <div>
     <h4>Please fill out the application below:</h4>
         <div>
-        <label class="applicationLabel">EID</label><input type="text" placeholder="{{application.user.eId}}" maxlength="6" data-ng-model="eId"/> <br>
-        <label class="applicationLabel">Manager ID</label> <input type="number" maxlength="6" data-ng-model="mgr_id"/> <br>
-        <label class="applicationLabel">C ID</label><input type="number" data-ng-model="c_id"/> <br>
-        <label class="applicationLabel">Department</label><input type="text" maxlength="30" size="30" data-ng-model="department"/> <br>
-        <label class="applicationLabel">Current Role</label><input type="text" size="30" maxlength="30" data-ng-model="curr_role"/> <br>
-        <label class="applicationLabel">Current Level</label><input type="text" size="30" maxlength="30" data-ng-model="curr_level"/> <br>
-        <label class="applicationLabel">Did you receive at least a strong rating</label>
-            <select ng-model="strong_plus">
-                <option value="True">True</option>
-                <option value="False">False</option>
-            </select><br>
+            </br>
+            <h5> Applicant Data </h5>
+            <!--<label class="applicationLabel">Applicant EID</label><input type="text" placeholder="{{application.user.eId}}" maxlength="6" data-ng-model="eId"/> <br>-->
+            <label class="applicationLabel">SEED Class</label><select data-ng-model="selectedSeedClass" data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp:' + (c.cBootcampDate|date) for c in application.classSet">
+            </select> <br>
 
-        <label class="applicationLabel">List your technical skills</label><input type="text" size="100" data-ng-model="techskills_languages"/> <br>
-        <label class="applicationLabel">Education</label><input type="text" size="100" data-ng-model="education"/> <br>
-        <label class="applicationLabel">Tech Organizations</label><input type="text" size="100" data-ng-model="tech_orgs"/> <br>
-        <label class="applicationLabel">Why will you be successful in SEED</label><input type="text" size="100" data-ng-model="seed_success"/> <br>
-        <label class="applicationLabel">Additional comments</label><input type="text" size="100" data-ng-model="comments"/> <br><br>
+            <label class="applicationLabel">Department</label><input type="text" maxlength="30" size="30" data-ng-model="department"/> <br>
+            <label class="applicationLabel">Current Role</label><input type="text" size="30" maxlength="30" data-ng-model="curr_role"/> <br>
+            <label class="applicationLabel">Current Level</label><input type="text" size="30" maxlength="30" data-ng-model="curr_level"/> <br>
+            <label class="applicationLabel">Did you receive at least a strong rating</label>
+            <select ng-model="strong_plus">
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+            </select>
+            <br>
+            <label class="applicationLabel">List your technical skills</label><input type="text" size="100" data-ng-model="techskills_languages"/> <br>
+            <label class="applicationLabel">Education</label><input type="text" size="100" data-ng-model="education"/> <br>
+            <label class="applicationLabel">Tech Organizations</label><input type="text" size="100" data-ng-model="tech_orgs"/> <br>
+            <label class="applicationLabel">Why will you be successful in SEED</label><input type="text" size="100" data-ng-model="seed_success"/> <br>
+            <label class="applicationLabel">Additional comments</label><input type="text" size="100" data-ng-model="comments"/> <br><br>
+
+            <h5> Manager Data </h5>
+            <label class="applicationLabel">Manager Email</label><input type="email" size="30" maxlength="60" data-ng-model="mgr_email"/> <br>
+            <br>
         </div>
 
-    <button class="btn-primary"  data-ng-click="application.postApplication(eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus)">Submit application</button>
+    <button class="btn-primary"  data-ng-click="application.postApplication(application.user.eId, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus)">Submit</button>
+    <button class="btn-primary"  data-ng-click="application.postApplication(application.user.eId, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus)">Save</button>
 
+    <!--<button class="btn-primary"  data-ng-click="createUser.createUser(eid,email,firstName,lastName)">Create account</button>-->
 </div>

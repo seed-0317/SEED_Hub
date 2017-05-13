@@ -71,7 +71,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         url: '/buildint',
         templateUrl: 'templates/buildint.html',
         controller: 'buildIntCtrl',
-        controllerAs: 'buidInt'
+        controllerAs: 'buildInt'
     };
 
     var interviewState = {
@@ -81,6 +81,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controller: 'interviewCtrl',
         controllerAs: 'interview'
     };
+
 
     $stateProvider.state(homeState);
     $stateProvider.state(loginState);

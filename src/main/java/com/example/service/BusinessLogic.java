@@ -2,12 +2,12 @@ package com.example.service;
 
 import com.example.model.*;
 import com.example.repositories.*;
+import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 
 @Service
 @Transactional
@@ -15,17 +15,19 @@ public class BusinessLogic {
 
     @Autowired
     private ApplicationRepo applicationRepo;
-
     public Application retrieveApplication(int id) {
         return applicationRepo.findByApplicantUId(id);
     }
 
+    public Application application(Application newApplication) {
+
+        return applicationRepo.save(newApplication);
+    }
 
     @Autowired
     private RoleRepo roleRepo;
 
-    public Role retrieveRole(int rid) {
-        return roleRepo.findByRId(rid);
+    public Role retrieveRole(int rid) { return roleRepo.findByRId(rid);
     }
 
     @Autowired
@@ -42,13 +44,13 @@ public class BusinessLogic {
         return userRepo.findByEId(eId);
     }
 
-    public User createUser(String eId, String email, String firstName, String lastName){
-        Role two = retrieveRole(2);
-        Stage one = retrieveStage(1);
-
-        User newUser= new User(eId,email,firstName,lastName,two,one);
-        return userRepo.save(newUser);
-    }
+//    public User createUser(String eId, String email, String firstName, String lastName){
+//        Role two = retrieveRole(2);
+//        Stage one = retrieveStage(1);
+//
+//        User newUser= new User(eId,email,firstName,lastName,two,one);
+//        return userRepo.save(newUser);
+//    }
 
     public User createUser(User newUser){
         Role two = retrieveRole(2);
@@ -91,6 +93,15 @@ public class BusinessLogic {
     public List<Question> retrieveClassTypeQuestions(int cId, String qType) {
         return questionsRepo.findBySeedClassCIdAndQType(cId, qType);
     }
+
+    public List<Question> retrieveAllQuestions(){
+        return questionsRepo.findAll();
+    }
+    public Question postQuestion(Question question) {
+        System.out.println("In Business Logic Post question = " + question);
+        return questionsRepo.save(question);
+    }
+
 
     @Autowired
     private RatingTypeRepo ratingTypeRepo;

@@ -1,1 +1,48 @@
-<h1>Build Interview Placeholder</h1>
+<h1>Build Interview</h1>
+
+<div>
+  Select class:
+  <select data-ng-model="buildInt.selectedSeedClass"
+          data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp:' + (c.cBootcampDate|date) for c in buildInt.classSet">
+  </select>
+</div>
+
+<br>
+
+<div>
+    Enter interview type (i.e., Job Fit, Tech:
+    <input type = "text" data-ng-model="buildInt.qType"/>
+</div>
+<hr>
+<div>
+    Question number:<input type = "number" data-ng-model="buildInt.qSeq"/><br>
+    Question text: <input type="text" data-ng-model="buildInt.qText"/><br>
+    Select Rating Type:
+    <select data-ng-model="buildInt.ratingType"
+            data-ng-options="c as c.rDescription for c in buildInt.ratingTypes">
+    </select>
+</div>
+
+<button data-ng-click="buildInt.addQuestion()">Add Question</button>
+
+
+<div class=""container-fluid>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+        Questions to Include
+    </div>
+    <div class="panel-body">
+        <div ng-repeat="q in buildInt.selectedQuestions">
+            <div class="row">
+                <div class="col-sm-1">{{q.qSequence}}</div>
+                <div class="col-sm-5">{{q.qText}}</div>
+                <div class="col-sm-3">{{q.ratingType.rDescription}}</div>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+
+<button data-ng-click="buildInt.postQuestions()">Submit Question Set</button>

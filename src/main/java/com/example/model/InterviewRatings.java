@@ -2,12 +2,10 @@ package com.example.model;
 
 import javax.persistence.*;
 
-/**
- * Created by qzh225 on 5/4/17.
- */
+
 
 @Entity
-@Table (name="intervew_ratings")
+@Table (name="interview_ratings")
 public class InterviewRatings {
 
     @Id
