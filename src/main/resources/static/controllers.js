@@ -56,7 +56,7 @@ angular.module("DogModule").controller("createUserCtrl", function(UserService, $
 
     var createUserCtrl = this;
 
-    createUserCtrl.user = $cookies.get('user');
+    createUserCtrl.user = $cookies.getObject('user');
 
     createUserCtrl.createUser = function (eid, email, firstName, lastName) {
         console.log('createUserCtrl.createUser with data');
@@ -117,7 +117,8 @@ angular.module("DogModule").controller("interviewerCtrl", function(UserService, 
 angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
     var applicationCtrl = this;
 
-    applicationCtrl.user=$cookies.get('user');
+    applicationCtrl.user=$cookies.getObject('user');
+    //var user=$cookies.getObject('user');
 
     applicationCtrl.getApplication = function(){
         $state.go('application');
@@ -134,8 +135,12 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
         alert("Failure retrieving class list: " + JSON.stringify({data: response.data}));
     };
 
-    applicationCtrl.postApplication = function(eId, mgr_id, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
-        var promise = UserService.postApplication(eId, mgr_id, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
+    applicationCtrl.postApplication = function(mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
+        //console.log(applicationCtrl.user);
+        //console.log(selectedSeedClass);
+        console.log(mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
+
+        var promise = UserService.postApplication(applicationCtrl.user, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
 
         promise.then(function (response) {
             //SUCCESS
