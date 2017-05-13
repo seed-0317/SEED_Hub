@@ -33,22 +33,23 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
-    myService.postApplication = function (eId, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
+    myService.postApplication = function (user, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
         return $http({
             method: "POST",
-            url: "application/" + eId,
+            url: "application/"+user.eId+"/"+selectedSeedClass.cId,
             data: {
+                "applicant": user,
+                "managerEmail": mgr_email,
                 "seedClass" : selectedSeedClass,
-                "mgr_email": mgr_email,
                 "dept": dept,
-                "techskills_languages": techskills_languages,
+                "techSkillsLangs": techskills_languages,
                 "education": education,
-                "tech_orgs": tech_orgs,
-                "seed_success": seed_success,
+                "techOrgs": tech_orgs,
+                "seedSuccess": seed_success,
                 "comments": comments,
-                "curr_role": curr_role,
-                "curr_level": curr_level,
-                "strong_plus": strong_plus
+                "currRole": curr_role,
+                "currLevel": curr_level,
+                "strongPlus": strong_plus
             }
         })
     };

@@ -62,6 +62,16 @@ public class User {
         this.stage = stage;
     }
 
+    public User(User user) {
+        this.uId = user.uId;
+        this.eId = user.eId;
+        this.email = user.email;
+        this.fname = user.fname;
+        this.lname = user.lname;
+        this.role = user.role;
+        this.stage = user.stage;
+    }
+
     public int getuId() {
         return uId;
     }
