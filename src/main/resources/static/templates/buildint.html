@@ -56,7 +56,7 @@
                     </select>
                 </div>
             </div>
-            <div class=row">
+            <div class="row">
                 <div class ="col-sm-5">
                     <button class="btn btn-default" data-ng-click="buildInt.addQuestion()">
                         Add Question
@@ -89,6 +89,7 @@
                     </button>
                 </div>
                 <div class="col-sm-1">{{q.qSequence}}</div>
+
                 <div class="col-sm-5">{{q.qText}}</div>
                 <div class="col-sm-4">{{q.ratingType.rDescription}}</div>
                 <div clsss="col-sm-1">
@@ -98,6 +99,7 @@
                         <span class="glyphicon glyphicon-minus"></span>
                     </button>
                 </div>
+
             </div>
             <hr>
         </div>
@@ -105,9 +107,12 @@
     </div>
   </div>
 </div>
+<br>
 
 <button class="btn btn-default" data-ng-click="buildInt.postQuestions()">
     Submit Question Set
 </button>
 <br>
+
 <p> Nothing will be saved until you click the Submit Question Set button!</p>
+
