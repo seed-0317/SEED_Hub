@@ -27,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     };
 
     var applicationState = {
-        name: 'application',
+        name: 'home.application',
         url: '/application',
         templateUrl: 'templates/application.html',
         controller: 'applicationCtrl',

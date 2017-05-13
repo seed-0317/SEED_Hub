@@ -17,10 +17,9 @@ public class ApplicationController {
 
     @RequestMapping(method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     //public ResponseEntity postUser(String eId, String email, String fname, String lname){
-    public ResponseEntity postUser(@RequestBody Application application){
+    public ResponseEntity postApplication(@RequestBody Application application){
         System.out.println("Creating application");
         System.out.println(application);
-        Application application = businessLogic.createUser(application);
 
         if (application != null) {
             return ResponseEntity.ok().body(application);
