@@ -10,7 +10,7 @@
         </div>
 
         <div class="panel-body">
-            <div class=row">
+            <div class="row">
                 <div class = "col-sm-5">
                     <select data-ng-model="buildInt.selectedSeedClass"
                         data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp:' + (c.cBootcampDate|date) for c in buildInt.classSet">
@@ -30,7 +30,7 @@
             Build questions
         </div>
         <div class="panel-body">
-            <div class=row">
+            <div class="row">
                 <div class ="col-sm-5">
                     Question number:
                 </div>
@@ -38,7 +38,7 @@
                     <input type = "number" data-ng-model="buildInt.qSeq"/>
                 </div>
             </div>
-            <div class=row">
+            <div class="row">
                 <div class ="col-sm-5">
                     Question text:
                 </div>
@@ -46,11 +46,11 @@
                     <input type="text" data-ng-model="buildInt.qText"/>
                 </div>
             </div>
-            <div class=row">
+            <div class="row">
                 <div class ="col-sm-5">
                     Select Rating Type:
                 </div>
-                <div class = col-sm-7>
+                <div class = "col-sm-7">
                     <select data-ng-model="buildInt.ratingType"
                             data-ng-options="c as c.rDescription for c in buildInt.ratingTypes">
                     </select>
@@ -110,4 +110,4 @@
     Submit Question Set
 </button>
 <br>
-<p color="red"> Nothing will be saved until you click the Submit Question Set button!</p>
+<p> Nothing will be saved until you click the Submit Question Set button!</p>
