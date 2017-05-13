@@ -15,11 +15,13 @@ public class ApplicationController {
     @Autowired
     private BusinessLogic businessLogic;
 
-    @RequestMapping(method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
-    //public ResponseEntity postUser(String eId, String email, String fname, String lname){
-    public ResponseEntity postApplication(@RequestBody Application application){
+
+    @RequestMapping(value="/{eId}", method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity postApplication(@RequestBody Application newApplication){
         System.out.println("Creating application");
-        System.out.println(application);
+        System.out.println(newApplication);
+        Application application = businessLogic.application(newApplication);
+
 
         if (application != null) {
             return ResponseEntity.ok().body(application);
@@ -28,12 +30,12 @@ public class ApplicationController {
         }
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public ResponseEntity getApplication(@PathVariable("id") int id) {
-        Application application = businessLogic.retrieveApplication(id);
+    @RequestMapping(value="/{eId}", method = RequestMethod.GET)
+    public ResponseEntity getApplication(@PathVariable("eId") int eId) {
+        Application application = businessLogic.retrieveApplication(eId);
 
         if(application != null) {
-            return ResponseEntity.ok().body(id);
+            return ResponseEntity.ok().body(eId);
         } else {
             return ResponseEntity.badRequest().build();
         }
