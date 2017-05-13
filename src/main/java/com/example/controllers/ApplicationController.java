@@ -15,12 +15,13 @@ public class ApplicationController {
     @Autowired
     private BusinessLogic businessLogic;
 
+
     @RequestMapping(value="/{eId}", method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity postApplication(@RequestBody Application newApplication){
-//        User user = get
         System.out.println("Creating application");
         System.out.println(newApplication);
         Application application = businessLogic.application(newApplication);
+
 
         if (application != null) {
             return ResponseEntity.ok().body(application);

@@ -181,7 +181,7 @@ angular.module("DogModule").controller("buildIntCtrl", function(UserService, $st
     buildIntCtrl.selectedQuestions =[];
     buildIntCtrl.selectedSeedClass = null;
     buildIntCtrl.qType = null;
-    buildIntCtrl.qSeq = null;
+    buildIntCtrl.qSeq = 1;
     buildIntCtrl.qText = null;
     buildIntCtrl.ratingType = null;
     buildIntCtrl.addQuestion = function() {
