@@ -131,6 +131,9 @@ public class BusinessLogic {
     public List<SeedClass> retrieveAllSeedClass(){
          return seedClassRepo.findAll();
     }
+    public SeedClass seedClass(SeedClass seedClass) {
+        return seedClassRepo.save(seedClass);
+    }
 
     @Autowired
     private StatusChangeRepo statusChangeRepo;
