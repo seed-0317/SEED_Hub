@@ -88,6 +88,12 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+    myService.getClassTypeQuestionList = function (cId, qType) {
+        return $http({
+            method: "GET",
+            url: "question/typeandclass/" + qType +"/" + cId
+        })
+    };
 
     myService.getRatingTypes = function () {
         return $http({
@@ -111,6 +117,14 @@ angular.module("DogModule").service("UserService", function($http) {
                 "qType": qType
             }
         })
+    };
+
+    myService.getClassApplicants = function(cId) {
+        return $http({
+            method: "GET",
+            url: "application/class/" + cId
+        })
+
     };
 
 });
