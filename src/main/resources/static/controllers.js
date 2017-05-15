@@ -84,24 +84,24 @@ angular.module("DogModule").controller("adminCtrl", function(UserService, $state
 
 angular.module("DogModule").controller("newClassCtrl", function(UserService, $state, $cookies) {
     var newClassCtrl = this;
-    newClassCtrl.user=$cookies.getObject('user');
+    newClassCtrl.user = $cookies.getObject('user');
 
-   var promise = UserService.getClassList();
+    var promise = UserService.getClassList();
 
-   promise.then(function(response) {
-       //success
-       newClassCtrl.classList = response.data;
-   }, function(response) {
-       //failure
-   })
+    promise.then(function (response) {
+        //success
+        newClassCtrl.classList = response.data;
+    }, function (response) {
+        //failure
+    })
 
-    newClassCtrl.postSeedClass = function(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt){
+    newClassCtrl.postSeedClass = function (c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt) {
 
 //       console.log("call to postNewClass");
 
 //       console.log(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt);
 
-       var promise = UserService.postSeedClass(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt);
+        var promise = UserService.postSeedClass(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt);
 
         promise.then(function (response) {
             //SUCCESS
@@ -117,6 +117,40 @@ angular.module("DogModule").controller("newClassCtrl", function(UserService, $st
         }
 
     }
+});
+
+angular.module("DogModule").controller("viewAppsCtrl", function(UserService, $state, $cookies) {
+    var viewAppsCtrl = this;
+
+    viewAppsCtrl.viewapps = [];
+
+    viewAppsCtrl.user = $cookies.getObject('user');
+
+    var promise = UserService.getAllApplications();
+    promise.then(function (response) {
+        //SUCCESS
+        console.log('applicationCtrl.getAllApplication was successful');
+        console.log(response.data);
+
+        viewAppsCtrl.viewapps =response.data;
+    }), function (response) {
+        //FAILURE
+        console.log('applicationCtrl.getAllApplication was not successful');
+        alert("Failure: " + JSON.stringify({data: response.data}));
+
+    }
+
+});
+
+
+angular.module("DogModule").controller("adminCtrl", function(UserService, $state, $cookies) {
+    var adminCtrl = this;
+    adminCtrl.user=$cookies.getObject('user');
+});
+
+angular.module("DogModule").controller("newClassCtrl", function(UserService, $state, $cookies) {
+    var newClassCtrl = this;
+    newClassCtrl.user=$cookies.getObject('user');
 
 });
 
