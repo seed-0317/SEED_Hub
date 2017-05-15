@@ -18,7 +18,9 @@ public class BusinessLogic {
     public Application retrieveApplication(int id) {
         return applicationRepo.findByApplicantUId(id);
     }
-
+    public List<Application> retrieveApplicationByCId(int id) {
+        return applicationRepo.findBySeedClassCId(id);
+    }
     public Application application(Application newApplication) {
 
         return applicationRepo.save(newApplication);

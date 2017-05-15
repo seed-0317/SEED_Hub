@@ -93,4 +93,12 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+    myService.getClassApplicants = function(cId) {
+        return $http({
+            method: "GET",
+            url: "application/class/" + cId
+        })
+
+    };
+
 });

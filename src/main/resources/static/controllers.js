@@ -102,12 +102,79 @@ angular.module("DogModule").controller("addUserCtrl", function(UserService, $sta
     addUserCtrl.user=$cookies.getObject('user');
 });
 
-angular.module("DogModule").controller("interviewerCtrl", function(UserService, $state, $cookies) {
-    var interviewerCtrl = this;
-    interviewerCtrl.interviewer=$cookies.getObject('user');
+angular.module("DogModule").controller("interviewCtrl", function(UserService, $state, $cookies) {
+    var interviewCtrl = this;
+    interviewCtrl.interviewer=$cookies.getObject('user');
+    interviewCtrl.applicant = null;
+    interviewCtrl.applicantSet = [];
+    interviewCtrl.intType = null;
+    interviewCtrl.intTypeSet = [];
+    interviewCtrl.selectedSeedClass = null;
+    interviewCtrl.questionSet = [];
+    interviewCtrl.answerSet = [];
+    var promise = UserService.getQuestionList();
+    promise.then(function (response) {
+        //SUCCESS
+        interviewCtrl.questionSet = response.data;
+        console.log(JSON.stringify({data: interviewCtrl.questionSet}));
+    }), function (response) {
+        //FAILURE
+        alert("Failure retrieving question list: " + JSON.stringify({data: response.data}));
+    };
+    var promise1 = UserService.getClassList();
+    promise1.then(function (response) {
+        //SUCCESS
+        interviewCtrl.classSet = response.data;
+    }), function (response) {
+        //FAILURE
+        alert("Failure retrieving class list: " + JSON.stringify({data: response.data}));
+    };
+
+    interviewCtrl.classSelected = function() {
+        // build the intTypeSet to include only the types contained in the selected class
+        var len = interviewCtrl.questionSet.length;
+        var i =0;
+        var j =0;
+        var dupe = false;
+
+        console.log("In classSelectedFunction, " + JSON.stringify({data: interviewCtrl.selectedSeedClass}));
+        while (i<len) {  //cycle through each question and see if the question is for this class
+
+            if (interviewCtrl.questionSet[i].seedClass.cId === interviewCtrl.selectedSeedClass.cId){
+                //if the type is n ot in intTypeSet, add it
+                j=0;
+                dupe = false;
+                while(j<interviewCtrl.intTypeSet.length && dupe !== true) {
+                    if (interviewCtrl.intTypeSet[j] === interviewCtrl.questionSet[i].qType){
+                        dupe= true;
+                    }
+                    j++;
+                }
+                if (dupe !== true){
+                    interviewCtrl.intTypeSet.push(interviewCtrl.questionSet[i].qType);
+                }
+            }
+            i++;
+        }
+        interviewCtrl.intTypeSet.sort();
+        interviewCtrl.intType = interviewCtrl.intTypeSet[0];
+
+        //retrieve the applicants for the selected class
+
+        var promise2 = UserService.getClassApplicants(interviewCtrl.selectedSeedClass.cId);
+        promise2.then(function (response) {
+            //SUCCESS
+            interviewCtrl.applicantSet = response.data;
+        }), function (response) {
+            //FAILURE
+            alert("Failure retrieving applicant list: " + JSON.stringify({data: response.data}));
+        };
+
+    };
+
+
 
     //get application List
-    //save selected applicant as a cookie 'applicant'
     //get questions(seedclass,intType)
     //post interview
     //post interviewResponses

@@ -1,1 +1,35 @@
-<h1>Interview placeholder</h1>
+<div class=""container-fluid>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Conduct Interview
+            <div class="row">
+                <div class="col-sm-5">Select Seed class:</div>
+                <div class="col-sm-4">Applicant:</div>
+                <div class="col-sm-3">Interview Type:</div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class = "col-sm-5">
+                    <select data-ng-model="interview.selectedSeedClass"
+                            data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp:' + (c.cBootcampDate|date) for c in interview.classSet"
+                            data-ng-change="interview.classSelected()">
+                    </select>
+                </div>
+                <div class = "col-sm-4">
+                    <select data-ng-model="interview.applicant"
+                            data-ng-options="app as app.applicant.fname + ' ' + app.applicant.lname for app in interview.applicantSet">
+
+                    </select>
+                </div>
+                <div class = "col-sm-3">
+                    <select data-ng-model="interview.intType"
+                            data-ng-options="qType for qType in interview.intTypeSet">
+
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
