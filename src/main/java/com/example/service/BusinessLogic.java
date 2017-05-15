@@ -34,7 +34,7 @@ public class BusinessLogic {
         }
         return list;
     }
-    
+
 
 
     public Application application(String eId, int SeedClass,Application newApplication) {
@@ -44,7 +44,6 @@ public class BusinessLogic {
         newApplication.setSeedClass(seedClass);
         return applicationRepo.save(newApplication);
     }
->>>>>>> fa2a48384861c6dafe8b501394410c8973c08a3f
 
     @Autowired
     private RoleRepo roleRepo;
