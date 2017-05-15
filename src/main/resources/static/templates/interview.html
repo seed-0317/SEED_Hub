@@ -12,7 +12,7 @@
             <div class="row">
                 <div class = "col-sm-5">
                     <select data-ng-model="interview.selectedSeedClass"
-                            data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp:' + (c.cBootcampDate|date) for c in interview.classSet"
+                            data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp: ' + (c.cBootcampDate|date) for c in interview.classSet"
                             data-ng-change="interview.classSelected()">
                     </select>
                 </div>

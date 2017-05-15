@@ -22,7 +22,7 @@
             <div class="col-xs-12 col-sm-2">{{seedclass.cAppDeadline | date : format: short}}</div>
             <div class="col-xs-12 col-sm-2">{{seedclass.cBootcampDate | date : format: short}}</div>
             <div class="col-xs-12 col-sm-1"><button class="btn-success" type="submit">Update</button></div>
-            <div class="col-xs-12 col-sm-1"><button class="btn-primary" type="submit">Delete</button></div>
+            <div class="col-xs-12 col-sm-1"><button class="btn-danger" type="submit">Delete</button></div>
         </div>
         </div>
     </div>
@@ -32,15 +32,12 @@
 <div class="container">
     <div class="well">
         <div class="container-responsive">
-            <label class="applicationLabel">Year</label><input type="Number" maxlength="20" size="20" placeholder="Year" data-ng-model="cYr"/> <br>
+            <label class="applicationLabel">Year</label><input type="Number" maxlength="20" size="20" min="2016 "placeholder="Year" data-ng-model="cYr"/> <br>
             <label class="applicationLabel">Class Number</label><input type="number" size="20" maxlength="20" placeholder="Number" data-ng-model="cNum"/> <br>
             <label class="applicationLabel">Class Location</label><input type="text" size="20" maxlength="20" placeholder="Location" data-ng-model="cLoc"/> <br>
             <label class="applicationLabel">App Open Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppOpenDate"/> <br>
             <label class="applicationLabel">App Close Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppDeadLine"/> <br>
             <label class="applicationLabel">Boot Camp Start</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cBootcampDate"/> <br>
-
-
-
     <button class="btn-success" data-ng-click="newClass.postSeedClass(cYr, cNum, cLoc, cAppOpenDate, cAppDeadLine, cBootcampDate)">Add</button>
         </div>
     </div>
