@@ -20,6 +20,17 @@ public class BusinessLogic {
         return applicationRepo.findByApplicantUId(id);
     }
 
+    public List<Application> retrieveAllApplications() {
+        List<Application> list = applicationRepo.findAll();
+        int i;
+        for (i=0;i<list.size();i++){
+            //loop and print
+            System.out.println(list.get(i));
+        }
+        return list;
+    }
+
+
 
     @Autowired
     private RoleRepo roleRepo;

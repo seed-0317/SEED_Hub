@@ -53,6 +53,14 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+    myService.getAllApplications = function () {
+        return $http({
+            method: "GET",
+            url: "viewapps/"
+        })
+    };
+
+
     myService.getClassList = function () {
         return $http({
             method: "GET",

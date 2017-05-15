@@ -104,6 +104,28 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     }
 });
 
+angular.module("DogModule").controller("viewAppsCtrl", function(UserService, $state, $cookies) {
+    var viewAppsCtrl = this;
+
+    viewAppsCtrl.user = $cookies.get('user');
+
+    var promise = UserService.getAllApplications();
+    promise.then(function (response) {
+        //SUCCESS
+        console.log('applicationCtrl.getAllApplication was successful');
+        console.log(response.data);
+
+        viewAppsCtrl.viewapps =response.data;
+    }), function (response) {
+        //FAILURE
+        console.log('applicationCtrl.getAllApplication was not successful');
+        alert("Failure: " + JSON.stringify({data: response.data}));
+
+    }
+
+});
+
+
 angular.module("DogModule").controller("adminCtrl", function(UserService, $state, $cookies) {
     var adminCtrl = this;
     adminCtrl.user=$cookies.getObject('user');
