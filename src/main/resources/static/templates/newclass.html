@@ -31,14 +31,12 @@
 
     <div class="well">
         <div class="container">
-            <label class="applicationLabel">Year</label><input type="Number" maxlength="20" size="20" data-ng-model="cYr"/> <br>
-            <label class="applicationLabel">Class Number</label><input type="number" size="20" maxlength="20" data-ng-model="cNum"/> <br>
-            <label class="applicationLabel">Class Location</label><input type="text" size="20" maxlength="20" data-ng-model="cLoc"/> <br>
-            <label class="applicationLabel">App Open Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppOpenDate"/> <br>
-            <label class="applicationLabel">App Close Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppDeadLine"/> <br>
-            <label class="applicationLabel">Boot Camp Start</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cBootcampDate"/> <br>
-
-
+            <label class="applicationLabel">Year</label><input type="Number" maxlength="20" size="20" min="2016" data-ng-model="cYr" required/> <br>
+            <label class="applicationLabel">Class Number</label><input type="number" size="20" maxlength="20" min="1" data-ng-model="cNum" required/> <br>
+            <label class="applicationLabel">Class Location</label><input type="text" size="20" maxlength="20" data-ng-model="cLoc" required/> <br>
+            <label class="applicationLabel">App Open Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppOpenDate" required/> <br>
+            <label class="applicationLabel">App Close Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppDeadLine" required/> <br>
+            <label class="applicationLabel">Boot Camp Start</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cBootcampDate" required/> <br>
 
     <button class="btn-primary" data-ng-click="newClass.postSeedClass(cYr, cNum, cLoc, cAppOpenDate, cAppDeadLine, cBootcampDate)">Add</button>
         </div>
