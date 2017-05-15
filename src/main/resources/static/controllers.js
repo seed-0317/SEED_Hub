@@ -172,10 +172,42 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
 
     };
 
+    interviewCtrl.typeSelected = function() {
+        //get questions(seedclass,intType)
+        //build display qset including answer fields to display
+
+        var qSet = []
+        var q;
+
+        var promise3 = UserService.getClassTypeQuestionList(interviewCtrl.selectedSeedClass.cId,interviewCtrl.intType  )
+        function Answer(question,interviewer,rating,comments)
+        {
+            this.question=question;
+            this.interviewer=interviewer;
+            this.rating=rating;
+            this.comments=comments;
+        }
+        promise3.then(function (response) {
+            //SUCCESS
+            qSet = response.data;
+
+            var answer;
+            var len = qSet.length;
+            var i=0;
+            interviewCtrl.answerSet = [];
+            for (i=0; i<len; i++){
+                answer = new Answer(qSet[i],interviewCtrl.interviewer, null, null )
+                interviewCtrl.answerSet.push(answer);
+            }
+            
+        }), function (response) {
+            //FAILURE
+            alert("Failure retrieving questions for class and type: " + JSON.stringify({data: response.data}));
+        };
+
+    }
 
 
-    //get application List
-    //get questions(seedclass,intType)
     //post interview
     //post interviewResponses
 
