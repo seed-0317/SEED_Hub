@@ -199,7 +199,7 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
                 answer = new Answer(qSet[i],interviewCtrl.interviewer, null, null )
                 interviewCtrl.answerSet.push(answer);
             }
-            
+
         }), function (response) {
             //FAILURE
             alert("Failure retrieving questions for class and type: " + JSON.stringify({data: response.data}));
