@@ -84,16 +84,73 @@ angular.module("DogModule").controller("adminCtrl", function(UserService, $state
 
 angular.module("DogModule").controller("newClassCtrl", function(UserService, $state, $cookies) {
     var newClassCtrl = this;
+    newClassCtrl.user = $cookies.getObject('user');
+
+    var promise = UserService.getClassList();
+
+    promise.then(function (response) {
+        //success
+        newClassCtrl.classList = response.data;
+    }, function (response) {
+        //failure
+    })
+
+    newClassCtrl.postSeedClass = function (c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt) {
+
+//       console.log("call to postNewClass");
+
+//       console.log(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt);
+
+        var promise = UserService.postSeedClass(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt);
+
+        promise.then(function (response) {
+            //SUCCESS
+            console.log('newClassCtrl.postNewClass was successful');
+            $state.go('newClass');
+            $state.reload();
+        }), function (response) {
+            //FAILURE
+            console.log('newClassCtrl.postNewClass failed');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
+            $state.reload();
+        }
+
+    }
+});
+
+angular.module("DogModule").controller("viewAppsCtrl", function(UserService, $state, $cookies) {
+    var viewAppsCtrl = this;
+
+    viewAppsCtrl.viewapps = [];
+
+    viewAppsCtrl.user = $cookies.getObject('user');
+
+    var promise = UserService.getAllApplications();
+    promise.then(function (response) {
+        //SUCCESS
+        console.log('applicationCtrl.getAllApplication was successful');
+        console.log(response.data);
+
+        viewAppsCtrl.viewapps =response.data;
+    }), function (response) {
+        //FAILURE
+        console.log('applicationCtrl.getAllApplication was not successful');
+        alert("Failure: " + JSON.stringify({data: response.data}));
+
+    }
+
+});
+
+
+angular.module("DogModule").controller("adminCtrl", function(UserService, $state, $cookies) {
+    var adminCtrl = this;
+    adminCtrl.user=$cookies.getObject('user');
+});
+
+angular.module("DogModule").controller("newClassCtrl", function(UserService, $state, $cookies) {
+    var newClassCtrl = this;
     newClassCtrl.user=$cookies.getObject('user');
-
-   var promise = UserService.getClassList();
-
-   promise.then(function(response) {
-       //success
-       newClassCtrl.classList = response.data;
-   }, function(response) {
-       //failure
-   })
 
 });
 
@@ -102,13 +159,112 @@ angular.module("DogModule").controller("addUserCtrl", function(UserService, $sta
     addUserCtrl.user=$cookies.getObject('user');
 });
 
-angular.module("DogModule").controller("interviewerCtrl", function(UserService, $state, $cookies) {
-    var interviewerCtrl = this;
-    interviewerCtrl.interviewer=$cookies.getObject('user');
+angular.module("DogModule").controller("interviewCtrl", function(UserService, $state, $cookies) {
+    var interviewCtrl = this;
+    interviewCtrl.interviewer=$cookies.getObject('user');
+    interviewCtrl.applicant = null;
+    interviewCtrl.applicantSet = [];
+    interviewCtrl.intType = null;
+    interviewCtrl.intTypeSet = [];
+    interviewCtrl.selectedSeedClass = null;
+    interviewCtrl.questionSet = [];
+    interviewCtrl.answerSet = [];
+    var promise = UserService.getQuestionList();
+    promise.then(function (response) {
+        //SUCCESS
+        interviewCtrl.questionSet = response.data;
+        console.log(JSON.stringify({data: interviewCtrl.questionSet}));
+    }), function (response) {
+        //FAILURE
+        alert("Failure retrieving question list: " + JSON.stringify({data: response.data}));
+    };
+    var promise1 = UserService.getClassList();
+    promise1.then(function (response) {
+        //SUCCESS
+        interviewCtrl.classSet = response.data;
+    }), function (response) {
+        //FAILURE
+        alert("Failure retrieving class list: " + JSON.stringify({data: response.data}));
+    };
 
-    //get application List
-    //save selected applicant as a cookie 'applicant'
-    //get questions(seedclass,intType)
+    interviewCtrl.classSelected = function() {
+        // build the intTypeSet to include only the types contained in the selected class
+        var len = interviewCtrl.questionSet.length;
+        var i =0;
+        var j =0;
+        var dupe = false;
+
+        console.log("In classSelectedFunction, " + JSON.stringify({data: interviewCtrl.selectedSeedClass}));
+        while (i<len) {  //cycle through each question and see if the question is for this class
+
+            if (interviewCtrl.questionSet[i].seedClass.cId === interviewCtrl.selectedSeedClass.cId){
+                //if the type is n ot in intTypeSet, add it
+                j=0;
+                dupe = false;
+                while(j<interviewCtrl.intTypeSet.length && dupe !== true) {
+                    if (interviewCtrl.intTypeSet[j] === interviewCtrl.questionSet[i].qType){
+                        dupe= true;
+                    }
+                    j++;
+                }
+                if (dupe !== true){
+                    interviewCtrl.intTypeSet.push(interviewCtrl.questionSet[i].qType);
+                }
+            }
+            i++;
+        }
+        interviewCtrl.intTypeSet.sort();
+        interviewCtrl.intType = interviewCtrl.intTypeSet[0];
+
+        //retrieve the applicants for the selected class
+
+        var promise2 = UserService.getClassApplicants(interviewCtrl.selectedSeedClass.cId);
+        promise2.then(function (response) {
+            //SUCCESS
+            interviewCtrl.applicantSet = response.data;
+        }), function (response) {
+            //FAILURE
+            alert("Failure retrieving applicant list: " + JSON.stringify({data: response.data}));
+        };
+
+    };
+
+    interviewCtrl.typeSelected = function() {
+        //get questions(seedclass,intType)
+        //build display qset including answer fields to display
+
+        var qSet = []
+        var q;
+
+        var promise3 = UserService.getClassTypeQuestionList(interviewCtrl.selectedSeedClass.cId,interviewCtrl.intType  )
+        function Answer(question,interviewer,rating,comments)
+        {
+            this.question=question;
+            this.interviewer=interviewer;
+            this.rating=rating;
+            this.comments=comments;
+        }
+        promise3.then(function (response) {
+            //SUCCESS
+            qSet = response.data;
+
+            var answer;
+            var len = qSet.length;
+            var i=0;
+            interviewCtrl.answerSet = [];
+            for (i=0; i<len; i++){
+                answer = new Answer(qSet[i],interviewCtrl.interviewer, null, null )
+                interviewCtrl.answerSet.push(answer);
+            }
+            
+        }), function (response) {
+            //FAILURE
+            alert("Failure retrieving questions for class and type: " + JSON.stringify({data: response.data}));
+        };
+
+    }
+
+
     //post interview
     //post interviewResponses
 

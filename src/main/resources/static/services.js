@@ -55,12 +55,40 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+    myService.getAllApplications = function () {
+        return $http({
+            method: "GET",
+            url: "viewapps/"
+        })
+    };
+
+
     myService.getClassList = function () {
         return $http({
             method: "GET",
             url: "seedclass/"
         })
     };
+
+//   myService.postSeedClass = function(c_id, c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt){
+    myService.postSeedClass = function(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt){
+        return $http({
+            method:"POST",
+            url:"seedclass/",
+            data:{
+//                "classID":c_id,
+                "cYr":c_yr,
+                "cNum":c_num,
+                "cLoc":c_loc,
+                "cAppOpenDate":c_app_open_dt,
+                "cAppDeadline":c_app_deadline,
+                "cBootcampDate":c_bootcamp_dt
+
+
+            }
+        })
+
+    }
 
     myService.getQuestionList = function () {
         return $http({
@@ -69,6 +97,12 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+    myService.getClassTypeQuestionList = function (cId, qType) {
+        return $http({
+            method: "GET",
+            url: "question/typeandclass/" + qType +"/" + cId
+        })
+    };
 
     myService.getRatingTypes = function () {
         return $http({
@@ -92,6 +126,14 @@ angular.module("DogModule").service("UserService", function($http) {
                 "qType": qType
             }
         })
+    };
+
+    myService.getClassApplicants = function(cId) {
+        return $http({
+            method: "GET",
+            url: "application/class/" + cId
+        })
+
     };
 
 });

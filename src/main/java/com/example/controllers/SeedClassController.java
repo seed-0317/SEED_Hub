@@ -5,10 +5,7 @@ import com.example.model.SeedClass;
 import com.example.service.BusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +29,17 @@ public class SeedClassController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity getAllSeedClass() {
         List<SeedClass> seedClass = businessLogic.retrieveAllSeedClass();
+
+        if (seedClass != null) {
+            return ResponseEntity.ok().body(seedClass);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public ResponseEntity postSeedClass(@RequestBody SeedClass newSeedClass) {
+        SeedClass seedClass = businessLogic.seedClass(newSeedClass);
 
         if (seedClass != null) {
             return ResponseEntity.ok().body(seedClass);

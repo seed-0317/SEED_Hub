@@ -82,6 +82,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controllerAs: 'interview'
     };
 
+    var userResourceState = {
+        name: 'home.userresource',
+        url: '/userresource',
+        templateUrl: 'templates/userresource.html',
+        controller: 'userResourceCtrl',
+        controllerAs: 'userresource'
+    };
+
 
     $stateProvider.state(homeState);
     $stateProvider.state(loginState);
@@ -93,6 +101,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state(newClassState);
     $stateProvider.state(buildIntState);
     $stateProvider.state(interviewState);
+    $stateProvider.state(userResourceState);
 
     //default routing
     $urlRouterProvider.otherwise('/');
