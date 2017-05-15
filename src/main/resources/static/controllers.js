@@ -95,6 +95,29 @@ angular.module("DogModule").controller("newClassCtrl", function(UserService, $st
        //failure
    })
 
+    newClassCtrl.postSeedClass = function(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt){
+
+//       console.log("call to postNewClass");
+
+//       console.log(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt);
+
+       var promise = UserService.postSeedClass(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt);
+
+        promise.then(function (response) {
+            //SUCCESS
+            console.log('newClassCtrl.postNewClass was successful');
+            $state.go('newClass');
+            $state.reload();
+        }), function (response) {
+            //FAILURE
+            console.log('newClassCtrl.postNewClass failed');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
+            $state.reload();
+        }
+
+    }
+
 });
 
 angular.module("DogModule").controller("addUserCtrl", function(UserService, $state, $cookies) {
