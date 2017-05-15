@@ -8,7 +8,7 @@
             <br>
             <h5> Applicant Data </h5>
             <!--<label class="applicationLabel">Applicant EID</label><input type="text" placeholder="{{application.user.eId}}" maxlength="6" data-ng-model="eId"/> <br>-->
-            <label class="applicationLabel">SEED Class</label><select data-ng-model="selectedSeedClass" data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp:' + (c.cBootcampDate|date) for c in application.classSet">
+            <label class="applicationLabel">SEED Class</label><select data-ng-model="selectedSeedClass" data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp: ' + (c.cBootcampDate|date) for c in application.classSet">
             </select> <br>
 
             <label class="applicationLabel">Department</label><input type="text" maxlength="30" size="30" data-ng-model="department"/> <br>

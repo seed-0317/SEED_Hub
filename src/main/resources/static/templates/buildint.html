@@ -5,7 +5,7 @@
         <div class="panel-heading">Build Interview
             <div class="row">
                 <div class="col-sm-5">Select Seed class:</div>
-                <div class="col-sm-7">Enter interview type (i.e., Job Fit, Tech:</div>
+                <div class="col-sm-7">Enter interview type (i.e., Job Fit, Tech):</div>
             </div>
         </div>
 
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class = "col-sm-5">
                     <select data-ng-model="buildInt.selectedSeedClass"
-                        data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp:' + (c.cBootcampDate|date) for c in buildInt.classSet">
+                        data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp: ' + (c.cBootcampDate|date) for c in buildInt.classSet">
                     </select>
                 </div>
                 <div class = "col-sm-7">
