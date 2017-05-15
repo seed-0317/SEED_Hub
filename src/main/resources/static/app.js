@@ -27,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     };
 
     var applicationState = {
-        name: 'application',
+        name: 'home.application',
         url: '/application',
         templateUrl: 'templates/application.html',
         controller: 'applicationCtrl',
@@ -71,7 +71,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         url: '/buildint',
         templateUrl: 'templates/buildint.html',
         controller: 'buildIntCtrl',
-        controllerAs: 'buidInt'
+        controllerAs: 'buildInt'
     };
 
     var interviewState = {
@@ -82,13 +82,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controllerAs: 'interview'
     };
 
-    var interviewerState = {
-        name: 'interviewer',
-        url: '/interviewer',
-        templateUrl: 'templates/interviewer.html',
-        controller: 'interviewerCtrl',
-        controllerAs: 'interviewer'
+    var userResourceState = {
+        name: 'home.userresource',
+        url: '/userresource',
+        templateUrl: 'templates/userresource.html',
+        controller: 'userResourceCtrl',
+        controllerAs: 'userresource'
     };
+
 
     $stateProvider.state(homeState);
     $stateProvider.state(loginState);
@@ -100,7 +101,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state(newClassState);
     $stateProvider.state(buildIntState);
     $stateProvider.state(interviewState);
-    $stateProvider.state(interviewerState);
+    $stateProvider.state(userResourceState);
 
     //default routing
     $urlRouterProvider.otherwise('/');

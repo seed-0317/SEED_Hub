@@ -2,6 +2,7 @@ angular.module("DogModule").service("UserService", function($http) {
 
     var myService = this;
 
+
     myService.getUser = function (eId) {
         return $http({
             method: "GET",
@@ -32,23 +33,23 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
-    myService.postApplication = function (eId, u_id, mgr_id, c_id, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
+    myService.postApplication = function (user, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
         return $http({
             method: "POST",
-            url: "application/" + eid,
+            url: "application/"+user.eId+"/"+selectedSeedClass.cId,
             data: {
-                "u_id": u_id,
-                "mgr_id": mgr_id,
-                "c_id": c_id,
+                "applicant": user,
+                "managerEmail": mgr_email,
+                "seedClass" : selectedSeedClass,
                 "dept": dept,
-                "techskills_languages": techskills_languages,
+                "techSkillsLangs": techskills_languages,
                 "education": education,
-                "tech_orgs": tech_orgs,
-                "seed_success": seed_success,
+                "techOrgs": tech_orgs,
+                "seedSuccess": seed_success,
                 "comments": comments,
-                "curr_role": curr_role,
-                "curr_level": curr_level,
-                "strong_plus": strong_plus
+                "currRole": curr_role,
+                "currLevel": curr_level,
+                "strongPlus": strong_plus
             }
         })
     };
@@ -68,13 +69,39 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+//   myService.postSeedClass = function(c_id, c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt){
+    myService.postSeedClass = function(c_yr, c_num, c_loc, c_app_open_dt, c_app_deadline, c_bootcamp_dt){
+        return $http({
+            method:"POST",
+            url:"seedclass/",
+            data:{
+//                "classID":c_id,
+                "cYr":c_yr,
+                "cNum":c_num,
+                "cLoc":c_loc,
+                "cAppOpenDate":c_app_open_dt,
+                "cAppDeadline":c_app_deadline,
+                "cBootcampDate":c_bootcamp_dt
+
+
+            }
+        })
+
+    }
+
     myService.getQuestionList = function () {
         return $http({
             method: "GET",
-            url: "questions/"
+            url: "question/"
         })
     };
 
+    myService.getClassTypeQuestionList = function (cId, qType) {
+        return $http({
+            method: "GET",
+            url: "question/typeandclass/" + qType +"/" + cId
+        })
+    };
 
     myService.getRatingTypes = function () {
         return $http({
@@ -83,11 +110,29 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
-    myService.postQuestion = function() {
+    myService.postQuestion = function(seedClass, qSequence, qText, ratingType, qType) {
         return $http({
             method: "POST",
-            url: "questions/"
+            url: "question/",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                "seedClass" : seedClass,
+                "qSequence": qSequence,
+                "qText": qText,
+                "ratingType": ratingType,
+                "qType": qType
+            }
         })
+    };
+
+    myService.getClassApplicants = function(cId) {
+        return $http({
+            method: "GET",
+            url: "application/class/" + cId
+        })
+
     };
 
 });

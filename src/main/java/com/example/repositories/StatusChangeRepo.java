@@ -7,9 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by npw383 on 5/4/17.
- */
+
 @Repository
 public interface StatusChangeRepo extends JpaRepository<StatusChange,Integer> {
     List<StatusChange> findByUserUId(int uId);

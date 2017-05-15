@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by nof191 on 5/4/17.
- */
+
 
 @Repository
 public interface QuestionsRepo extends JpaRepository<Question, Integer> {

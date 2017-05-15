@@ -1,1 +1,48 @@
-<h1>New Class Place Holder</h1>
+<h2>SEED Class Listing and Updates</h2>
+
+
+<div class="well">
+    <div class="container">
+        <div class="container-responsive">
+            <div class="row">
+                <div class="col-xs-12 col-sm-1"><h5>Year</h5></div>
+                <div class="col-xs-12 col-sm-1"><h5>Number</h5></div>
+                <div class="col-xs-12 col-sm-1"><h5>Location</h5></div>
+                <div class="col-xs-12 col-sm-2"><h5>App Open</h5></div>
+                <div class="col-xs-12 col-sm-2"><h5>App Deadline</h5></div>
+                <div class="col-xs-12 col-sm-2"><h5>Bootcamp Start</h5></div>
+            </div>
+        </div>
+        <div data-ng-show="newClass.classList">
+        <div class="row" data-ng-repeat ="seedclass in newClass.classList">
+            <div class="col-xs-12 col-sm-1">{{seedclass.cYr}}</div>
+            <div class="col-xs-12 col-sm-1">{{seedclass.cNum}}</div>
+            <div class="col-xs-12 col-sm-1">{{seedclass.cLoc}}</div>
+            <div class="col-xs-12 col-sm-2">{{seedclass.cAppOpenDate | date : format: short}}</div>
+            <div class="col-xs-12 col-sm-2">{{seedclass.cAppDeadline | date : format: short}}</div>
+            <div class="col-xs-12 col-sm-2">{{seedclass.cBootcampDate | date : format: short}}</div>
+            <div class="col-xs-12 col-sm-1"><button type="submit">Update</button></div>
+            <div class="col-xs-12 col-sm-1"><button type="submit">Delete</button></div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+    <div class="well">
+        <div class="container">
+            <label class="applicationLabel">Year</label><input type="Number" maxlength="20" size="20" data-ng-model="cYr"/> <br>
+            <label class="applicationLabel">Class Number</label><input type="number" size="20" maxlength="20" data-ng-model="cNum"/> <br>
+            <label class="applicationLabel">Class Location</label><input type="text" size="20" maxlength="20" data-ng-model="cLoc"/> <br>
+            <label class="applicationLabel">App Open Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppOpenDate"/> <br>
+            <label class="applicationLabel">App Close Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppDeadLine"/> <br>
+            <label class="applicationLabel">Boot Camp Start</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cBootcampDate"/> <br>
+
+
+
+    <button class="btn-primary" data-ng-click="newClass.postSeedClass(cYr, cNum, cLoc, cAppOpenDate, cAppDeadLine, cBootcampDate)">Add</button>
+        </div>
+    </div>
+
+
+

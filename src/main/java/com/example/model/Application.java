@@ -2,9 +2,7 @@ package com.example.model;
 
 import javax.persistence.*;
 
-/**
- * Created by qzh225 on 5/3/17.
- */
+
 @Entity
 @Table (name = "application")
 public class Application {
@@ -19,9 +17,9 @@ public class Application {
     @JoinColumn(name="u_id")
     private User applicant;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mgr_id")
-    private User manager;
+    //@ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "mgr_email")
+    private String managerEmail;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "c_id")
@@ -60,9 +58,9 @@ public class Application {
 
     public Application (){}
 
-    public Application(User applicant, User manager, SeedClass seedClass, String dept, String techSkillsLangs, String education, String techOrgs, String seedSuccess, String comments, String currRole, String currLevel, boolean strongPlus, boolean mgrApproval) {
+    public Application(User applicant, String managerEmail, SeedClass seedClass, String dept, String techSkillsLangs, String education, String techOrgs, String seedSuccess, String comments, String currRole, String currLevel, boolean strongPlus, boolean mgrApproval) {
         this.applicant = applicant;
-        this.manager = manager;
+        this.managerEmail = managerEmail;
         this.seedClass = seedClass;
         this.dept = dept;
         this.techSkillsLangs = techSkillsLangs;
@@ -75,6 +73,7 @@ public class Application {
         this.strongPlus = strongPlus;
         this.mgrApproval = mgrApproval;
     }
+
 
     public int getAppId() {
         return appId;
@@ -92,12 +91,12 @@ public class Application {
         this.applicant = applicant;
     }
 
-    public User getManager() {
-        return manager;
+    public String getManagerEmail() {
+        return managerEmail;
     }
 
-    public void setManager(User manager) {
-        this.manager = manager;
+    public void setManagerEmail(String managerEmail) {
+        this.managerEmail = managerEmail;
     }
 
     public SeedClass getSeedClass() {
@@ -191,50 +190,43 @@ public class Application {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Application)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Application that = (Application) o;
 
-        if (getAppId() != that.getAppId()) return false;
-        if (isStrongPlus() != that.isStrongPlus()) return false;
-        if (isMgrApproval() != that.isMgrApproval()) return false;
-        if (getApplicant() != null ? !getApplicant().equals(that.getApplicant()) : that.getApplicant() != null)
+        if (appId != that.appId) return false;
+        if (strongPlus != that.strongPlus) return false;
+        if (mgrApproval != that.mgrApproval) return false;
+        if (!applicant.equals(that.applicant)) return false;
+        if (managerEmail != null ? !managerEmail.equals(that.managerEmail) : that.managerEmail != null) return false;
+        if (seedClass != null ? !seedClass.equals(that.seedClass) : that.seedClass != null) return false;
+        if (dept != null ? !dept.equals(that.dept) : that.dept != null) return false;
+        if (techSkillsLangs != null ? !techSkillsLangs.equals(that.techSkillsLangs) : that.techSkillsLangs != null)
             return false;
-        if (getManager() != null ? !getManager().equals(that.getManager()) : that.getManager() != null) return false;
-        if (getSeedClass() != null ? !getSeedClass().equals(that.getSeedClass()) : that.getSeedClass() != null)
-            return false;
-        if (getDept() != null ? !getDept().equals(that.getDept()) : that.getDept() != null) return false;
-        if (getTechSkillsLangs() != null ? !getTechSkillsLangs().equals(that.getTechSkillsLangs()) : that.getTechSkillsLangs() != null)
-            return false;
-        if (getEducation() != null ? !getEducation().equals(that.getEducation()) : that.getEducation() != null)
-            return false;
-        if (getTechOrgs() != null ? !getTechOrgs().equals(that.getTechOrgs()) : that.getTechOrgs() != null)
-            return false;
-        if (getSeedSuccess() != null ? !getSeedSuccess().equals(that.getSeedSuccess()) : that.getSeedSuccess() != null)
-            return false;
-        if (getComments() != null ? !getComments().equals(that.getComments()) : that.getComments() != null)
-            return false;
-        if (getCurrRole() != null ? !getCurrRole().equals(that.getCurrRole()) : that.getCurrRole() != null)
-            return false;
-        return getCurrLevel() != null ? getCurrLevel().equals(that.getCurrLevel()) : that.getCurrLevel() == null;
+        if (education != null ? !education.equals(that.education) : that.education != null) return false;
+        if (techOrgs != null ? !techOrgs.equals(that.techOrgs) : that.techOrgs != null) return false;
+        if (seedSuccess != null ? !seedSuccess.equals(that.seedSuccess) : that.seedSuccess != null) return false;
+        if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
+        if (currRole != null ? !currRole.equals(that.currRole) : that.currRole != null) return false;
+        return currLevel != null ? currLevel.equals(that.currLevel) : that.currLevel == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getAppId();
-        result = 31 * result + (getApplicant() != null ? getApplicant().hashCode() : 0);
-        result = 31 * result + (getManager() != null ? getManager().hashCode() : 0);
-        result = 31 * result + (getSeedClass() != null ? getSeedClass().hashCode() : 0);
-        result = 31 * result + (getDept() != null ? getDept().hashCode() : 0);
-        result = 31 * result + (getTechSkillsLangs() != null ? getTechSkillsLangs().hashCode() : 0);
-        result = 31 * result + (getEducation() != null ? getEducation().hashCode() : 0);
-        result = 31 * result + (getTechOrgs() != null ? getTechOrgs().hashCode() : 0);
-        result = 31 * result + (getSeedSuccess() != null ? getSeedSuccess().hashCode() : 0);
-        result = 31 * result + (getComments() != null ? getComments().hashCode() : 0);
-        result = 31 * result + (getCurrRole() != null ? getCurrRole().hashCode() : 0);
-        result = 31 * result + (getCurrLevel() != null ? getCurrLevel().hashCode() : 0);
-        result = 31 * result + (isStrongPlus() ? 1 : 0);
-        result = 31 * result + (isMgrApproval() ? 1 : 0);
+        int result = appId;
+        result = 31 * result + applicant.hashCode();
+        result = 31 * result + (managerEmail != null ? managerEmail.hashCode() : 0);
+        result = 31 * result + (seedClass != null ? seedClass.hashCode() : 0);
+        result = 31 * result + (dept != null ? dept.hashCode() : 0);
+        result = 31 * result + (techSkillsLangs != null ? techSkillsLangs.hashCode() : 0);
+        result = 31 * result + (education != null ? education.hashCode() : 0);
+        result = 31 * result + (techOrgs != null ? techOrgs.hashCode() : 0);
+        result = 31 * result + (seedSuccess != null ? seedSuccess.hashCode() : 0);
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        result = 31 * result + (currRole != null ? currRole.hashCode() : 0);
+        result = 31 * result + (currLevel != null ? currLevel.hashCode() : 0);
+        result = 31 * result + (strongPlus ? 1 : 0);
+        result = 31 * result + (mgrApproval ? 1 : 0);
         return result;
     }
 
@@ -243,7 +235,7 @@ public class Application {
         return "Application{" +
                 "appId=" + appId +
                 ", applicant=" + applicant +
-                ", manager=" + manager +
+                ", managerEmail='" + managerEmail + '\'' +
                 ", seedClass=" + seedClass +
                 ", dept='" + dept + '\'' +
                 ", techSkillsLangs='" + techSkillsLangs + '\'' +

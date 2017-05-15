@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-/**
- * Created by uzh051 on 5/4/17.
- */
 
 @Repository
 public interface ApplicationRepo extends JpaRepository<Application, Integer> {
@@ -18,4 +15,5 @@ public interface ApplicationRepo extends JpaRepository<Application, Integer> {
 
 
     Application save(Application application);
+    List<Application> findBySeedClassCId(int id);
 }

@@ -1,25 +1,118 @@
-<h1>Build Interview Placeholder</h1>
-
-<p>Select class</p>
-
-<form>
 
 
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Build Interview
+            <div class="row">
+                <div class="col-sm-5">Select Seed class:</div>
+                <div class="col-sm-7">Enter interview type (i.e., Job Fit, Tech:</div>
+            </div>
+        </div>
 
-</form>
+        <div class="panel-body">
+            <div class="row">
+                <div class = "col-sm-5">
+                    <select data-ng-model="buildInt.selectedSeedClass"
+                        data-ng-options="c as c.cLoc + ' ' + c.cYr +  ' Bootcamp:' + (c.cBootcampDate|date) for c in buildInt.classSet">
+                    </select>
+                </div>
+                <div class = "col-sm-7">
+                    <input type = "text" data-ng-model="buildInt.qType"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>Enter interview type (i.e., Job Fit, Tech</p>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Build questions
+        </div>
+        <div class="panel-body">
+            <div style = "display:none" >
+                <div class ="col-sm-5">
+                    Question number:
+                </div>
+                <div class ="col-sm-7">
+                    <input type = "number" data-ng-model="buildInt.qSeq"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class ="col-sm-5">
+                    Question text:
+                </div>
+                <div class ="col-sm-7">
+                    <input type="text" data-ng-model="buildInt.qText"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class ="col-sm-5">
+                    Select Rating Type:
+                </div>
+                <div class = "col-sm-7">
+                    <select data-ng-model="buildInt.ratingType"
+                            data-ng-options="c as c.rDescription for c in buildInt.ratingTypes">
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class ="col-sm-5">
+                    <button class="btn btn-default" data-ng-click="buildInt.addQuestion()">
+                        Add Question
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>Add questions</p>
-<ul>
-    <li>Select a previously used question or add  new</li>
-    <li>Question number</li>
-    <li>Select rating type</li>
-    <li>Question text</li>
-</ul>
 
-<p>Push the question data to the question list</p>
+<div class="container-fluid">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+        Questions to Include
+    </div>
+    <div class="panel-body">
+        <div ng-repeat="q in buildInt.selectedQuestions">
+            <div class="row">
+                <div class="col-sm-1">
+                    <button class="btn btn-default"
+                            aria-label="move up"
+                            data-ng-click="buildInt.moveQuestionUp(q.qSequence)">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </button>
+                    <button class="btn btn-default"
+                            aria-label="move down"
+                            data-ng-click="buildInt.moveQuestionDown(q.qSequence)">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                    </button>
+                </div>
+                <div class="col-sm-1">{{q.qSequence}}</div>
 
-<p>Once done, post each question to the repo</p>
+                <div class="col-sm-5">{{q.qText}}</div>
+                <div class="col-sm-4">{{q.ratingType.rDescription}}</div>
+                <div clsss="col-sm-1">
+                    <button class="btn btn-danger"
+                            aria-label="Delete question"
+                            data-ng-click="buildInt.removeQuestion(q.qSequence)">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </div>
 
-<button formaction="buidIntCtrl.postQuestions">Submit Question Set</button>
+            </div>
+            <hr>
+        </div>
+
+    </div>
+  </div>
+</div>
+<br>
+
+<button class="btn btn-default" data-ng-click="buildInt.postQuestions()">
+    Submit Question Set
+</button>
+<br>
+
+<p> Nothing will be saved until you click the Submit Question Set button!</p>
+

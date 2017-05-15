@@ -2,12 +2,12 @@ package com.example.service;
 
 import com.example.model.*;
 import com.example.repositories.*;
+import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 
 @Service
 @Transactional
@@ -15,9 +15,14 @@ public class BusinessLogic {
 
     @Autowired
     private ApplicationRepo applicationRepo;
-
     public Application retrieveApplication(int id) {
         return applicationRepo.findByApplicantUId(id);
+    }
+    public List<Application> retrieveApplicationByCId(int id) {
+        return applicationRepo.findBySeedClassCId(id);
+    }
+    public Application application(Application newApplication) {
+        return applicationRepo.save(newApplication);
     }
 
     public List<Application> retrieveAllApplications() {
@@ -29,14 +34,22 @@ public class BusinessLogic {
         }
         return list;
     }
+    
 
 
+    public Application application(String eId, int SeedClass,Application newApplication) {
+        User user = retrieveUser(eId);
+        SeedClass seedClass = retrieveSeedClass(SeedClass);
+        newApplication.setApplicant(user);
+        newApplication.setSeedClass(seedClass);
+        return applicationRepo.save(newApplication);
+    }
+>>>>>>> fa2a48384861c6dafe8b501394410c8973c08a3f
 
     @Autowired
     private RoleRepo roleRepo;
 
-    public Role retrieveRole(int rid) {
-        return roleRepo.findByRId(rid);
+    public Role retrieveRole(int rid) { return roleRepo.findByRId(rid);
     }
 
     @Autowired
@@ -53,13 +66,13 @@ public class BusinessLogic {
         return userRepo.findByEId(eId);
     }
 
-    public User createUser(String eId, String email, String firstName, String lastName){
-        Role two = retrieveRole(2);
-        Stage one = retrieveStage(1);
-
-        User newUser= new User(eId,email,firstName,lastName,two,one);
-        return userRepo.save(newUser);
-    }
+//    public User createUser(String eId, String email, String firstName, String lastName){
+//        Role two = retrieveRole(2);
+//        Stage one = retrieveStage(1);
+//
+//        User newUser= new User(eId,email,firstName,lastName,two,one);
+//        return userRepo.save(newUser);
+//    }
 
     public User createUser(User newUser){
         Role two = retrieveRole(2);
@@ -107,6 +120,7 @@ public class BusinessLogic {
         return questionsRepo.findAll();
     }
     public Question postQuestion(Question question) {
+        System.out.println("In Business Logic Post question = " + question);
         return questionsRepo.save(question);
     }
 
@@ -130,6 +144,9 @@ public class BusinessLogic {
     }
     public List<SeedClass> retrieveAllSeedClass(){
          return seedClassRepo.findAll();
+    }
+    public SeedClass seedClass(SeedClass seedClass) {
+        return seedClassRepo.save(seedClass);
     }
 
     @Autowired
