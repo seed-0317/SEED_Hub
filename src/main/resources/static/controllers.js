@@ -124,7 +124,7 @@ angular.module("DogModule").controller("viewAppsCtrl", function(UserService, $st
 
     viewAppsCtrl.viewapps = [];
 
-    viewAppsCtrl.user = $cookies.get('user');
+    viewAppsCtrl.user = $cookies.getObject('user');
 
     var promise = UserService.getAllApplications();
     promise.then(function (response) {
