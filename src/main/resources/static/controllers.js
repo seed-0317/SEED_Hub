@@ -107,6 +107,7 @@ angular.module("DogModule").controller("newClassCtrl", function(UserService, $st
             //SUCCESS
             console.log('newClassCtrl.postNewClass was successful');
             $state.go('newClass');
+            $state.reload();
         }), function (response) {
             //FAILURE
             console.log('newClassCtrl.postNewClass failed');
