@@ -254,6 +254,20 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
 });
 
 angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
+
+    // return index of element with id
+    var findX = function(array, id) {
+        if (array  === undefined || id === undefined){
+            return;
+        }
+        for ( var i= 0; i <array.length; i++){
+            if (array[i].cId === id){
+                return i;
+            }
+        }
+
+    }
+
     var applicationCtrl = this;
     applicationCtrl.ExistingApplicationData;
 
@@ -265,7 +279,12 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     existingApplicationData.then (function (response) {
         console.log(response.data);
         applicationCtrl.ExistingApplicationData = response.data;
-
+        if (applicationCtrl.classSet) {
+            var dog = findX(applicationCtrl.classSet, applicationCtrl.ExistingApplicationData.seedClass.cId);
+            if (dog !== undefined) {
+                applicationCtrl.x = dog;
+            }
+        }
     }),
         function (response) {
             console.log('applicationCtrl.getApplication has failed');
@@ -280,6 +299,12 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     promise1.then(function (response) {
         //SUCCESS
         applicationCtrl.classSet = response.data;
+        if (applicationCtrl.ExistingApplicationData) {
+            var dog = findX(applicationCtrl.classSet, applicationCtrl.ExistingApplicationData.seedClass.cId);
+            if (dog !== undefined) {
+                applicationCtrl.x = dog;
+            }
+        }
         // console.log(JSON.stringify({data: applicationCtrl.classSet}));
     }), function (response) {
         //FAILURE
