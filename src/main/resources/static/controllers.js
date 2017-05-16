@@ -133,6 +133,7 @@ angular.module("DogModule").controller("adminCtrl", function(UserService, $state
     adminCtrl.user=$cookies.getObject('user');
 });
 
+
 angular.module("DogModule").controller("userResourceCtrl", function(UserService, $state, $cookies) {
     var adminCtrl = this;
     adminCtrl.user=$cookies.getObject('user');
