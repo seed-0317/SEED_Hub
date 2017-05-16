@@ -142,6 +142,43 @@ angular.module("DogModule").controller("userResourceCtrl", function(UserService,
 angular.module("DogModule").controller("addUserCtrl", function(UserService, $state, $cookies) {
     var addUserCtrl = this;
     addUserCtrl.user=$cookies.getObject('user');
+
+    var promise1=UserService.getAllRoles();
+
+    promise1.then(function(response){
+        addUserCtrl.roles= response.data;
+        // console.log(response.data);
+    }), function (response) {
+        console.log('addUserCtrl.getAllRoles was not successful');
+        alert("Failure: " + JSON.stringify({data: response.data}));
+    };
+
+    var promise2=UserService.getAllStages();
+
+    promise2.then(function(response){
+        addUserCtrl.stages=response.data;
+        // console.log(response.data);
+    }), function (response) {
+        console.log('addUserCtrl.getAllStages was not successful');
+        alert("Failure: " + JSON.stringify({data: response.data}));
+    };
+
+    addUserCtrl.createUser = function (eid, email, firstName, lastName, role, stage) {
+        console.log(role);
+        console.log(stage);
+        var promise = UserService.postCreatedUser(eid, email, firstName, lastName, role, stage);
+
+        promise.then(function (response) {
+            // console.log('addUserCtrl.createUser was successful');
+
+            $state.go('admin');
+        }), function (response) {
+            console.log('addUserCtrl.createUser was not successful');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
+            $state.reload();
+        }
+    }
 });
 
 angular.module("DogModule").controller("interviewCtrl", function(UserService, $state, $cookies) {

@@ -51,11 +51,19 @@ public class BusinessLogic {
     public Role retrieveRole(int rid) { return roleRepo.findByRId(rid);
     }
 
+    public List<Role> retrieveAllRoles() {
+        return roleRepo.findAll();
+    }
+
     @Autowired
     private StageRepo stageRepo;
 
     public Stage retrieveStage(int sid) {
         return stageRepo.findBySId(sid);
+    }
+
+    public List<Stage> retrieveAllStages() {
+        return stageRepo.findAll();
     }
 
     @Autowired
@@ -65,20 +73,15 @@ public class BusinessLogic {
         return userRepo.findByEId(eId);
     }
 
-//    public User createUser(String eId, String email, String firstName, String lastName){
-//        Role two = retrieveRole(2);
-//        Stage one = retrieveStage(1);
-//
-//        User newUser= new User(eId,email,firstName,lastName,two,one);
-//        return userRepo.save(newUser);
-//    }
-
     public User createUser(User newUser){
-        Role two = retrieveRole(2);
-        Stage one = retrieveStage(1);
-
-        newUser.setRole(two);
-        newUser.setStage(one);
+        if (newUser.getRole() == null ){
+            Role two = retrieveRole(2);
+            newUser.setRole(two);
+        }
+        if (newUser.getStage() == null ){
+            Stage one = retrieveStage(1);
+            newUser.setStage(one);
+        }
         return userRepo.save(newUser);
     }
 

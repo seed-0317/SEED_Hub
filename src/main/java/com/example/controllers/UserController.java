@@ -14,11 +14,26 @@ public class UserController {
     @Autowired
     private BusinessLogic businessLogic;
 
+    @RequestMapping(value= "/{role}/" + "{stage}" ,method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    //public ResponseEntity postUser(String eId, String email, String fname, String lname){
+    public ResponseEntity postCreatedUser(@PathVariable("role") int role, @PathVariable("stage") int stage, @RequestBody User newUser){
+
+        newUser.setStage(businessLogic.retrieveStage(stage));
+        newUser.setRole(businessLogic.retrieveRole(role));
+        User user = businessLogic.createUser(newUser);
+
+        if (user != null) {
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @RequestMapping(method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     //public ResponseEntity postUser(String eId, String email, String fname, String lname){
     public ResponseEntity postUser(@RequestBody User newUser){
-        System.out.println("Creating user");
-        System.out.println(newUser);
+//        System.out.println("Creating user");
+//        System.out.println(newUser);
         //User user = businessLogic.createUser(eId, email, fname, lname);
         User user = businessLogic.createUser(newUser);
 
