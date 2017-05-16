@@ -261,6 +261,7 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     // console.log (applicationCtrl.user);
 
     var existingApplicationData = UserService.getApplication(applicationCtrl.user.uId);
+
     existingApplicationData.then (function (response) {
         console.log(response.data);
         applicationCtrl.ExistingApplicationData = response.data;
