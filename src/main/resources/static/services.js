@@ -79,7 +79,7 @@ angular.module("DogModule").service("UserService", function($http) {
             }
         })
 
-    }
+    };
 
     myService.getQuestionList = function () {
         return $http({
