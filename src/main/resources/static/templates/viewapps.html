@@ -1,1 +1,65 @@
-<h1>View Appliocants placeholder</h1>
+<div data-ng-repeat="item in viewApps.viewapps">
+
+    <div class="row">
+        <div class="col-sm-4">
+            Applicant Name: {{item.applicant.fname}} {{item.applicant.lname}}
+        </div>
+        <div class="col-sm-4">
+            EID: {{item.applicant.eId}}
+        </div>
+        <div class="col-sm-6">
+            Applicant email: {{item.applicant.email}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            Dept: {{item.dept}}
+        </div>
+        <div class="col-sm-4">
+            Manager email: {{item.managerEmail}}
+        </div>
+        <div class="col-sm-4">
+            Location: {{item.seedClass.cLoc}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+           BC Date:  {{item.seedClass.cBootcampDate | date}}
+        </div>
+        <div class="col-sm-8">
+            Skills: {{item.techSkillsLangs}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            Education: {{item.education}}
+        </div>
+        <div class="col-sm-6">
+            Tech Organizations: {{item.techOrgs}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            Why successful?: {{item.seedSuccess}}
+        </div>
+        <div class="col-sm-6">
+            Comments: {{item.comments}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            Current Role: {{item.currRole}}
+        </div>
+        <div class="col-sm-4">
+            Current Level: {{item.currLevel}}
+        </div>
+        <div class="col-sm-2">
+            Strong plus? {{item.strongPlus}}
+        </div>
+        <div class="col-sm-2">
+            Mgr approval? {{item.mgrApproval}}
+        </div>
+    </div>
+    <hr>
+</div>
