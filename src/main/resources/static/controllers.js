@@ -392,7 +392,7 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     };
 
     applicationCtrl.postApplication = function(mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
-
+        console.log(selectedSeedClass);
         // console.log(mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
 
         var promise = UserService.postApplication(applicationCtrl.user, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
