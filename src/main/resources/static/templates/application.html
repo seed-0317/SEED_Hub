@@ -19,10 +19,9 @@
             <!--<input type="checkbox" ng-true-value="true"-->
                    <!--ng-false-value="false" ng-checked="application.ExistingApplicationData.strongPlus" placeholder="{{application.ExistingApplicationData.strongPlus}}" data-ng-model="strong_plus" />-->
             <select>
-                <!--<option value="" selected="selected">{{application.ExistingApplicationData.strongPlus}}</option>-->
                 <option value="False" ng-checked="!application.ExistingApplicationData.strongPlus">No</option>
                 <option value="True" ng-checked="application.ExistingApplicationData.strongPlus" >Yes</option>
-                <!--<option value="False"selected="selected">No</option>-->
+
             </select>
             <br>
             <label class="applicationLabel">List your technical skills</label><input type="text" placeholder = {{application.ExistingApplicationData.techSkillsLangs}} size="100" data-ng-model="techskills_languages"/> <br>
