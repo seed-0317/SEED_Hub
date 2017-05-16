@@ -272,8 +272,23 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
 // application controller
 angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
     var applicationCtrl = this;
+    applicationCtrl.ExistingApplicationData;
 
     applicationCtrl.user=$cookies.getObject('user');
+    // console.log (applicationCtrl.user);
+
+    var existingApplicationData = UserService.getApplication(applicationCtrl.user.uId);
+    existingApplicationData.then (function (response) {
+        console.log(response.data);
+        applicationCtrl.ExistingApplicationData = response.data;
+    }),
+        function (response)
+        {
+            console.log('fail');
+
+        };
+
+
     //var user=$cookies.getObject('user');
 
     applicationCtrl.getApplication = function(){
@@ -310,7 +325,8 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
             $state.reload();
         }
     }
-});
+    // applicationCtrl.getExistingApplicationData = funtion(uid)
+    });
 //end application controller
 
 angular.module("DogModule").controller("buildIntCtrl", function(UserService, $state, $cookies) {

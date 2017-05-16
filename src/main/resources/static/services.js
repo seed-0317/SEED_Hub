@@ -27,6 +27,7 @@ angular.module("DogModule").service("UserService", function($http) {
     };
 
     myService.getApplication = function (eid) {
+
         return $http({
             method: "GET",
             url: "application/" + eid
