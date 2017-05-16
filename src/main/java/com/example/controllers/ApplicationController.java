@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/application")
 public class ApplicationController {
@@ -33,6 +35,17 @@ public class ApplicationController {
 
         if(application != null) {
             return ResponseEntity.ok().body(application);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @RequestMapping(value="/class/{cid}", method = RequestMethod.GET)
+    public ResponseEntity getClassApplicants(@PathVariable("cid") int id) {
+        List<Application> applications = businessLogic.retrieveApplicationByCId(id);
+
+        if(applications != null) {
+            return ResponseEntity.ok().body(applications);
         } else {
             return ResponseEntity.badRequest().build();
         }

@@ -18,11 +18,24 @@ public class BusinessLogic {
     public Application retrieveApplication(int id) {
         return applicationRepo.findByApplicantUId(id);
     }
-
+    public List<Application> retrieveApplicationByCId(int id) {
+        return applicationRepo.findBySeedClassCId(id);
+    }
     public Application application(Application newApplication) {
-
         return applicationRepo.save(newApplication);
     }
+
+    public List<Application> retrieveAllApplications() {
+        List<Application> list = applicationRepo.findAll();
+        int i;
+        for (i=0;i<list.size();i++){
+            //loop and print
+            System.out.println(list.get(i));
+        }
+        return list;
+    }
+
+
 
     public Application application(String eId, int SeedClass,Application newApplication) {
         User user = retrieveUser(eId);
@@ -130,6 +143,9 @@ public class BusinessLogic {
     }
     public List<SeedClass> retrieveAllSeedClass(){
          return seedClassRepo.findAll();
+    }
+    public SeedClass seedClass(SeedClass seedClass) {
+        return seedClassRepo.save(seedClass);
     }
 
     @Autowired
