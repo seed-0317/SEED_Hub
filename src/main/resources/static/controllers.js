@@ -244,13 +244,54 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
                 answer = new Answer(qSet[i],interviewCtrl.interviewer, null, null);
                 interviewCtrl.answerSet.push(answer);
             }
+            interviewCtrl.answerSet.sort(function(a, b){return a.question.qSequence-b.question.qSequence});
+
 
         }), function (response) {
             //FAILURE
             console.log("interviewCtrl.getClassTypeQuestionList")
             alert("Failure retrieving questions for class and type: " + JSON.stringify({data: response.data}));
         };
-    }
+    };
+    interviewCtrl.saveAnswers = function(){
+
+        // NEED TO SAVE INTERVIEW FIRST, GET THE INTERVIEW OBJECT BACK
+        // AND USE THAT TO SAVE THE ANSWERS
+        var tint = {
+            intId: null,
+            seedClass: interviewCtrl.selectedSeedClass,
+            applicant: interviewCtrl.applicant,
+            interviewer: interviewCtrl.interviewer,
+            interviewDt: Date.now(),
+            intType: interviewCtrl.intType
+        }
+
+        var promise1 = UserService.postInterview(tint);
+        promise1.then(function (response) {
+
+        }), function (response) {
+            //FAILURE
+            console.log('interviewCtrl.postInterview failed');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
+        }
+
+        var len = interviewCtrl.answerSet.length;
+        var promise = [];
+        for (i=0; i<len; i++){
+            promise[i] = UserService.postAnswer(interviewCtrl.answerSet[i]);
+            promise[i].then(function (response) {
+
+            }), function (response) {
+                //FAILURE
+                console.log('interviewCtrl.postAnswers failed');
+                alert("Failure: " + JSON.stringify({data: response.data}));
+
+            }
+        }
+        $state.reload();
+
+    };
 });
 
 angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
