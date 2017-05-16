@@ -265,6 +265,7 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     existingApplicationData.then (function (response) {
         console.log(response.data);
         applicationCtrl.ExistingApplicationData = response.data;
+
     }),
         function (response) {
             console.log('applicationCtrl.getApplication has failed');
