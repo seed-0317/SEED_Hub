@@ -15,14 +15,7 @@
             <label class="applicationLabel">Current Role</label><input type="text" placeholder = {{application.ExistingApplicationData.currRole}} size="30" maxlength="30" data-ng-model="curr_role"/> <br>
             <label class="applicationLabel">Current Level</label><input type="text" placeholder = {{application.ExistingApplicationData.currLevel}} size="30" maxlength="30" data-ng-model="curr_level"/> <br>
             <label class="applicationLabel">Did you receive at least a strong rating</label>
-
-            <!--<input type="checkbox" ng-true-value="true"-->
-                   <!--ng-false-value="false" ng-checked="application.ExistingApplicationData.strongPlus" placeholder="{{application.ExistingApplicationData.strongPlus}}" data-ng-model="strong_plus" />-->
-            <select>
-                <option value="False" ng-checked="!application.ExistingApplicationData.strongPlus">No</option>
-                <option value="True" ng-checked="application.ExistingApplicationData.strongPlus" >Yes</option>
-
-            </select>
+            <input type="checkbox" ng-checked="application.ExistingApplicationData.strongPlus" data-ng-model="strong_plus"/> Yes
             <br>
             <label class="applicationLabel">List your technical skills</label><input type="text" placeholder = {{application.ExistingApplicationData.techSkillsLangs}} size="100" data-ng-model="techskills_languages"/> <br>
             <label class="applicationLabel">Education</label><input type="text" placeholder = {{application.ExistingApplicationData.education}} size="100" data-ng-model="education"/> <br>
