@@ -9,7 +9,7 @@ public class RatingScale {
 
     @Id
     @SequenceGenerator(name="ratingScaleSequence", sequenceName = "rating_scales_rs_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ratingScalesSequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ratingScaleSequence")
     @Column (name="rs_id")
     private int rsId;
     @Column(name = "rs_num")
