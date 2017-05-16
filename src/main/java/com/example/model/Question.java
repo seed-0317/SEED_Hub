@@ -17,7 +17,7 @@ public class Question {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "c_id")
     private SeedClass seedClass;
-    @Column(name = "q_type")
+
     private String qType;
     @Column(name="q_seq")
     private int qSequence;

@@ -106,6 +106,9 @@ public class BusinessLogic {
     public List<InterviewRatings> retrieveApplicantInterviewRatings(int intId) {
         return interviewRatingsRepo.findByInterviewIntId(intId);
     }
+    public InterviewRatings postInterviewRatings(InterviewRatings answer) {
+        return interviewRatingsRepo.save(answer);
+    }
 
     @Autowired
     private QuestionsRepo questionsRepo;
@@ -136,6 +139,13 @@ public class BusinessLogic {
 
     public List<RatingType> retrieveAllRatingTypes() {
         return ratingTypeRepo.findAll();
+    }
+
+
+    @Autowired
+    private RatingScaleRepo ratingScaleRepo;
+    public List<RatingScale> retrieveAllRatingScales() {
+        return ratingScaleRepo.findAll();
     }
 
     @Autowired
