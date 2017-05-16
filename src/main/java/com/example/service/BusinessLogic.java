@@ -35,8 +35,6 @@ public class BusinessLogic {
         return list;
     }
 
-
-
     public Application application(String eId, int SeedClass,Application newApplication) {
         User user = retrieveUser(eId);
         SeedClass seedClass = retrieveSeedClass(SeedClass);
