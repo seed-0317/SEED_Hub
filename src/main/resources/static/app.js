@@ -83,11 +83,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     };
 
     var userResourceState = {
-        name: 'home.userresource',
+        name: 'home.userResource',
         url: '/userresource',
         templateUrl: 'templates/userresource.html',
         controller: 'userResourceCtrl',
-        controllerAs: 'userresource'
+        controllerAs: 'userResource'
     };
 
 
