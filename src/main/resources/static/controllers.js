@@ -282,16 +282,71 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
                 answer = new Answer(qSet[i],interviewCtrl.interviewer, null, null);
                 interviewCtrl.answerSet.push(answer);
             }
+            interviewCtrl.answerSet.sort(function(a, b){return a.question.qSequence-b.question.qSequence});
+
 
         }), function (response) {
             //FAILURE
             console.log("interviewCtrl.getClassTypeQuestionList")
             alert("Failure retrieving questions for class and type: " + JSON.stringify({data: response.data}));
         };
-    }
+    };
+    interviewCtrl.saveAnswers = function(){
+
+        // NEED TO SAVE INTERVIEW FIRST, GET THE INTERVIEW OBJECT BACK
+        // AND USE THAT TO SAVE THE ANSWERS
+        var tint = {
+            intId: null,
+            seedClass: interviewCtrl.selectedSeedClass,
+            applicant: interviewCtrl.applicant,
+            interviewer: interviewCtrl.interviewer,
+            interviewDt: Date.now(),
+            intType: interviewCtrl.intType
+        }
+
+        var promise1 = UserService.postInterview(tint);
+        promise1.then(function (response) {
+
+        }), function (response) {
+            //FAILURE
+            console.log('interviewCtrl.postInterview failed');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
+        }
+
+        var len = interviewCtrl.answerSet.length;
+        var promise = [];
+        for (i=0; i<len; i++){
+            promise[i] = UserService.postAnswer(interviewCtrl.answerSet[i]);
+            promise[i].then(function (response) {
+
+            }), function (response) {
+                //FAILURE
+                console.log('interviewCtrl.postAnswers failed');
+                alert("Failure: " + JSON.stringify({data: response.data}));
+
+            }
+        }
+        $state.reload();
+
+    };
 });
 
 angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
+
+    // return index of element with id
+    var findX = function(array, id) {
+        if (array  === undefined || id === undefined){
+            return;
+        }
+        for ( var i= 0; i <array.length; i++){
+            if (array[i].cId === id){
+                return i;
+            }
+        }
+
+    }
+
     var applicationCtrl = this;
     applicationCtrl.ExistingApplicationData;
 
@@ -303,7 +358,12 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     existingApplicationData.then (function (response) {
         console.log(response.data);
         applicationCtrl.ExistingApplicationData = response.data;
-
+        if (applicationCtrl.classSet) {
+            var dog = findX(applicationCtrl.classSet, applicationCtrl.ExistingApplicationData.seedClass.cId);
+            if (dog !== undefined) {
+                applicationCtrl.x = dog;
+            }
+        }
     }),
         function (response) {
             console.log('applicationCtrl.getApplication has failed');
@@ -318,6 +378,12 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     promise1.then(function (response) {
         //SUCCESS
         applicationCtrl.classSet = response.data;
+        if (applicationCtrl.ExistingApplicationData) {
+            var dog = findX(applicationCtrl.classSet, applicationCtrl.ExistingApplicationData.seedClass.cId);
+            if (dog !== undefined) {
+                applicationCtrl.x = dog;
+            }
+        }
         // console.log(JSON.stringify({data: applicationCtrl.classSet}));
     }), function (response) {
         //FAILURE
