@@ -81,6 +81,7 @@ angular.module("DogModule").service("UserService", function($http) {
                 "cBootcampDate":c_bootcamp_dt
             }
         })
+
     };
 
     myService.getQuestionList = function () {
