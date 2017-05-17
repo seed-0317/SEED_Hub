@@ -145,6 +145,9 @@ public class BusinessLogic {
     public List<RatingScale> retrieveAllRatingScales() {
         return ratingScaleRepo.findAll();
     }
+    public List<RatingScale> retrieveRatingScalesByRtId(int rtId) {
+        return ratingScaleRepo.findByRatingTypeRtId(rtId);
+    }
 
     @Autowired
     private SeedClassRepo seedClassRepo;
