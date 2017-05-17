@@ -42,8 +42,6 @@ public class InterviewRatingsController {
 
         InterviewRatings answer2= businessLogic.postInterviewRatings(answer);
 
-        System.out.println("In InterviewRatingsController, answer2 =" + answer2);
-
         if(answer2 != null) {
             return ResponseEntity.ok().body(answer2);
         } else {

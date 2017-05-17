@@ -93,6 +93,9 @@ public class BusinessLogic {
     public List<Interview> retrieveApplicantInterview(int applicantUId) {
         return interviewRepo.findByApplicantUId(applicantUId);
     }
+    public Interview createInterview(Interview interview) {
+        return interviewRepo.save(interview);
+    }
 
     @Autowired
     private InterviewRatingsRepo interviewRatingsRepo;

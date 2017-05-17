@@ -173,6 +173,16 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     }
 
+    myService.postInterview = function(interview){
+        return $http({
+            method: "POST",
+            url: "interview/",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: interview
+        })
+    }
 
 
     myService.getClassApplicants = function(cId) {
