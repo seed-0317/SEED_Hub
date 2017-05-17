@@ -31,7 +31,7 @@ public class ApplicationController {
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
     public ResponseEntity getApplication(@PathVariable("id") int id) {
-        Application application = businessLogic.retrieveApplication(id);
+        List <Application> application = businessLogic.retrieveApplication(id);
 
         if(application != null) {
             return ResponseEntity.ok().body(application);
@@ -52,6 +52,5 @@ public class ApplicationController {
     }
 
 }
-
 
 
