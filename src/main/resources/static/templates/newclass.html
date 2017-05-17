@@ -35,7 +35,15 @@
             <label class="applicationLabel">Year</label><input type="Number" maxlength="20" size="20" min="2016 "placeholder="Year" data-ng-model="cYr"/> <br>
             <label class="applicationLabel">Class Number</label><input type="number" size="20" maxlength="20" placeholder="Number" data-ng-model="cNum"/> <br>
             <label class="applicationLabel">Class Location</label><input type="text" size="20" maxlength="20" placeholder="Location" data-ng-model="cLoc"/> <br>
-            <label class="applicationLabel">App Open Date</label><input id="cAppOpenDate" name="cAppOpenDate" type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppOpenDate"/> <br>
+            <label class="applicationLabel">App Open Date</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar">
+                    </i>
+                </div>
+                <input id="cAppOpenDate" name="cAppOpenDate" type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppOpenDate"/> <br>
+            </div>
+            </div>
             <label class="applicationLabel">App Close Date</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cAppDeadLine"/> <br>
             <label class="applicationLabel">Boot Camp Start</label><input type="date" size="20" maxlength="20" placeholder="mm/dd/yyyy" data-ng-model="cBootcampDate"/> <br>
     <button class="btn-success" data-ng-click="newClass.postSeedClass(cYr, cNum, cLoc, cAppOpenDate, cAppDeadLine, cBootcampDate)">Add</button>
