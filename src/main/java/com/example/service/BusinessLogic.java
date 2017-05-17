@@ -15,7 +15,7 @@ public class BusinessLogic {
 
     @Autowired
     private ApplicationRepo applicationRepo;
-    public Application retrieveApplication(int id) {
+    public List<Application> retrieveApplication(int id) {
         return applicationRepo.findByApplicantUId(id);
     }
     public List<Application> retrieveApplicationByCId(int id) {
