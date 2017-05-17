@@ -20,8 +20,12 @@ public class RatingType {
     @Column(name="rt_txt_flag")
     private boolean txtFlag;
 
+    @OneToMany(mappedBy = "ratingType" , fetch = FetchType.EAGER)
+    private Set<RatingScale> ratingScales;
+
     @OneToMany(mappedBy = "ratingType" , fetch = FetchType.LAZY)
     private Set<Question> questions;
+
 
     public RatingType(){}
 

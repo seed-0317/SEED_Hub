@@ -39,9 +39,11 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Interview Questions
             <div class="row">
-                <div class="col-sm-5">Question</div>
-                <div class="col-sm-2">Rating</div>
-                <div class="col-sm-5">Comments</div>
+                <div class="col-sm-8">Question</div>
+                <div class="col-sm-4">Rating</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">Comments</div>
             </div>
         </div>
         <div class="panel-body">
@@ -50,16 +52,21 @@
                     <div class="col-sm-1">
                         {{q.question.qSequence}}
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-7">
                         {{q.question.qText}}
                     </div>
-                    <div class="col-sm-2">
-                        <input type = "number" data-ng-model="q.rating"/>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" data-ng-model="q.comments"/>
+                    <div class="col-sm-4">
+                        <select data-ng-model="q.rating"
+                                data-ng-options="rating as rating.rsNum + ' ' + rating.rsText for rating in q.ratingSet">
+                        </select>
                     </div>
                 </div>
+                <div class=row">
+                    <div class="col-sm-12">
+                        <input type="text" size="50" maxlength="200" data-ng-model="q.comments"/>
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
     </div>

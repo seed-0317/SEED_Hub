@@ -138,6 +138,13 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+    myService.getRatingScalesForRatingType = function(rtId) {
+        return $http({
+            method: "GET",
+            url: "ratingscale/ratingtype/" + rtId
+        })
+    };
+
     myService.postQuestion = function(seedClass, qSequence, qText, ratingType, qType) {
         return $http({
             method: "POST",
