@@ -11,4 +11,5 @@ public interface RatingScaleRepo extends JpaRepository<RatingScale, Integer> {
 
     List<RatingScale> findAll();
     RatingScale findByRsId(int rsId);
+    List<RatingScale> findByRatingTypeRtId(int rtId);
 }

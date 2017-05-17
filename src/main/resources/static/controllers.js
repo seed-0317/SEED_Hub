@@ -218,7 +218,6 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
         var j =0;
         var dupe = false;
 
-        console.log("In classSelectedFunction, " + JSON.stringify({data: interviewCtrl.selectedSeedClass}));
         while (i<len) {  //cycle through each question and see if the question is for this class
 
             if (interviewCtrl.questionSet[i].seedClass.cId === interviewCtrl.selectedSeedClass.cId){
@@ -251,6 +250,10 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
             console.log('interviewCtrl.getClassApplicants failed');
             alert("Failure retrieving applicant list: " + JSON.stringify({data: response.data}));
         };
+        // if size of intTypeSet is 1, show the answer form
+        if (interviewCtrl.intTypeSet.length === 1) {
+            interviewCtrl.typeSelected();
+        }
     };
 
     interviewCtrl.typeSelected = function() {
@@ -259,13 +262,38 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
 
         var qSet = [];
         var q;
+        var p =[];
+        var scaleSet = [];
 
-        function Answer(question,interviewer,rating,comments)
+
+        function Answer(question,interviewer,rating,comments,ratingSet)
         {
             this.question=question;
             this.interviewer=interviewer;
             this.rating=rating;
             this.comments=comments;
+            this.ratingSet = ratingSet;
+        };
+        function addScale(i) {
+            var answer;
+            p[i] = UserService.getRatingScalesForRatingType(qSet[i].ratingType.rtId);
+            p[i].then(function(response) {
+                //SUCCESS
+                scaleSet[i]= response.data;
+                scaleSet[i].sort(function (a, b) {
+                    return a.rsNum - b.rsNum
+                });
+                answer = new Answer(qSet[i], interviewCtrl.interviewer, null, null, scaleSet[i]);
+                interviewCtrl.answerSet.push(answer);
+                interviewCtrl.answerSet.sort(function (a, b) {
+                    return a.question.qSequence - b.question.qSequence
+                });
+                return scaleSet[i];
+            }),function (response) {
+                //FAILURE
+                console.log('interviewCtrl.getScaleSet failed');
+                alert("Failure retrieving scale set: " + JSON.stringify({data: response.data}));
+            };
         };
 
         var promise3 = UserService.getClassTypeQuestionList(interviewCtrl.selectedSeedClass.cId,interviewCtrl.intType);
@@ -277,13 +305,15 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
             var answer;
             var len = qSet.length;
             var i=0;
-            interviewCtrl.answerSet = [];
-            for (i=0; i<len; i++){
-                answer = new Answer(qSet[i],interviewCtrl.interviewer, null, null);
-                interviewCtrl.answerSet.push(answer);
-            }
-            interviewCtrl.answerSet.sort(function(a, b){return a.question.qSequence-b.question.qSequence});
+            var b;
 
+            interviewCtrl.answerSet = [];
+            for (i=0; i<len; i++) {
+                //need to define the scaleSet for each question
+
+                b = new addScale(i);
+
+            }
 
         }), function (response) {
             //FAILURE
@@ -291,6 +321,7 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
             alert("Failure retrieving questions for class and type: " + JSON.stringify({data: response.data}));
         };
     };
+
     interviewCtrl.saveAnswers = function(){
 
         // NEED TO SAVE INTERVIEW FIRST, GET THE INTERVIEW OBJECT BACK

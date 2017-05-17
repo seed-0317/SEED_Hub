@@ -17,5 +17,5 @@ public interface InterviewRepo extends JpaRepository<Interview, Integer> {
 
     List<Interview> findAll();
 
-    Interview save(Interview inteerview);
+    Interview save(Interview interview);
 }
