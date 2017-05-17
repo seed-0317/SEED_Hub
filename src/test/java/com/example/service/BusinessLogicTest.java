@@ -69,12 +69,12 @@ public class BusinessLogicTest {
 
     @Test
     public void retrieveApplicationTest() {
-       when(applicationRepo.findByApplicantUId(1)).thenReturn(new Application());
+       when(applicationRepo.findByApplicantUId(1)).thenReturn((List<Application>) new Application());
        when(applicationRepo.findByApplicantUId(-1)).thenReturn(null);
 
        Application expected = new Application();
-       Application actual_one = businessLogic.retrieveApplication(1);
-       Application actual_two = businessLogic.retrieveApplication(-1);
+       List <Application> actual_one = businessLogic.retrieveApplication(1);
+       List <Application> actual_two = businessLogic.retrieveApplication(-1);
        assertEquals("businessLogic.retrieveApplication(1)", expected, actual_one);
        assertNull("businessLogic.retrieveApplication(-1)", actual_two);
     }
