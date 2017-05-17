@@ -192,6 +192,7 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
     interviewCtrl.selectedSeedClass = null;
     interviewCtrl.questionSet = [];
     interviewCtrl.answerSet = [];
+    interviewCtrl.interview = [];
     var promise = UserService.getQuestionList();
     promise.then(function (response) {
         //SUCCESS
@@ -250,10 +251,27 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
             console.log('interviewCtrl.getClassApplicants failed');
             alert("Failure retrieving applicant list: " + JSON.stringify({data: response.data}));
         };
-        // if size of intTypeSet is 1, show the answer form
-        if (interviewCtrl.intTypeSet.length === 1) {
-            interviewCtrl.typeSelected();
-        }
+
+        interviewCtrl.typeSelected();
+
+    };
+
+
+    function Answer(question,interview,rating,comments,ratingSet)
+    {
+        this.question=question;
+        this.interview=interview;
+        this.rating=rating;
+        this.comments=comments;
+        this.ratingSet = ratingSet;
+    };
+
+    function InterviewRating(question,interview,rating,comments)
+    {
+        this.question=question;
+        this.interview=interview;
+        this.rating=rating;
+        this.comments=comments;
     };
 
     interviewCtrl.typeSelected = function() {
@@ -265,15 +283,6 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
         var p =[];
         var scaleSet = [];
 
-
-        function Answer(question,interviewer,rating,comments,ratingSet)
-        {
-            this.question=question;
-            this.interviewer=interviewer;
-            this.rating=rating;
-            this.comments=comments;
-            this.ratingSet = ratingSet;
-        };
         function addScale(i) {
             var answer;
             p[i] = UserService.getRatingScalesForRatingType(qSet[i].ratingType.rtId);
@@ -329,36 +338,44 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
         var tint = {
             intId: null,
             seedClass: interviewCtrl.selectedSeedClass,
-            applicant: interviewCtrl.applicant,
+            applicant: interviewCtrl.applicant.applicant,
             interviewer: interviewCtrl.interviewer,
             interviewDt: Date.now(),
             intType: interviewCtrl.intType
         }
 
+        var len = interviewCtrl.answerSet.length;
+        var promise = [];
+
         var promise1 = UserService.postInterview(tint);
         promise1.then(function (response) {
+            //SUCCESS
+            interviewCtrl.interview = response.data;
+          //  interviewCtrl.interview = new Interview(tint);
+            //now save the ratings
+            for (i=0; i<len; i++){
+                rating = new InterviewRating(interviewCtrl.answerSet[i].question, interviewCtrl.interview, interviewCtrl.answerSet[i].rating, interviewCtrl.answerSet[i].comments);
+
+                promise[i] = UserService.postAnswer(rating);
+                promise[i].then(function (response) {
+
+                }), function (response) {
+                    //FAILURE
+                    console.log('interviewCtrl.postAnswers failed');
+                    alert("Failure: " + JSON.stringify({data: response.data}));
+
+                }
+            }
+            $state.reload();
 
         }), function (response) {
             //FAILURE
             console.log('interviewCtrl.postInterview failed');
             alert("Failure: " + JSON.stringify({data: response.data}));
-
         }
 
-        var len = interviewCtrl.answerSet.length;
-        var promise = [];
-        for (i=0; i<len; i++){
-            promise[i] = UserService.postAnswer(interviewCtrl.answerSet[i]);
-            promise[i].then(function (response) {
 
-            }), function (response) {
-                //FAILURE
-                console.log('interviewCtrl.postAnswers failed');
-                alert("Failure: " + JSON.stringify({data: response.data}));
 
-            }
-        }
-        $state.reload();
 
     };
 });
