@@ -1,13 +1,17 @@
 package com.example.service;
 
+import com.example.DemoApplication;
 import com.example.model.*;
 import com.example.repositories.*;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.*;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,7 +22,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
+//@RunWith(MockitoJUnitRunner.class)
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = DemoApplication.class)
+@SpringBootTest
 @ComponentScan(basePackages = {"com.example"})
 public class BusinessLogicTest {
 
@@ -43,13 +50,14 @@ public class BusinessLogicTest {
 //    public List<StatusChange>  retrieveUserStatusChanges(int uId)
 //    public StatusChange saveStatusChange(StatusChange statusChange)
 
-    BusinessLogic businessLogic = new BusinessLogic();
+    @Autowired
+    BusinessLogic businessLogic; //= new BusinessLogic();
 
-    @Mock @Autowired
+    @Mock
     ApplicationRepo applicationRepo;
-    @Mock @Autowired
+    @Mock
     RoleRepo roleRepo;
-    @Mock @Autowired
+    @Mock
     StageRepo stageRepo;
 
 //    @Mock
@@ -66,6 +74,11 @@ public class BusinessLogicTest {
 //    StatusChange statusChange;
 //    @Mock
 //    UserRepo userRepo;
+
+    @Before
+    public void setup(){
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void retrieveApplicationTest() {
@@ -94,7 +107,7 @@ public class BusinessLogicTest {
 
     @Test
     public void retrieveStageTest() {
-        Stage expected = new Stage(1,"	Registered");
+        Stage expected = new Stage(1,"Registered");
 
         when(stageRepo.findBySId(1)).thenReturn(expected);
         when(stageRepo.findBySId(-1)).thenReturn(null);
