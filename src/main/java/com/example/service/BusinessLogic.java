@@ -49,11 +49,19 @@ public class BusinessLogic {
     public Role retrieveRole(int rid) { return roleRepo.findByRId(rid);
     }
 
+    public List<Role> retrieveAllRoles() {
+        return roleRepo.findAll();
+    }
+
     @Autowired
     private StageRepo stageRepo;
 
     public Stage retrieveStage(int sid) {
         return stageRepo.findBySId(sid);
+    }
+
+    public List<Stage> retrieveAllStages() {
+        return stageRepo.findAll();
     }
 
     @Autowired
@@ -63,20 +71,15 @@ public class BusinessLogic {
         return userRepo.findByEId(eId);
     }
 
-//    public User createUser(String eId, String email, String firstName, String lastName){
-//        Role two = retrieveRole(2);
-//        Stage one = retrieveStage(1);
-//
-//        User newUser= new User(eId,email,firstName,lastName,two,one);
-//        return userRepo.save(newUser);
-//    }
-
     public User createUser(User newUser){
-        Role two = retrieveRole(2);
-        Stage one = retrieveStage(1);
-
-        newUser.setRole(two);
-        newUser.setStage(one);
+        if (newUser.getRole() == null ){
+            Role two = retrieveRole(2);
+            newUser.setRole(two);
+        }
+        if (newUser.getStage() == null ){
+            Stage one = retrieveStage(1);
+            newUser.setStage(one);
+        }
         return userRepo.save(newUser);
     }
 
@@ -90,6 +93,9 @@ public class BusinessLogic {
     public List<Interview> retrieveApplicantInterview(int applicantUId) {
         return interviewRepo.findByApplicantUId(applicantUId);
     }
+    public Interview createInterview(Interview interview) {
+        return interviewRepo.save(interview);
+    }
 
     @Autowired
     private InterviewRatingsRepo interviewRatingsRepo;
@@ -100,6 +106,9 @@ public class BusinessLogic {
 
     public List<InterviewRatings> retrieveApplicantInterviewRatings(int intId) {
         return interviewRatingsRepo.findByInterviewIntId(intId);
+    }
+    public InterviewRatings postInterviewRatings(InterviewRatings answer) {
+        return interviewRatingsRepo.save(answer);
     }
 
     @Autowired
@@ -131,6 +140,16 @@ public class BusinessLogic {
 
     public List<RatingType> retrieveAllRatingTypes() {
         return ratingTypeRepo.findAll();
+    }
+
+
+    @Autowired
+    private RatingScaleRepo ratingScaleRepo;
+    public List<RatingScale> retrieveAllRatingScales() {
+        return ratingScaleRepo.findAll();
+    }
+    public List<RatingScale> retrieveRatingScalesByRtId(int rtId) {
+        return ratingScaleRepo.findByRatingTypeRtId(rtId);
     }
 
     @Autowired

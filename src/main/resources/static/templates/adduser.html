@@ -1,3 +1,14 @@
-<h1>Add User Placeholder</h1>
+<div>
+    <h4>Create a user below:</h4>
 
-<p>Select user type and enter data</p>
+    <label>EID</label><input type="text" maxlength="6" minlength="6" data-ng-model="eid" required/> <br>
+    <label>Email</label><input type="email" maxlength="60" data-ng-model="email" required/> <br>
+    <label>First Name</label><input type="text" maxlength="30" data-ng-model="firstName" required/> <br>
+    <label>Last Name</label><input type="text" maxlength="30" data-ng-model="lastName" required/> <br>
+
+    <label>Role</label><select data-ng-model="role" data-ng-options="roles as roles.rRole for roles in addUser.roles"></select> <br>
+    <label>Stage</label><select data-ng-model="stage" data-ng-options="stages as stages.sStage for stages in addUser.stages"></select> <br>
+    <br>
+
+    <button class="btn-primary"  data-ng-click="addUser.createUser(eid,email,firstName,lastName,role,stage)">Create account</button>
+</div>

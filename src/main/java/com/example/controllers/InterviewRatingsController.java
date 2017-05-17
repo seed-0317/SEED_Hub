@@ -2,13 +2,11 @@ package com.example.controllers;
 
 import com.example.model.Interview;
 import com.example.model.InterviewRatings;
+import com.example.model.Question;
 import com.example.service.BusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,4 +37,16 @@ public class InterviewRatingsController {
             return ResponseEntity.badRequest().build();
         }
     }
+    @RequestMapping( method = RequestMethod.POST)
+    public ResponseEntity postAnswer(@RequestBody InterviewRatings answer) {
+
+        InterviewRatings answer2= businessLogic.postInterviewRatings(answer);
+
+        if(answer2 != null) {
+            return ResponseEntity.ok().body(answer2);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

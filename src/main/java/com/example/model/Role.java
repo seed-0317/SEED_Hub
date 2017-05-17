@@ -35,7 +35,7 @@ public class Role {
         return rId;
     }
 
-    public void setrID(int rID) {
+    public void setrID(int rID) { //be careful with capital letters...
         this.rId = rID;
     }
 

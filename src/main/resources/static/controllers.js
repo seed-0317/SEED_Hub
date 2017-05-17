@@ -133,6 +133,7 @@ angular.module("DogModule").controller("adminCtrl", function(UserService, $state
     adminCtrl.user=$cookies.getObject('user');
 });
 
+
 angular.module("DogModule").controller("userResourceCtrl", function(UserService, $state, $cookies) {
     var adminCtrl = this;
     adminCtrl.user=$cookies.getObject('user');
@@ -142,6 +143,43 @@ angular.module("DogModule").controller("userResourceCtrl", function(UserService,
 angular.module("DogModule").controller("addUserCtrl", function(UserService, $state, $cookies) {
     var addUserCtrl = this;
     addUserCtrl.user=$cookies.getObject('user');
+
+    var promise1=UserService.getAllRoles();
+
+    promise1.then(function(response){
+        addUserCtrl.roles= response.data;
+        // console.log(response.data);
+    }), function (response) {
+        console.log('addUserCtrl.getAllRoles was not successful');
+        alert("Failure: " + JSON.stringify({data: response.data}));
+    };
+
+    var promise2=UserService.getAllStages();
+
+    promise2.then(function(response){
+        addUserCtrl.stages=response.data;
+        // console.log(response.data);
+    }), function (response) {
+        console.log('addUserCtrl.getAllStages was not successful');
+        alert("Failure: " + JSON.stringify({data: response.data}));
+    };
+
+    addUserCtrl.createUser = function (eid, email, firstName, lastName, role, stage) {
+        console.log(role);
+        console.log(stage);
+        var promise = UserService.postCreatedUser(eid, email, firstName, lastName, role, stage);
+
+        promise.then(function (response) {
+            // console.log('addUserCtrl.createUser was successful');
+
+            $state.go('admin');
+        }), function (response) {
+            console.log('addUserCtrl.createUser was not successful');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+
+            $state.reload();
+        }
+    }
 });
 
 angular.module("DogModule").controller("interviewCtrl", function(UserService, $state, $cookies) {
@@ -154,6 +192,7 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
     interviewCtrl.selectedSeedClass = null;
     interviewCtrl.questionSet = [];
     interviewCtrl.answerSet = [];
+    interviewCtrl.interview = [];
     var promise = UserService.getQuestionList();
     promise.then(function (response) {
         //SUCCESS
@@ -180,7 +219,6 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
         var j =0;
         var dupe = false;
 
-        console.log("In classSelectedFunction, " + JSON.stringify({data: interviewCtrl.selectedSeedClass}));
         while (i<len) {  //cycle through each question and see if the question is for this class
 
             if (interviewCtrl.questionSet[i].seedClass.cId === interviewCtrl.selectedSeedClass.cId){
@@ -213,6 +251,27 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
             console.log('interviewCtrl.getClassApplicants failed');
             alert("Failure retrieving applicant list: " + JSON.stringify({data: response.data}));
         };
+
+        interviewCtrl.typeSelected();
+
+    };
+
+
+    function Answer(question,interview,rating,comments,ratingSet)
+    {
+        this.question=question;
+        this.interview=interview;
+        this.rating=rating;
+        this.comments=comments;
+        this.ratingSet = ratingSet;
+    };
+
+    function InterviewRating(question,interview,rating,comments)
+    {
+        this.question=question;
+        this.interview=interview;
+        this.rating=rating;
+        this.comments=comments;
     };
 
     interviewCtrl.typeSelected = function() {
@@ -221,13 +280,29 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
 
         var qSet = [];
         var q;
+        var p =[];
+        var scaleSet = [];
 
-        function Answer(question,interviewer,rating,comments)
-        {
-            this.question=question;
-            this.interviewer=interviewer;
-            this.rating=rating;
-            this.comments=comments;
+        function addScale(i) {
+            var answer;
+            p[i] = UserService.getRatingScalesForRatingType(qSet[i].ratingType.rtId);
+            p[i].then(function(response) {
+                //SUCCESS
+                scaleSet[i]= response.data;
+                scaleSet[i].sort(function (a, b) {
+                    return a.rsNum - b.rsNum
+                });
+                answer = new Answer(qSet[i], interviewCtrl.interviewer, null, null, scaleSet[i]);
+                interviewCtrl.answerSet.push(answer);
+                interviewCtrl.answerSet.sort(function (a, b) {
+                    return a.question.qSequence - b.question.qSequence
+                });
+                return scaleSet[i];
+            }),function (response) {
+                //FAILURE
+                console.log('interviewCtrl.getScaleSet failed');
+                alert("Failure retrieving scale set: " + JSON.stringify({data: response.data}));
+            };
         };
 
         var promise3 = UserService.getClassTypeQuestionList(interviewCtrl.selectedSeedClass.cId,interviewCtrl.intType);
@@ -239,10 +314,14 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
             var answer;
             var len = qSet.length;
             var i=0;
+            var b;
+
             interviewCtrl.answerSet = [];
-            for (i=0; i<len; i++){
-                answer = new Answer(qSet[i],interviewCtrl.interviewer, null, null);
-                interviewCtrl.answerSet.push(answer);
+            for (i=0; i<len; i++) {
+                //need to define the scaleSet for each question
+
+                b = new addScale(i);
+
             }
 
         }), function (response) {
@@ -250,7 +329,55 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
             console.log("interviewCtrl.getClassTypeQuestionList")
             alert("Failure retrieving questions for class and type: " + JSON.stringify({data: response.data}));
         };
-    }
+    };
+
+    interviewCtrl.saveAnswers = function(){
+
+        // NEED TO SAVE INTERVIEW FIRST, GET THE INTERVIEW OBJECT BACK
+        // AND USE THAT TO SAVE THE ANSWERS
+        var tint = {
+            intId: null,
+            seedClass: interviewCtrl.selectedSeedClass,
+            applicant: interviewCtrl.applicant.applicant,
+            interviewer: interviewCtrl.interviewer,
+            interviewDt: Date.now(),
+            intType: interviewCtrl.intType
+        }
+
+        var len = interviewCtrl.answerSet.length;
+        var promise = [];
+
+        var promise1 = UserService.postInterview(tint);
+        promise1.then(function (response) {
+            //SUCCESS
+            interviewCtrl.interview = response.data;
+          //  interviewCtrl.interview = new Interview(tint);
+            //now save the ratings
+            for (i=0; i<len; i++){
+                rating = new InterviewRating(interviewCtrl.answerSet[i].question, interviewCtrl.interview, interviewCtrl.answerSet[i].rating, interviewCtrl.answerSet[i].comments);
+
+                promise[i] = UserService.postAnswer(rating);
+                promise[i].then(function (response) {
+
+                }), function (response) {
+                    //FAILURE
+                    console.log('interviewCtrl.postAnswers failed');
+                    alert("Failure: " + JSON.stringify({data: response.data}));
+
+                }
+            }
+            $state.reload();
+
+        }), function (response) {
+            //FAILURE
+            console.log('interviewCtrl.postInterview failed');
+            alert("Failure: " + JSON.stringify({data: response.data}));
+        }
+
+
+
+
+    };
 });
 
 angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
@@ -313,7 +440,7 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     };
 
     applicationCtrl.postApplication = function(mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
-
+        console.log(selectedSeedClass);
         // console.log(mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
 
         var promise = UserService.postApplication(applicationCtrl.user, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);

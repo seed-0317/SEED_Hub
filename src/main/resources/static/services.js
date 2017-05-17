@@ -25,6 +25,25 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+    myService.postCreatedUser = function (eId, email, fname, lname, role, stage) {
+        return $http({
+            method: "POST",
+            url: "user/" + role.rID + "/" + stage.sId,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                "eId": eId,
+                "email": email,
+                "fname": fname,
+                "lname": lname,
+                "role": role,
+                "stage": stage
+            }
+        })
+    };
+
+
     myService.getApplication = function (eid) {
         return $http({
             method: "GET",
@@ -50,6 +69,20 @@ angular.module("DogModule").service("UserService", function($http) {
                 "currLevel": curr_level,
                 "strongPlus": strong_plus
             }
+        })
+    };
+
+    myService.getAllStages = function () {
+        return $http({
+            method: "GET",
+            url: "stage"
+        })
+    };
+
+    myService.getAllRoles = function () {
+        return $http({
+            method: "GET",
+            url: "role"
         })
     };
 
@@ -105,6 +138,13 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
+    myService.getRatingScalesForRatingType = function(rtId) {
+        return $http({
+            method: "GET",
+            url: "ratingscale/ratingtype/" + rtId
+        })
+    };
+
     myService.postQuestion = function(seedClass, qSequence, qText, ratingType, qType) {
         return $http({
             method: "POST",
@@ -121,6 +161,29 @@ angular.module("DogModule").service("UserService", function($http) {
             }
         })
     };
+
+    myService.postAnswer = function(answer) {
+        return $http({
+            method: "POST",
+            url: "interviewratings/",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: answer
+        })
+    }
+
+    myService.postInterview = function(interview){
+        return $http({
+            method: "POST",
+            url: "interview/",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: interview
+        })
+    }
+
 
     myService.getClassApplicants = function(cId) {
         return $http({

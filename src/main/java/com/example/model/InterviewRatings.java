@@ -19,14 +19,15 @@ public class InterviewRatings {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="q_id")
     private Question question;
-    @Column(name="rating")
-    private int rating;
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JoinColumn(name="rating")
+    private RatingScale rating;
     @Column(name="comments")
     private String comments;
 
     public InterviewRatings(){}
 
-    public InterviewRatings(int ratId, Interview interview, Question question, int rating, String comments) {
+    public InterviewRatings(int ratId, Interview interview, Question question, RatingScale rating, String comments) {
         this.ratId = ratId;
         this.interview = interview;
         this.question = question;
@@ -58,11 +59,11 @@ public class InterviewRatings {
         this.question = question;
     }
 
-    public int getRating() {
+    public RatingScale getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(RatingScale rating) {
         this.rating = rating;
     }
 
@@ -82,9 +83,9 @@ public class InterviewRatings {
         InterviewRatings that = (InterviewRatings) o;
 
         if (ratId != that.ratId) return false;
-        if (rating != that.rating) return false;
         if (interview != null ? !interview.equals(that.interview) : that.interview != null) return false;
         if (question != null ? !question.equals(that.question) : that.question != null) return false;
+        if (rating != null ? !rating.equals(that.rating) : that.rating != null) return false;
         return comments != null ? comments.equals(that.comments) : that.comments == null;
     }
 
@@ -93,7 +94,7 @@ public class InterviewRatings {
         int result = ratId;
         result = 31 * result + (interview != null ? interview.hashCode() : 0);
         result = 31 * result + (question != null ? question.hashCode() : 0);
-        result = 31 * result + rating;
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
         return result;
     }
