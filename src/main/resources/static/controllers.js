@@ -3,6 +3,9 @@ angular.module("DogModule").controller("homeCtrl", function(UserService, $state,
     var homeCtrl = this;
 
     homeCtrl.user = $cookies.getObject('user');
+    if (homeCtrl.user === undefined ) {
+        $state.go("login");
+    };
 });
 
 angular.module("DogModule").controller("loginCtrl", function(UserService, $state, $cookies) {
@@ -78,6 +81,9 @@ angular.module("DogModule").controller("createUserCtrl", function(UserService, $
 angular.module("DogModule").controller("newClassCtrl", function(UserService, $state, $cookies) {
     var newClassCtrl = this;
     newClassCtrl.user = $cookies.getObject('user');
+    if (newClassCtrl.user === undefined || newClassCtrl.user.role.rID <4 ) {
+        $state.go("login");
+    };
 
     var promise = UserService.getClassList();
 
@@ -104,7 +110,7 @@ angular.module("DogModule").controller("newClassCtrl", function(UserService, $st
 
             $state.reload();
         }
-    };
+    }
 });
 
 angular.module("DogModule").controller("viewAppsCtrl", function(UserService, $state, $cookies) {
@@ -113,6 +119,9 @@ angular.module("DogModule").controller("viewAppsCtrl", function(UserService, $st
     viewAppsCtrl.viewapps = [];
 
     viewAppsCtrl.user = $cookies.getObject('user');
+    if (viewAppsCtrl.user === undefined || viewAppsCtrl.user.role.rID <4 ) {
+        $state.go("login");
+    };
 
     var promise = UserService.getAllApplications();
     promise.then(function (response) {
@@ -131,18 +140,24 @@ angular.module("DogModule").controller("viewAppsCtrl", function(UserService, $st
 angular.module("DogModule").controller("adminCtrl", function(UserService, $state, $cookies) {
     var adminCtrl = this;
     adminCtrl.user=$cookies.getObject('user');
+    if (adminCtrl.user === undefined || adminCtrl.user.role.rID <4 ) {
+        $state.go("login");
+    };
 });
 
 
 angular.module("DogModule").controller("userResourceCtrl", function(UserService, $state, $cookies) {
-    var adminCtrl = this;
-    adminCtrl.user=$cookies.getObject('user');
+    var userResourceCtrl = this;
+    userResourceCtrl.user=$cookies.getObject('user');
 });
 
 
 angular.module("DogModule").controller("addUserCtrl", function(UserService, $state, $cookies) {
     var addUserCtrl = this;
     addUserCtrl.user=$cookies.getObject('user');
+    if (addUserCtrl.user === undefined || addUserCtrl.user.role.rID <4 ) {
+        $state.go("login");
+    };
 
     var promise1=UserService.getAllRoles();
 
@@ -185,6 +200,10 @@ angular.module("DogModule").controller("addUserCtrl", function(UserService, $sta
 angular.module("DogModule").controller("interviewCtrl", function(UserService, $state, $cookies) {
     var interviewCtrl = this;
     interviewCtrl.interviewer=$cookies.getObject('user');
+    if (interviewCtrl.interviewer === undefined || interviewCtrl.interviewer.role.rID <4 ) {
+        $state.go("login");
+    };
+
     interviewCtrl.applicant = null;
     interviewCtrl.applicantSet = [];
     interviewCtrl.intType = null;
@@ -373,10 +392,6 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
             console.log('interviewCtrl.postInterview failed');
             alert("Failure: " + JSON.stringify({data: response.data}));
         }
-
-
-
-
     };
 });
 
@@ -396,6 +411,7 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
 
     var applicationCtrl = this;
     applicationCtrl.ExistingApplicationData = [];
+
     applicationCtrl.SelectedApplicationData = {
         applicant: null,
         appId: null,
@@ -420,7 +436,9 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
 
     existingApplicationData.then(function (response) {
         console.log(response.data);
+        var i =0;
         applicationCtrl.ExistingApplicationData = response.data;
+
         if (applicationCtrl.ExistingApplicationData.length <= 1) {
             applicationCtrl.SelectedApplicationData = applicationCtrl.ExistingApplicationData[0];
         }
@@ -433,6 +451,7 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
                 }
             }
         }
+
         if (applicationCtrl.classSet) {
             console.log ("Selected: " + JSON.stringify(applicationCtrl.SelectedApplicationData));
             // var dog = findX(applicationCtrl.classSet, applicationCtrl.SelectedApplicationData.seedClass.cId);
@@ -491,10 +510,13 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
 
 angular.module("DogModule").controller("buildIntCtrl", function(UserService, $state, $cookies) {
     var buildIntCtrl = this;
+
+    buildIntCtrl.user=$cookies.getObject('user');
+    if (buildIntCtrl.user === undefined || buildIntCtrl.user.role.rID <4 ) {
+        $state.go("login");
+    };
     var promise1 = UserService.getClassList();
     var promise2 = UserService.getRatingTypes();
-    buildIntCtrl.user=$cookies.getObject('user');
-
     promise1.then(function (response) {
         //SUCCESS
         buildIntCtrl.classSet = response.data;
