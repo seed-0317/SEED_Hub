@@ -27,7 +27,7 @@ public class InterviewController {
             return ResponseEntity.badRequest().build();
         }
     }
-    @RequestMapping(value="/apllicant/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/applicant/{id}", method = RequestMethod.GET)
     public ResponseEntity getApplicantInterview(@PathVariable("id") int id) {
         List<Interview> interviews = businessLogic.retrieveApplicantInterview(id);
 

@@ -51,24 +51,14 @@ angular.module("DogModule").service("UserService", function($http) {
         })
     };
 
-    myService.postApplication = function (user, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
+    myService.postApplication = function (application) {
         return $http({
             method: "POST",
-            url: "application/"+user.eId+"/"+selectedSeedClass.cId,
-            data: {
-                "applicant": user,
-                "managerEmail": mgr_email,
-                "seedClass" : selectedSeedClass,
-                "dept": dept,
-                "techSkillsLangs": techskills_languages,
-                "education": education,
-                "techOrgs": tech_orgs,
-                "seedSuccess": seed_success,
-                "comments": comments,
-                "currRole": curr_role,
-                "currLevel": curr_level,
-                "strongPlus": strong_plus
-            }
+            url: "application/",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: application
         })
     };
 

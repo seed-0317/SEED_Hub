@@ -16,11 +16,11 @@ public class ApplicationController {
     @Autowired
     private BusinessLogic businessLogic;
 
-    @RequestMapping(value="/{eId}/{SeedClass}", method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity postApplication(@PathVariable("eId") String eId, @PathVariable("SeedClass") int SeedClass, @RequestBody Application newApplication){
+    @RequestMapping( method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity postApplication(@RequestBody Application newApplication){
         System.out.println("Creating application");
         System.out.println(newApplication);
-        Application application = businessLogic.application(eId, SeedClass, newApplication);
+        Application application = businessLogic.application(newApplication);
 
         if (application != null) {
             return ResponseEntity.ok().body(application);

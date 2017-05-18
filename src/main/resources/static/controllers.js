@@ -397,13 +397,12 @@ angular.module("DogModule").controller("interviewCtrl", function(UserService, $s
 
 angular.module("DogModule").controller("applicationCtrl", function(UserService, $state, $cookies) {
 
-    // return index of element with id
-    var findX = function(array, id) {
-        if (array  === undefined || id === undefined){
+    var findX = function (array, id) {
+        if (array === undefined || id === undefined) {
             return;
         }
-        for ( var i= 0; i <array.length; i++){
-            if (array[i].cId === id){
+        for (var i = 0; i < array.length; i++) {
+            if (array[i].cId === id) {
                 return i;
             }
         }
@@ -413,25 +412,49 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     var applicationCtrl = this;
     applicationCtrl.ExistingApplicationData = [];
 
+    applicationCtrl.SelectedApplicationData = {
+        applicant: null,
+        appId: null,
+        comments: null,
+        currLevel: null,
+        currRole: null,
+        dept: null,
+        education: null,
+        managerEmail: null,
+        mgrApproval: null,
+        seedClass: null,
+        seedSuccess: null,
+        strongPlus: null,
+        techOrgs: null,
+        techSkillsLangs: null
+    };
 
-    applicationCtrl.user=$cookies.getObject('user');
-    if (user === undefined){
-        $state.go('login');
-    }
-
+    applicationCtrl.user = $cookies.getObject('user');
+    // console.log (applicationCtrl.user);
+    var i = 0;
     var existingApplicationData = UserService.getApplication(applicationCtrl.user.uId);
 
-    existingApplicationData.then (function (response) {
+    existingApplicationData.then(function (response) {
         console.log(response.data);
         var i =0;
         applicationCtrl.ExistingApplicationData = response.data;
-        if (applicationCtrl.ExistingApplicationData.length ===1) {
 
+        if (applicationCtrl.ExistingApplicationData.length <= 1) {
+            applicationCtrl.SelectedApplicationData = applicationCtrl.ExistingApplicationData[0];
+        }
+        else {
+            applicationCtrl.SelectedApplicationData = applicationCtrl.ExistingApplicationData[0];
+
+            for (i = 1; i < applicationCtrl.ExistingApplicationData.length; i++) {
+                if (applicationCtrl.SelectedApplicationData.appId < applicationCtrl.ExistingApplicationData[i].appId) {
+                    applicationCtrl.SelectedApplicationData = applicationCtrl.ExistingApplicationData[i];
+                }
+            }
         }
 
-
         if (applicationCtrl.classSet) {
-            var dog = findX(applicationCtrl.classSet, applicationCtrl.ExistingApplicationData.seedClass.cId);
+            console.log ("Selected: " + JSON.stringify(applicationCtrl.SelectedApplicationData));
+            // var dog = findX(applicationCtrl.classSet, applicationCtrl.SelectedApplicationData.seedClass.cId);
             if (dog !== undefined) {
                 applicationCtrl.x = dog;
             }
@@ -439,9 +462,9 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     }),
         function (response) {
             console.log('applicationCtrl.getApplication has failed');
-        };
+    };
 
-    applicationCtrl.getApplication = function(){
+    applicationCtrl.getApplication = function () {
         $state.go('application');
     };
 
@@ -450,8 +473,8 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
     promise1.then(function (response) {
         //SUCCESS
         applicationCtrl.classSet = response.data;
-        if (applicationCtrl.ExistingApplicationData) {
-            var dog = findX(applicationCtrl.classSet, applicationCtrl.ExistingApplicationData.seedClass.cId);
+        if (applicationCtrl.SelectedApplicationData) {
+            var dog = findX(applicationCtrl.classSet, applicationCtrl.SelectedApplicationData.seedClass.cId);
             if (dog !== undefined) {
                 applicationCtrl.x = dog;
             }
@@ -463,11 +486,11 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
         alert("Failure retrieving class list: " + JSON.stringify({data: response.data}));
     };
 
-    applicationCtrl.postApplication = function(mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus) {
-        console.log(selectedSeedClass);
+    applicationCtrl.postApplication = function () {
+        console.log(applicationCtrl.SelectedApplicationData);
         // console.log(mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
 
-        var promise = UserService.postApplication(applicationCtrl.user, mgr_email, selectedSeedClass, dept, techskills_languages, education, tech_orgs, seed_success, comments, curr_role, curr_level, strong_plus);
+        var promise = UserService.postApplication(applicationCtrl.SelectedApplicationData);
 
         promise.then(function (response) {
             //SUCCESS
@@ -480,10 +503,10 @@ angular.module("DogModule").controller("applicationCtrl", function(UserService, 
 
             $state.reload();
         }
-    }
-    // applicationCtrl.getExistingApplicationData = funtion(uid)
-    });
-//end application controller
+    };
+    // applicationCtrl.getExistingApplicationData = function(uid)
+});
+
 
 angular.module("DogModule").controller("buildIntCtrl", function(UserService, $state, $cookies) {
     var buildIntCtrl = this;
